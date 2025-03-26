@@ -1,13 +1,31 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --primary: oklch(20.52% 0.0872 270.63);
+  --tertiary: oklch(72.9% 0.1593 110.18);
+  --red: oklch(62.81% 0.257464 28.9027);
+}
 
 @theme {
+  /* FONTS */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-jost: "Jost", sans-serif;
+  --font-agbalumo: "Agbalumo", sans-serif;
+  --font-rhodiumLibre: "Rhodium Libre", sans-serif;
+
+  /* COLORS */
+  --color-primary: var(--primary);
+  --color-tertiary: var(--tertiary);
+  --color-red: var(--red);
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white dark:bg-gray-950 font-jost text-black scroll-smooth;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
