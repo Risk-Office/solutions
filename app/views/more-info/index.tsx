@@ -1,4 +1,5 @@
 import React from "react";
+import SvgIcon from "~/components/atoms/Icon";
 import type { SolutionProps } from "~/constants/solutions";
 
 const MoreInformationPage = ({
@@ -6,7 +7,12 @@ const MoreInformationPage = ({
 }: {
   solutionInformation: SolutionProps;
 }) => {
-  return <div>{solutionInformation.name}</div>;
+  return (
+    <div>
+      {solutionInformation.name}
+      <SvgIcon path={solutionInformation.solutionLogo} />
+    </div>
+  );
 };
 
 export default MoreInformationPage;

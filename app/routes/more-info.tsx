@@ -4,6 +4,13 @@ import type { Route } from "./+types/more-info";
 import { useLocation } from "react-router";
 import type { SolutionProps } from "~/constants/solutions";
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Risk Office Solutions" },
+    { name: "description", content: "Risk Office Solutions" },
+  ];
+}
+
 export default function MoreInformation() {
   const { state } = useLocation();
 
