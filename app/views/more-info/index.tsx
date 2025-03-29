@@ -12,7 +12,7 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import SvgIcon from "~/components/atoms/Icon";
 import type { SolutionProps } from "~/constants/solutions";
-import type { MoreInforationFormProps } from "~/types/more-info";
+import type { MoreInformationFormProps } from "~/types/more-info";
 import AppSizeProvider from "~/components/atoms/SizeProvider";
 import halfProgressIcon from "~/assets/svg/half-progress.svg";
 import moreInfoImage from "~/assets/png/more-info.png";
@@ -26,11 +26,11 @@ const MoreInformationPage = ({
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<MoreInforationFormProps>({
+  } = useForm<MoreInformationFormProps>({
     mode: "all",
   });
 
-  const handleProceedToNextSteps: SubmitHandler<MoreInforationFormProps> = (
+  const handleProceedToNextSteps: SubmitHandler<MoreInformationFormProps> = (
     data
   ) => {
     navigate("/more-info-2", { state: solutionInformation });

@@ -8,7 +8,7 @@
   --tertiary: oklch(72.9% 0.1593 110.18);
   --red: oklch(62.81% 0.257464 28.9027);
   --gray: oklch(97.61% 0 0);
-  --deepGray: oklch(90.37% 0 0)
+  --deepGray: oklch(90.37% 0 0);
 }
 
 @theme {
@@ -33,5 +33,34 @@ body {
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+  }
+}
+
+/* CollapsibleContent Style */
+.CollapsibleContent {
+  overflow: hidden;
+}
+.CollapsibleContent[data-state="open"] {
+  animation: slideDown 300ms ease-out;
+}
+.CollapsibleContent[data-state="closed"] {
+  animation: slideUp 300ms ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
   }
 }
