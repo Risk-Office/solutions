@@ -7,4 +7,5 @@ import {
 export default [
   index("routes/home.tsx"),
   route("more-info", "routes/more-info.tsx"),
+  route("more-info-2", "routes/more-info2.tsx"),
 ] satisfies RouteConfig;
