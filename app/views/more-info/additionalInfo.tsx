@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CircleX } from "lucide-react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { Label } from "~/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
 import {
@@ -34,6 +35,7 @@ const AdditionalInfo = ({
   const [isSectorOpen, setIsSectorOpen] = useState<boolean>(false);
   const [sectors, setSectors] = useState<string[]>([]);
   const [businessType, setBusinessTypes] = useState<string[]>([]);
+  const navigate = useNavigate();
   const {
     watch,
     handleSubmit,
@@ -62,8 +64,7 @@ const AdditionalInfo = ({
       sector: sectors,
       businessType: businessType,
     };
-
-    console.log(payload);
+    navigate("/dashboard");
   };
 
   return (
@@ -102,8 +103,8 @@ const AdditionalInfo = ({
         </div>
 
         <AppSizeProvider>
-          <div className="flex-1 flex flex-row items-start lg:items-stretch bg-white mt-8 lg:mt-0 relative h-full">
-            <div className="flex-1 flex flex-col items-start justify-start gap-8 bg-white px-4 lg:pt-[5rem]">
+          <div className="flex-1 flex flex-row items-start lg:items-stretch bg-white relative h-full">
+            <div className="flex-1 flex flex-col items-start justify-start gap-8 bg-white p-4">
               <Button variant={"text"} className="self-end hidden lg:block">
                 <CircleX strokeWidth="2.25px" size={16} className="text-red" />
               </Button>
@@ -127,10 +128,10 @@ const AdditionalInfo = ({
                         key={item}
                         className="flex items-center space-x-2 justify-between"
                       >
-                        <Label htmlFor={item}>{item}</Label>
+                        <Label htmlFor={`legalStructure-${item}`}>{item}</Label>
                         <RadioGroupItem
                           value={item}
-                          id={item}
+                          id={`legalStructure-${item}`}
                           {...register("legalStructure", {
                             required: "Please select a legal structure",
                           })}
