@@ -9,6 +9,8 @@
   --red: oklch(62.81% 0.257464 28.9027);
   --gray: oklch(97.61% 0 0);
   --deepGray: oklch(90.37% 0 0);
+  --lightPurple: oklch(0.83 0.0862 269.94);
+  --clay: oklch(0.27 0.0103 229.31);
 }
 
 @theme {
@@ -25,6 +27,8 @@
   --color-red: var(--red);
   --color-gray: var(--gray);
   --color-deepGray: var(--deepGray);
+  --color-lightPurple: var(--lightPurple);
+  --color-clay: var(--clay);
 }
 
 html,

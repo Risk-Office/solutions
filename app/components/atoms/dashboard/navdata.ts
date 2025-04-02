@@ -14,6 +14,24 @@ import socialDemo from "~/assets/svg/social-demo.svg";
 import socialDemoActive from "~/assets/svg/population-active.svg";
 import competitive from "~/assets/svg/competitive-forces.svg";
 import competitiveActive from "~/assets/svg/competition-active.svg";
+import partners from "~/assets/svg/partnership.svg";
+import partnersActive from "~/assets/svg/partnership-active.svg";
+import resources from "~/assets/svg/resource-allocation.svg";
+import resourcesActive from "~/assets/svg/resource-allocation-active.svg";
+import activities from "~/assets/svg/activity.svg";
+import activitiesActive from "~/assets/svg/activity-active.svg";
+import valueProp from "~/assets/svg/value-proposition.svg";
+import valuePropActive from "~/assets/svg/value-proposition-active.svg";
+import customerSegment from "~/assets/svg/customer-segmentation.svg";
+import customerSegmentActive from "~/assets/svg/customer-segmentation-active.svg";
+import crm from "~/assets/svg/CMR.svg";
+import crmActive from "~/assets/svg/CMR-active.svg";
+import channels from "~/assets/svg/channels.svg";
+import channelsActive from "~/assets/svg/channels-active.svg";
+import revenueStream from "~/assets/svg/revenue-streams.svg";
+import revenueStreamActive from "~/assets/svg/revenue-streams-active.svg";
+import costStructure from "~/assets/svg/cost-structure.svg";
+import costStructureActive from "~/assets/svg/cost-structure-active.svg";
 
 interface BaseTab {
   icon: string;
@@ -71,8 +89,8 @@ export const macroEnvironmentData: TabsData[] = [
   },
   {
     title: "Technological",
-    icon: technology,
-    activeIcon: technologyActive,
+    icon: technologyActive,
+    activeIcon: technology,
     type: "dropdown",
     dropDownData: [
       "Healthcare Tech R & D",
@@ -120,6 +138,8 @@ export const macroEnvironmentData: TabsData[] = [
       "Age Distribution",
       "Income Distribution",
       "Family Structure",
+      "Quality Expectations",
+      "Lifestyle & Attitudes",
     ],
   },
   {
@@ -127,7 +147,14 @@ export const macroEnvironmentData: TabsData[] = [
     icon: competitive,
     activeIcon: competitiveActive,
     type: "dropdown",
-    dropDownData: [],
+    dropDownData: [
+      "Clients/Buyers",
+      "Suppliers",
+      "Substitutes",
+      "New Entrants",
+      "Complimentary Products",
+      "Government Effect",
+    ],
   },
 ];
 
@@ -141,8 +168,8 @@ export const businessModelData: TabsData[] = [
   },
   {
     title: "Partners",
-    icon: socialDemo,
-    activeIcon: socialDemoActive,
+    icon: partnersActive,
+    activeIcon: partners,
     type: "dropdown",
     dropDownData: [
       "Operations & Supply Chain Partners",
@@ -155,9 +182,9 @@ export const businessModelData: TabsData[] = [
     ],
   },
   {
-    title: "Resource",
-    icon: socialDemo,
-    activeIcon: socialDemoActive,
+    title: "Resources",
+    icon: resources,
+    activeIcon: resourcesActive,
     type: "dropdown",
     dropDownData: [
       "Human Resources",
@@ -170,8 +197,8 @@ export const businessModelData: TabsData[] = [
   },
   {
     title: "Activities",
-    icon: socialDemo,
-    activeIcon: socialDemoActive,
+    icon: activities,
+    activeIcon: activitiesActive,
     type: "dropdown",
     dropDownData: [
       "Financial Services",
@@ -181,6 +208,83 @@ export const businessModelData: TabsData[] = [
       "E-commerce",
       "Rental / Leasing",
       "Administrative",
+    ],
+  },
+  {
+    title: "Value Preposition",
+    icon: valueProp,
+    activeIcon: valuePropActive,
+    type: "dropdown",
+    dropDownData: [
+      "Cost Efficiency & Saving",
+      "Quality & Performance",
+      "Convenience & Accessibility",
+      "Customization & Personalization",
+      "Risk Reduction & Security",
+      "Brand & Trust Reputation",
+      "Innovation & Differentiation",
+      "Emotional & Experiential Benefits",
+      "Speed & Agility",
+      "Environmental & Social Impact",
+    ],
+  },
+  {
+    title: "Customer Segments",
+    icon: customerSegment,
+    activeIcon: customerSegmentActive,
+    type: "dropdown",
+    dropDownData: [
+      "B2B (Business-to-Business)",
+      "B2C (Business-to-Consumer)",
+      "Non-Profit Organizations",
+      "Government (B2G)",
+    ],
+  },
+  {
+    title: "Customer Relationship Management",
+    icon: crm,
+    activeIcon: crmActive,
+    type: "dropdown",
+    dropDownData: [
+      "Customer Relationship Management (CRM) Systems",
+      "Customer Service &  Support",
+      "Personalized Communication & Engagement",
+      "Loyalty Programs & Incentives",
+      "Regular Customer Feedback & Improvement",
+      "Proactive Relationship Building",
+    ],
+  },
+  {
+    title: "Channels",
+    icon: channels,
+    activeIcon: channelsActive,
+    type: "dropdown",
+    dropDownData: [
+      "Direct Channels",
+      "Indirect Channels",
+      "Digital Channels",
+      "Physical Channels",
+      "Hybrid Channels",
+    ],
+  },
+  {
+    title: "Revenue Streams",
+    icon: revenueStream,
+    url: "",
+    activeIcon: revenueStreamActive,
+    type: "link",
+  },
+  {
+    title: "Cost Structure",
+    icon: costStructure,
+    activeIcon: costStructureActive,
+    type: "dropdown",
+    dropDownData: [
+      "Fixed Costs",
+      "Variable Costs",
+      "Semi-Variable Costs",
+      "Financing Costs",
+      "Compliance & Regulatory Costs",
     ],
   },
 ];

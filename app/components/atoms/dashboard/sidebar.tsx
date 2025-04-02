@@ -51,7 +51,7 @@ const SideBar = () => {
 
       <div className="flex-1">
         <Tabs defaultValue="macro-environment" className="w-full">
-          <TabsList className="grid grid-cols-2 w-full mb-4">
+          <TabsList className="grid grid-cols-2 gap-2 w-full mb-4">
             <TabsTrigger value="macro-environment">
               Macro Environment
             </TabsTrigger>
@@ -86,25 +86,46 @@ const SideBar = () => {
                     }}
                     className="w-full gap-4"
                   >
-                    <CollapsibleTrigger className="flex flex-row items-center justify-between gap-2 text-left w-full">
-                      <div className="flex flex-row justify-start gap-3">
-                        <SvgIcon path={item.icon} />
-                        <span className="font-normal text-sm">
+                    <CollapsibleTrigger
+                      className={`flex flex-row items-center justify-between gap-2 text-left w-full ${
+                        isCollapse && currentCollapse === item.title
+                          ? "bg-white px-2.5 py-3 rounded-lg"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex flex-row items-center justify-start gap-3">
+                        <SvgIcon
+                          path={
+                            isCollapse && currentCollapse === item.title
+                              ? item.activeIcon
+                              : item.icon
+                          }
+                        />
+                        <span
+                          className={`font-normal text-sm ${
+                            isCollapse && currentCollapse === item.title
+                              ? "text-primary"
+                              : "text-white"
+                          }`}
+                        >
                           {" "}
                           {item.title}
                         </span>
                       </div>
 
                       {isCollapse && currentCollapse === item.title ? (
-                        <ChevronUp />
+                        <ChevronUp className="text-primary" />
                       ) : (
                         <ChevronDown />
                       )}
                     </CollapsibleTrigger>
 
-                    <CollapsibleContent className="CollapsibleContent">
+                    <CollapsibleContent className="CollapsibleContent mt-2 max-w-[90%] w-full">
                       {item.dropDownData.map((item) => (
-                        <Button variant="text" className="text-left">
+                        <Button
+                          variant="text"
+                          className="text-left whitespace-normal"
+                        >
                           {item}
                         </Button>
                       ))}
@@ -114,7 +135,10 @@ const SideBar = () => {
               })}
             </TabsContent>
 
-            <TabsContent value="business-model">
+            <TabsContent
+              value="business-model"
+              className="flex flex-col gap-4 w-full"
+            >
               {businessModelData.map((item) => {
                 if (item.type === "link") {
                   return (
@@ -138,25 +162,48 @@ const SideBar = () => {
                     }}
                     className="w-full gap-4"
                   >
-                    <CollapsibleTrigger className="flex flex-row items-center justify-between gap-2 text-left w-full">
-                      <div className="flex flex-row justify-start gap-3">
-                        <SvgIcon path={item.icon} />
-                        <span className="font-normal text-sm">
+                    <CollapsibleTrigger
+                      className={`flex flex-row items-center justify-between gap-2 text-left w-full ${
+                        isCollapse && currentCollapse === item.title
+                          ? "bg-white px-2.5 py-3 rounded-lg"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex flex-row items-center justify-start gap-3">
+                        <SvgIcon
+                          path={
+                            isCollapse && currentCollapse === item.title
+                              ? item.activeIcon
+                              : item.icon
+                          }
+                        />
+                        <span
+                          className={`font-normal text-sm ${
+                            isCollapse && currentCollapse === item.title
+                              ? "text-primary"
+                              : "text-white"
+                          }`}
+                        >
                           {" "}
                           {item.title}
                         </span>
                       </div>
 
                       {isCollapse && currentCollapse === item.title ? (
-                        <ChevronUp />
+                        <ChevronUp className="text-primary" />
                       ) : (
                         <ChevronDown />
                       )}
                     </CollapsibleTrigger>
 
-                    <CollapsibleContent className="CollapsibleContent bg-red">
+                    <CollapsibleContent className="CollapsibleContent mt-2 max-w-[90%] w-full">
                       {item.dropDownData.map((item) => (
-                        <Button variant="text">{item}</Button>
+                        <Button
+                          variant="text"
+                          className="text-left whitespace-normal mb-2"
+                        >
+                          {item}
+                        </Button>
                       ))}
                     </CollapsibleContent>
                   </Collapsible>
