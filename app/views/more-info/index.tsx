@@ -22,6 +22,7 @@ const MoreInformationPage = ({
 }: {
   solutionInformation: SolutionProps;
 }) => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -35,8 +36,6 @@ const MoreInformationPage = ({
   ) => {
     navigate("/more-info-2", { state: solutionInformation });
   };
-
-  const navigate = useNavigate();
 
   return (
     <main className="flex items-stretch justify-stretch w-full min-h-screen">

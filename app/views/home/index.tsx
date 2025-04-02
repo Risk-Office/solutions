@@ -7,7 +7,7 @@ import IconHeader from "~/components/atoms/IconHeader";
 import AppSizeProvider from "~/components/atoms/SizeProvider";
 import { useNavigate } from "react-router";
 
-const SolutionTag = ({ solution }: { solution: SolutionProps }) => {
+export const SolutionTag = ({ solution }: { solution: SolutionProps }) => {
   return (
     <h3 className="text-[0.8rem] md:text-[1.25rem] font-rhodiumLibre font-normal">
       {solution?.reversed ? (
