@@ -14,7 +14,7 @@ const DashboardLayout = () => {
           </div>
 
           <div className="flex flex-col w-full">
-            <div className="sticky top-0 flex items-center justify-center w-full bg-white min-h-[5rem] px-4 pt-2">
+            <div className="sticky top-0 z-50 flex items-center justify-center w-full bg-white min-h-[5rem] px-4 pt-2">
               <Navbar />
             </div>
             <div className="flex-1 w-full bg-gray border-t border-t-deepGray">

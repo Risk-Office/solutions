@@ -42,6 +42,35 @@ body {
   }
 }
 
+/* scroll bar */
+.overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #a6a8b2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 100vh;
+  border: 1.5px solid #a6a8b2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
 /* CollapsibleContent Style */
 .CollapsibleContent {
   overflow: hidden;
