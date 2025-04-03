@@ -56,7 +56,7 @@ export const macroEnvironmentData: TabsData[] = [
     title: "Overview",
     icon: overview,
     type: "link",
-    url: "/",
+    url: "/dashboard",
     activeIcon: overviewActive,
   },
   {
@@ -164,7 +164,7 @@ export const businessModelData: TabsData[] = [
     icon: overview,
     activeIcon: overviewActive,
     type: "link",
-    url: "/",
+    url: "/dashboard",
   },
   {
     title: "Partners",

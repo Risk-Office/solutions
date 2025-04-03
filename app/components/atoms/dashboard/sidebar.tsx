@@ -123,6 +123,7 @@ const SideBar = () => {
                     <CollapsibleContent className="CollapsibleContent mt-2 max-w-[90%] w-full">
                       {item.dropDownData.map((item) => (
                         <Button
+                          key={item}
                           variant="text"
                           className="text-left whitespace-normal"
                         >
@@ -199,6 +200,7 @@ const SideBar = () => {
                     <CollapsibleContent className="CollapsibleContent mt-2 max-w-[90%] w-full">
                       {item.dropDownData.map((item) => (
                         <Button
+                          key={item}
                           variant="text"
                           className="text-left whitespace-normal mb-2"
                         >

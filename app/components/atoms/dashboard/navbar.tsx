@@ -53,12 +53,12 @@ const Navbar = () => {
               key={tab}
               variant={"text"}
               size={"text"}
+              onClick={() => changeTab(tabIndex)}
               className={`text-base font-medium rounded-none px-1 text-center ${
                 currentTab === tabIndex
                   ? "border-b-2 border-b-primary text-primary"
                   : "text-clay"
               }`}
-              onClick={() => changeTab(tabIndex)}
             >
               {tab}
             </Button>

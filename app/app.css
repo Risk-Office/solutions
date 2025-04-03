@@ -11,6 +11,7 @@
   --deepGray: oklch(90.37% 0 0);
   --lightPurple: oklch(0.83 0.0862 269.94);
   --clay: oklch(0.27 0.0103 229.31);
+  --gold: oklch(0.65 0.126 91.37);
 }
 
 @theme {
@@ -29,6 +30,7 @@
   --color-deepGray: var(--deepGray);
   --color-lightPurple: var(--lightPurple);
   --color-clay: var(--clay);
+  --color-gold: var(--gold);
 }
 
 html,
