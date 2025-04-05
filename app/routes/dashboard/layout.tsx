@@ -1,7 +1,6 @@
-import Dashboard from "~/views/dashboard";
-import type { Route } from "./+types/dashboard";
+import Layout from "~/views/dashboard/layout";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Solutions | Dasboard" },
     { name: "description", content: "Solutions Dasboard" },
@@ -9,7 +8,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 const DashboardLayout = () => {
-  return <Dashboard />;
+  return <Layout />;
 };
 
 export default DashboardLayout;

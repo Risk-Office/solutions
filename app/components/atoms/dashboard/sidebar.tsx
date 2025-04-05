@@ -6,13 +6,23 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "~/components/ui/collapsible";
+import { Separator } from "~/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { Button } from "~/components/ui/button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarTrigger,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+} from "~/components/ui/sidebar";
+import { businessModelData, macroEnvironmentData } from "./navdata";
 import { SolutionTag } from "~/views/home";
 import { offeredSolutions } from "~/constants/solutions";
 import SvgIcon from "../Icon";
-import { Separator } from "~/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { businessModelData, macroEnvironmentData } from "./navdata";
-import { Button } from "~/components/ui/button";
 
 const SideBar = () => {
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
@@ -31,27 +41,29 @@ const SideBar = () => {
 
   return (
     <div className="flex flex-col w-full h-full text-white gap-5 p-4">
+      {/* <Sidebar> */}
+      {/* <SidebarContent className=""> */}
       <div className="flex flex-col gap-1 w-full">
-        <ArrowLeftToLine
-          size={"24px"}
-          className="self-end cursor-pointer"
-          onClick={() => console.log("back")}
-        />
+        {/* <SidebarTrigger> */}
+        <ArrowLeftToLine size={"24px"} className="self-end cursor-pointer" />
+        {/* </SidebarTrigger> */}
 
-        <div className="flex flex-row items-end justify-center gap-2">
-          <SolutionTag solution={offeredSolutions[0]} />
-          <SvgIcon
-            path={offeredSolutions[0].icon}
-            className="w-[48px] h-[48px]"
-          />
-        </div>
+        <SidebarGroup>
+          <div className="flex flex-row items-end justify-center gap-2">
+            <SolutionTag solution={offeredSolutions[0]} />
+            <SvgIcon
+              path={offeredSolutions[0].icon}
+              className="w-[48px] h-[48px]"
+            />
+          </div>
+        </SidebarGroup>
 
         <Separator className="bg-deepGray max-w-[90%] mx-auto mt-5" />
       </div>
 
       <div className="flex-1">
         <Tabs defaultValue="macro-environment" className="w-full">
-          <TabsList className="grid grid-cols-2 w-full mb-4">
+          <TabsList className="grid grid-cols-2 gap-2 w-full mb-4">
             <TabsTrigger value="macro-environment">
               Macro Environment
             </TabsTrigger>
@@ -86,25 +98,47 @@ const SideBar = () => {
                     }}
                     className="w-full gap-4"
                   >
-                    <CollapsibleTrigger className="flex flex-row items-center justify-between gap-2 text-left w-full">
-                      <div className="flex flex-row justify-start gap-3">
-                        <SvgIcon path={item.icon} />
-                        <span className="font-normal text-sm">
+                    <CollapsibleTrigger
+                      className={`flex flex-row items-center justify-between gap-2 text-left w-full ${
+                        isCollapse && currentCollapse === item.title
+                          ? "bg-white px-2.5 py-3 rounded-lg"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex flex-row items-center justify-start gap-3">
+                        <SvgIcon
+                          path={
+                            isCollapse && currentCollapse === item.title
+                              ? item.activeIcon
+                              : item.icon
+                          }
+                        />
+                        <span
+                          className={`font-normal text-sm ${
+                            isCollapse && currentCollapse === item.title
+                              ? "text-primary"
+                              : "text-white"
+                          }`}
+                        >
                           {" "}
                           {item.title}
                         </span>
                       </div>
 
                       {isCollapse && currentCollapse === item.title ? (
-                        <ChevronUp />
+                        <ChevronUp className="text-primary" />
                       ) : (
                         <ChevronDown />
                       )}
                     </CollapsibleTrigger>
 
-                    <CollapsibleContent className="CollapsibleContent">
+                    <CollapsibleContent className="CollapsibleContent mt-2 max-w-[90%] w-full">
                       {item.dropDownData.map((item) => (
-                        <Button variant="text" className="text-left">
+                        <Button
+                          key={item}
+                          variant="text"
+                          className="text-left whitespace-normal"
+                        >
                           {item}
                         </Button>
                       ))}
@@ -114,7 +148,10 @@ const SideBar = () => {
               })}
             </TabsContent>
 
-            <TabsContent value="business-model">
+            <TabsContent
+              value="business-model"
+              className="flex flex-col gap-4 w-full"
+            >
               {businessModelData.map((item) => {
                 if (item.type === "link") {
                   return (
@@ -138,25 +175,49 @@ const SideBar = () => {
                     }}
                     className="w-full gap-4"
                   >
-                    <CollapsibleTrigger className="flex flex-row items-center justify-between gap-2 text-left w-full">
-                      <div className="flex flex-row justify-start gap-3">
-                        <SvgIcon path={item.icon} />
-                        <span className="font-normal text-sm">
+                    <CollapsibleTrigger
+                      className={`flex flex-row items-center justify-between gap-2 text-left w-full ${
+                        isCollapse && currentCollapse === item.title
+                          ? "bg-white px-2.5 py-3 rounded-lg"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex flex-row items-center justify-start gap-3">
+                        <SvgIcon
+                          path={
+                            isCollapse && currentCollapse === item.title
+                              ? item.activeIcon
+                              : item.icon
+                          }
+                        />
+                        <span
+                          className={`font-normal text-sm ${
+                            isCollapse && currentCollapse === item.title
+                              ? "text-primary"
+                              : "text-white"
+                          }`}
+                        >
                           {" "}
                           {item.title}
                         </span>
                       </div>
 
                       {isCollapse && currentCollapse === item.title ? (
-                        <ChevronUp />
+                        <ChevronUp className="text-primary" />
                       ) : (
                         <ChevronDown />
                       )}
                     </CollapsibleTrigger>
 
-                    <CollapsibleContent className="CollapsibleContent bg-red">
+                    <CollapsibleContent className="CollapsibleContent mt-2 max-w-[90%] w-full">
                       {item.dropDownData.map((item) => (
-                        <Button variant="text">{item}</Button>
+                        <Button
+                          key={item}
+                          variant="text"
+                          className="text-left whitespace-normal mb-2"
+                        >
+                          {item}
+                        </Button>
                       ))}
                     </CollapsibleContent>
                   </Collapsible>
@@ -166,6 +227,8 @@ const SideBar = () => {
           </>
         </Tabs>
       </div>
+      {/* </SidebarContent>
+    </Sidebar> */}
     </div>
   );
 };

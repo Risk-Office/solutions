@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CircleX } from "lucide-react";
+import { CircleX, Radio } from "lucide-react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Label } from "~/components/ui/label";
@@ -47,10 +47,20 @@ const AdditionalInfo = ({
   const legalStructureValue = watch("legalStructure");
 
   const handleAddSectors = (newSector: string) => {
-    setSectors([...sectors, newSector]);
+    if (sectors.includes(newSector)) {
+      const filtered = sectors.filter((item) => item !== newSector);
+      setSectors(filtered);
+    } else {
+      setSectors([...sectors, newSector]);
+    }
   };
   const handleAddBusinessTypes = (type: string) => {
-    setBusinessTypes([...businessType, type]);
+    if (businessType.includes(type)) {
+      const filtered = businessType.filter((item) => item !== type);
+      setBusinessTypes(filtered);
+    } else {
+      setBusinessTypes([...businessType, type]);
+    }
   };
 
   const handleSubmitAdditionalInfo: SubmitHandler<AdditionalInfoFormProps> = (
@@ -64,6 +74,7 @@ const AdditionalInfo = ({
       sector: sectors,
       businessType: businessType,
     };
+
     navigate("/dashboard");
   };
 
@@ -119,9 +130,10 @@ const AdditionalInfo = ({
                   </span>
 
                   <RadioGroup
+                    id="legalStructure"
                     value={watch("legalStructure")}
                     onValueChange={(value) => setValue("legalStructure", value)}
-                    className="grid grid-cols-1 md:grid-cols-2 w-full"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full"
                   >
                     {legalStructure.map((item) => (
                       <div
@@ -132,9 +144,6 @@ const AdditionalInfo = ({
                         <RadioGroupItem
                           value={item}
                           id={`legalStructure-${item}`}
-                          {...register("legalStructure", {
-                            required: "Please select a legal structure",
-                          })}
                         />
                       </div>
                     ))}
@@ -190,29 +199,27 @@ const AdditionalInfo = ({
                       Select all that apply
                     </CollapsibleTrigger>
 
-                    <CollapsibleContent className="CollapsibleContent">
+                    <CollapsibleContent className="CollapsibleContent rounded-md py-2 bg-gray">
                       <div className="flex flex-col gap-1 w-full">
                         {businessSectors.map((item) => (
                           <div
                             key={item}
                             className="flex flex-col w-full min-h-[2rem]"
                           >
-                            <Button
-                              type="button"
-                              variant={"text"}
-                              onClick={() => handleAddSectors(item)}
-                              className="my-auto flex flex-row items-center justify-between text-left gap-2 w-full"
-                            >
-                              <Label htmlFor={item}>{item}</Label>
+                            <div className="my-auto flex flex-row items-center justify-between text-left gap-2 w-full text-lg">
+                              <Label
+                                htmlFor={item}
+                                onClick={() => handleAddSectors(item)}
+                              >
+                                {item}
+                              </Label>
                               <Checkbox
                                 id={item}
                                 value={item}
                                 className="accent-primary"
                                 checked={sectors.includes(item)}
                               />
-                            </Button>
-
-                            <Separator className="w-full bg-black" />
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -226,6 +233,7 @@ const AdditionalInfo = ({
                   </span>
 
                   <RadioGroup
+                    id="businessStage"
                     value={watch("businessStage")}
                     onValueChange={(value) => setValue("businessStage", value)}
                     className="grid grid-cols-1 md:grid-cols-2 w-full"
@@ -233,15 +241,13 @@ const AdditionalInfo = ({
                     {businessStage.map((item) => (
                       <div
                         key={item}
-                        className="flex items-center space-x-2 justify-between"
+                        className="flex items-center space-x-2 space-y-2 justify-between"
                       >
-                        <Label htmlFor={item}>{item}</Label>
+                        <Label htmlFor={`businessStage-${item}`}>{item}</Label>
+
                         <RadioGroupItem
                           value={item}
-                          id={item}
-                          {...register("businessStage", {
-                            required: "Please select a business Stage",
-                          })}
+                          id={`businessStage-${item}`}
                         />
                       </div>
                     ))}
@@ -267,29 +273,28 @@ const AdditionalInfo = ({
                       Select business revenue model
                     </CollapsibleTrigger>
 
-                    <CollapsibleContent className="CollapsibleContent">
+                    <CollapsibleContent className="CollapsibleContent rounded-md px-2 bg-gray">
                       <div className="flex flex-col gap-1 w-full">
                         {businessRevenueModel.map((item) => (
                           <div
                             key={item}
                             className="flex flex-col w-full min-h-[2rem]"
                           >
-                            <Button
-                              type="button"
-                              variant={"text"}
-                              onClick={() => handleAddBusinessTypes(item)}
-                              className="my-auto flex flex-row items-center justify-between text-left gap-2 w-full"
-                            >
-                              <Label htmlFor={item}>{item}</Label>
+                            <div className="my-auto flex flex-row items-center justify-between text-left gap-2 w-full">
+                              <Label
+                                htmlFor={item}
+                                onClick={() => handleAddBusinessTypes(item)}
+                              >
+                                {item}
+                              </Label>
                               <Checkbox
                                 id={item}
                                 value={item}
-                                className="accesnt-primary"
+                                className="accent-primary"
                                 checked={businessType.includes(item)}
+                                onChange={() => handleAddBusinessTypes(item)}
                               />
-                            </Button>
-
-                            <Separator className="w-full bg-black" />
+                            </div>
                           </div>
                         ))}
                       </div>

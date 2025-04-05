@@ -9,6 +9,18 @@
   --red: oklch(62.81% 0.257464 28.9027);
   --gray: oklch(97.61% 0 0);
   --deepGray: oklch(90.37% 0 0);
+  --lightPurple: oklch(0.83 0.0862 269.94);
+  --clay: oklch(0.27 0.0103 229.31);
+  --gold: oklch(0.65 0.126 91.37);
+
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 @theme {
@@ -25,6 +37,18 @@
   --color-red: var(--red);
   --color-gray: var(--gray);
   --color-deepGray: var(--deepGray);
+  --color-lightPurple: var(--lightPurple);
+  --color-clay: var(--clay);
+  --color-gold: var(--gold);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 html,
@@ -34,6 +58,35 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+/* scroll bar */
+.overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #a6a8b2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 100vh;
+  border: 1.5px solid #a6a8b2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
 }
 
 /* CollapsibleContent Style */
