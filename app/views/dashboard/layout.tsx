@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import Navbar from "~/components/atoms/dashboard/navbar";
 import SideBar from "~/components/atoms/dashboard/sidebar";
 import AppSizeProvider from "~/components/atoms/SizeProvider";
+import { SidebarProvider, SidebarTrigger } from "~/components/ui/sidebar";
 
 const DashboardLayout = () => {
   return (
@@ -10,7 +11,15 @@ const DashboardLayout = () => {
       <AppSizeProvider>
         <div className="relative flex flex-row items-stretch w-full h-full">
           <div className="sticky top-0 left-0 w-full max-w-[15rem] max-h-screen overflow-y-auto bg-primary">
+            {/* <SidebarProvider> */}
             <SideBar />
+            {/* <main>
+              <SidebarTrigger />
+            </main>
+            <div>
+              <SidebarTrigger />
+            </div>
+          </SidebarProvider> */}
           </div>
 
           <div className="flex flex-col w-full">

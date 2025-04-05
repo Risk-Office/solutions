@@ -6,13 +6,23 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "~/components/ui/collapsible";
+import { Separator } from "~/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { Button } from "~/components/ui/button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarTrigger,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+} from "~/components/ui/sidebar";
+import { businessModelData, macroEnvironmentData } from "./navdata";
 import { SolutionTag } from "~/views/home";
 import { offeredSolutions } from "~/constants/solutions";
 import SvgIcon from "../Icon";
-import { Separator } from "~/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { businessModelData, macroEnvironmentData } from "./navdata";
-import { Button } from "~/components/ui/button";
 
 const SideBar = () => {
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
@@ -31,20 +41,22 @@ const SideBar = () => {
 
   return (
     <div className="flex flex-col w-full h-full text-white gap-5 p-4">
+      {/* <Sidebar> */}
+      {/* <SidebarContent className=""> */}
       <div className="flex flex-col gap-1 w-full">
-        <ArrowLeftToLine
-          size={"24px"}
-          className="self-end cursor-pointer"
-          onClick={() => console.log("back")}
-        />
+        {/* <SidebarTrigger> */}
+        <ArrowLeftToLine size={"24px"} className="self-end cursor-pointer" />
+        {/* </SidebarTrigger> */}
 
-        <div className="flex flex-row items-end justify-center gap-2">
-          <SolutionTag solution={offeredSolutions[0]} />
-          <SvgIcon
-            path={offeredSolutions[0].icon}
-            className="w-[48px] h-[48px]"
-          />
-        </div>
+        <SidebarGroup>
+          <div className="flex flex-row items-end justify-center gap-2">
+            <SolutionTag solution={offeredSolutions[0]} />
+            <SvgIcon
+              path={offeredSolutions[0].icon}
+              className="w-[48px] h-[48px]"
+            />
+          </div>
+        </SidebarGroup>
 
         <Separator className="bg-deepGray max-w-[90%] mx-auto mt-5" />
       </div>
@@ -215,6 +227,8 @@ const SideBar = () => {
           </>
         </Tabs>
       </div>
+      {/* </SidebarContent>
+    </Sidebar> */}
     </div>
   );
 };
