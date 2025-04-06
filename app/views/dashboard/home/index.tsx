@@ -57,11 +57,11 @@ const DashboardEntry = () => {
 
     default: {
       return (
-        <div className="flex flex-row gap-2 w-full p-4 relative">
-          <div className="flex-[0.65] flex flex-col items-stretch">
+        <div className="flex flex-row gap-2 w-full p-4 relative items-stretch h-full">
+          <div className="flex-[0.65] flex flex-col items-stretch overflow-hidden h-full">
             <Tabs
               defaultValue={tabs[0].value}
-              className="w-full bg-transparent"
+              className="w-full bg-transparent h-full flex flex-col"
             >
               <TabsList
                 style={{
@@ -80,21 +80,21 @@ const DashboardEntry = () => {
                 ))}
               </TabsList>
 
-              <>
+              <div className="flex-1 overflow-hidden">
                 {tabs.map((tab) => (
                   <TabsContent
                     key={tab.value}
                     value={tab.value}
-                    className="mt-4"
+                    className="mt-4 h-full overflow-auto"
                   >
-                    <>{tab.component}</>
+                    <div>{tab.component}</div>
                   </TabsContent>
                 ))}
-              </>
+              </div>
             </Tabs>
           </div>
 
-          <div className="flex-[0.35] flex flex-col items-stretch">
+          <div className="flex-[0.35] flex flex-col items-stretch h-full overflow-auto">
             <div className="flex flex-row items-center gap-4 bg-white rounded-lg w-full h-full max-h-[3.75rem] py-2 px-4 border border-deepGray">
               <div className="flex-1 flex flex-row items-center gap-2 border border-deepGray rounded-lg p-1">
                 <Input
