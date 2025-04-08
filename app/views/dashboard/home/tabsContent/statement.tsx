@@ -1,5 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { articles } from "~/data/statements";
+import { offeredSolutions } from "~/constants/solutions";
+import { Separator } from "~/components/ui/separator";
+import { SolutionTag } from "~/views/home";
+// import { Search, SlidersHorizontal } from "lucide-react";
+// import { Button } from "~/components/ui/button";
+// import { Input } from "~/components/ui/input";
+import RiskDetails from "./riskDetails";
+import { useViewState } from "~/store/viewState";
 
 interface RiskCardProps {
   id: string;
@@ -11,7 +19,27 @@ interface RiskCardProps {
   severity: 'Critical' | 'High' | 'Medium' | 'Low';
 }
 
-const RiskCard: React.FC<RiskCardProps> = ({
+interface RecommendedNewsItem {
+  title: string;
+  subTitle: string;
+  description: string;
+}
+
+const recommendedNews = [
+  {
+    title: "Corporate tax policy changes",
+    subTitle: "IRS, Congressional Budget Office",
+    description:
+      "A recent 5%+ increase in corporate tax rates for healthcare businesses has raised concerns among hospital networks, senior care providers, and private healthcare institutions",
+  },
+  {
+    title: "Property tax changes",
+    subTitle: "Local Government Tax Authorities",
+    description: "An 8%+ annual rise in property taxes for senior care ",
+  },
+];
+
+const RiskCard: React.FC<RiskCardProps & { onClick: () => void }> = ({
   id,
   title,
   source,
@@ -19,6 +47,7 @@ const RiskCard: React.FC<RiskCardProps> = ({
   imageUrl,
   timeHorizon,
   severity,
+  onClick
 }) => {
   const severityColorMap = {
     Critical: {
@@ -41,7 +70,11 @@ const RiskCard: React.FC<RiskCardProps> = ({
   const color = severityColorMap[severity] || severityColorMap.Default;
 
   return (
-    <div className="bg-gray-50 relative overflow-hidden rounded-lg border border-gray-200">
+    <div 
+      key={id} 
+      className="bg-gray-50 relative overflow-hidden rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors"
+      onClick={onClick}
+    >
       <div className={`w-2 rounded-l-lg ${color.bar} absolute left-0 h-full`} />
 
       <div className="flex space-x-3 items-center p-4">
@@ -75,13 +108,123 @@ const RiskCard: React.FC<RiskCardProps> = ({
   );
 };
 
-
 const StatementAndAction = () => {
+  const [selectedRisk, setSelectedRisk] = useState<RiskCardProps | null>(null);
+  const setIsViewingDetails = useViewState((state) => state.setIsViewingDetails);
+
+  useEffect(() => {
+    setIsViewingDetails(!!selectedRisk);
+    return () => {
+      setIsViewingDetails(false);
+    };
+  }, [selectedRisk, setIsViewingDetails]);
+
+  const handleBack = () => {
+    setSelectedRisk(null);
+  };
+
+  if (selectedRisk) {
+    return <RiskDetails {...selectedRisk} onBack={handleBack} />;
+  }
+
   return (
-    <div className="space-y-4 w-full bg-white rounded-lg max-h-[115vh] py-4 px-4 overflow-y-auto">
-      {articles.map((item) => (
-        <RiskCard key={item.id} {...item} />
-      ))}
+    <div className="flex flex-row gap-2 w-full h-full">
+      <div className="flex-[0.65] flex flex-col items-stretch overflow-hidden h-full">
+        {/* <div className="flex flex-row items-center gap-4 bg-white rounded-lg w-full h-full max-h-[3.75rem] py-2 px-4 border border-deepGray mb-4">
+          <div className="flex-1 flex flex-row items-center gap-2 border border-deepGray rounded-lg p-1">
+            <Input
+              placeholder="Search for Statements/Actions"
+              className="placeholder:text-primary"
+            />
+
+            <Button className="w-9 h-8 rounded-lg">
+              <Search />
+            </Button>
+          </div>
+          <Button
+            variant={"text"}
+            className="rounded-lg border border-deepGray"
+          >
+            <SlidersHorizontal strokeWidth={"3px"} />
+          </Button>
+        </div> */}
+
+        <div className="space-y-4 w-full bg-white rounded-lg h-full py-4 px-4 overflow-y-auto max-h-[100vh]">
+          {articles.map((item) => (
+            <RiskCard 
+              key={item.id} 
+              {...item} 
+              onClick={() => setSelectedRisk(item)}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="flex-[0.35] flex flex-col items-stretch h-full overflow-auto">
+        <div className="flex flex-col gap-5 w-full">
+          <div className="flex flex-col gap-5 w-full bg-white py-2 px-4 rounded-lg max-h-[60vh] overflow-y-auto">
+            <span className="text-lg font-bold text-left">
+              News/Articles
+            </span>
+
+            <div className="flex flex-col gap-4 w-full">
+              {recommendedNews.map((item: RecommendedNewsItem) => (
+                <div
+                  key={item.title}
+                  className="flex flex-col gap-2 bg-gray p-4 w-full rounded-lg"
+                >
+                  <div className="flex flex-col gap-4 w-full">
+                    <span className="text-base font-semibold">
+                      {item.title}
+                    </span>
+                    <span className="italic">{item.subTitle}</span>
+                  </div>
+
+                  <Separator className="my-1 bg-deepGray" />
+
+                  <span className="font-normal">{item.description}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white w-full flex flex-col gap-2 py-2 px-4 rounded-lg">
+            <span className="text-lg font-bold text-left">
+              Our Other Solutions
+            </span>
+
+            <div className="flex flex-row items-center justify-center gap-2 bg-gray p-2 w-full rounded-lg">
+              <div className="flex-[0.4] flex flex-col gap-2">
+                <img
+                  src={offeredSolutions[8].icon}
+                  alt={offeredSolutions[8].name}
+                  className="w-[52px] h-[48px]"
+                />
+                <SolutionTag solution={offeredSolutions[8]} />
+              </div>
+
+              <div className="flex-1 flex items-center justify-start">
+                <span className="font-normal text-sm">
+                  {offeredSolutions[8].description}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white w-full flex flex-col gap-2 py-2 px-4 rounded-lg">
+            <span className="text-lg font-bold text-left">
+              Take Our Survey
+            </span>
+
+            <div className="flex flex-row items-center justify-center gap-2 bg-gray p-2 w-full rounded-lg">
+              <span className="font-normal text-sm">
+                Join other Assisted Living Facilities to understand the
+                trend in Labor Policy
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
