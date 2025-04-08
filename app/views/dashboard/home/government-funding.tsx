@@ -1,6 +1,6 @@
 import { useTabChange } from "~/store";
-import TeamHub from "./chat";
-import Report from "./report";
+import TeamHub from "../team-hub/chat";
+import Report from "../report/report";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import NewsAndArticles from "./tabsContent/articles";

@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router";
 import { Bell, Grip, Bolt } from "lucide-react";
 import {
   Breadcrumb,
@@ -12,11 +13,15 @@ import { useTabChange } from "~/store";
 import { Button } from "~/components/ui/button";
 import { ModeToggle } from "~/components/mode-toggle";
 
-const tabs = ["Dashboard", "Team Hub", "Report"];
+export const dashboardTabs = [
+  { name: "Dashboard", path: "/dashboard" },
+  { name: "Team Hub", path: "/dashboard/team-hub" },
+  { name: "Report", path: "/dashboard/report" },
+];
 
 const Navbar = () => {
-  const changeTab = useTabChange((state) => state.changeTab);
-  const currentTab = useTabChange((state) => state.value);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col justify-between gap-4 w-full">
@@ -49,19 +54,19 @@ const Navbar = () => {
 
       <div className="flex flex-row items-center justify-between w-full">
         <div className="flex flex-row items-end gap-4 w-full">
-          {tabs.map((tab, tabIndex) => (
+          {dashboardTabs.map((tab, tabIndex) => (
             <Button
-              key={tab}
+              key={tab.name}
               variant={"text"}
               size={"text"}
-              onClick={() => changeTab(tabIndex)}
+              onClick={() => navigate(tab.path)}
               className={`text-base font-medium rounded-none px-1 text-center ${
-                currentTab === tabIndex
+                tab.path === pathname
                   ? "border-b-2 border-b-primary text-primary"
                   : "text-clay"
               }`}
             >
-              {tab}
+              {tab.name}
             </Button>
           ))}
         </div>
