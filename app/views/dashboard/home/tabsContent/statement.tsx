@@ -9,7 +9,7 @@ import { SolutionTag } from "~/views/home";
 import RiskDetails from "./riskDetails";
 import { useViewState } from "~/store/viewState";
 
-interface RiskCardProps {
+export interface RiskCardProps {
   id: string;
   title: string;
   source: string;
@@ -17,10 +17,11 @@ interface RiskCardProps {
   imageUrl: string;
   timeHorizon: string;
   severity: 'Critical' | 'High' | 'Medium' | 'Low';
+  showFull?: boolean;
 }
 
 interface RecommendedNewsItem {
-  title: string;
+  title: string;    
   subTitle: string;
   description: string;
 }
@@ -39,7 +40,7 @@ const recommendedNews = [
   },
 ];
 
-const RiskCard: React.FC<RiskCardProps & { onClick: () => void }> = ({
+export const RiskCard: React.FC<RiskCardProps & { onClick: () => void }> = ({
   id,
   title,
   source,
@@ -47,7 +48,8 @@ const RiskCard: React.FC<RiskCardProps & { onClick: () => void }> = ({
   imageUrl,
   timeHorizon,
   severity,
-  onClick
+  onClick,
+  showFull = true
 }) => {
   const severityColorMap = {
     Critical: {
@@ -95,13 +97,15 @@ const RiskCard: React.FC<RiskCardProps & { onClick: () => void }> = ({
             <span>{date}</span>
           </p>
 
-          <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
-            <span>Time Horizon: {timeHorizon}</span>
-            <span className="border-l border-gray-300 pl-4">
-              Impact severity:
-              <span className="font-semibold ml-1">{severity}</span>
-            </span>
-          </div>
+            {showFull && (
+            <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
+              <span>Time Horizon: {timeHorizon}</span>
+              <span className="border-l border-gray-300 pl-4">
+                Impact severity:
+                <span className="font-semibold ml-1">{severity}</span>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>

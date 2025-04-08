@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowLeft, ClipboardList, Pen, Share2, MessageSquareQuote } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import { RiskCard } from "./statement";
 
 interface RiskDetailsProps {
   id: string;
@@ -22,6 +23,25 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
   severity,
   onBack
 }) => {
+
+  const severityColorMap = {
+    Critical: {
+      bar: 'bg-red-500',
+    },
+    High: {
+      bar: 'bg-amber-500',
+    },
+    Medium: {
+      bar: 'bg-green-500',
+    },
+    Low: {
+      bar: 'bg-blue-500',
+    },
+    Default: {
+      bar: 'bg-gray-400',
+    },
+  };
+
   return (
     <div>
       <div className="mb-4">
@@ -36,9 +56,9 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
       </div>
 
       <div className="flex flex-row gap-2 w-full h-full">
-        <div className="flex-[0.65] flex flex-col items-stretch overflow-hidden h-full">
+        <div className="flex-[0.65] flex flex-col space-y-4 items-stretch overflow-hidden h-full">
 
-          <div className="space-y-6 w-full bg-white rounded-lg h-full py-6 px-6 overflow-y-auto">
+          <div className="space-y-4 w-full bg-white rounded-lg h-full py-6 px-6 overflow-y-auto">
             <h1 className="text-xl font-bold">Statement and Action</h1>
             
             <div className="border border-gray-200 rounded-lg p-4">
@@ -78,62 +98,47 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
                   </p>
 
                 </div>
-                
-                <div className="flex items-start gap-4">
-                  {/*  */}
-                  <div className="flex-1">
-                    
-                    {/* <p className="text-gray-600">
-                      <a href={`https://${source}`} className="underline italic">{source}</a>
-                      {" "} | {date}
-                    </p> */}
-                  </div>
-                </div>
-
-                {/* <div className="grid grid-cols-3 gap-4">
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600">Probability</p>
-                    <p className="font-semibold mt-1">High</p>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600">Time Horizon & Urgency</p>
-                    <p className="font-semibold mt-1">{timeHorizon}</p>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600">Impact Severity</p>
-                    <p className="font-semibold mt-1">{severity}</p>
-                  </div>
-                </div> */}
-
-                {/* <div className="space-y-6">
-                  <section>
-                    <h3 className="text-lg font-semibold mb-3">Vulnerability & Preparedness</h3>
-                    <ul className="list-disc pl-5 space-y-2">
-                      <li>Review Your Exposure</li>
-                      <li>Useful Controls</li>
-                      <li>What you need to do</li>
-                    </ul>
-                  </section>
-
-                  <section>
-                    <h3 className="text-lg font-semibold mb-3">Potential Mitigation Strategies</h3>
-                    <p className="text-gray-700">
-                      As the healthcare industry adjusts to these wage hikes, stakeholders will need to balance fair
-                      compensation with sustainable financial practices. The long-term effects of this policy will depend on
-                      whether additional funding or support mechanisms are introduced to help organizations cope with rising costs.
-                    </p>
-                  </section>
-
-                  <section>
-                    <h3 className="text-lg font-semibold mb-3">Strategic and Competitive Implications</h3>
-                    <p className="text-gray-700">
-                      As the healthcare industry adjusts to these wage hikes, stakeholders will need to balance fair
-                      compensation with sustainable financial practices. The long-term effects of this policy will depend on
-                      whether additional funding or support mechanisms are introduced.
-                    </p>
-                  </section>
-                </div> */}
               </div>
+            </div>
+          </div>
+
+          <div className="w-full bg-white rounded-lg h-full py-6 px-6 overflow-y-auto">
+            <h1 className="text-xl font-bold">Related Storyline</h1>
+
+            <div className="space-y-4 mt-4">
+              <RiskCard
+                id="rs1"
+                title="Healthcare Worker Shortage Intensifies"
+                source="www.reuters.com" 
+                date="12th Nov. 2024"
+                imageUrl="https://brandlogo.org/wp-content/uploads/2024/06/Reuters-Logo-Vertical.png.webp"
+                timeHorizon="1 year"
+                severity="High"
+                onClick={() => {}}
+                showFull={false}
+              />
+              <RiskCard 
+                id="rs2"
+                title="New Healthcare Technology Regulations"
+                source="www.bloomberg.com"
+                date="11th Nov. 2024"
+                imageUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0Jsgqn65idTsvUVq8AbXLjbU5XhhTgQH6Eg&s"
+                timeHorizon="6 months"
+                severity="Medium"
+                onClick={() => {}}
+                showFull={false}
+              />
+              <RiskCard
+                id="rs3" 
+                title="Rising Insurance Premiums Impact Care Access"
+                source="www.bbcnews.com"
+                date="10th Nov. 2024"
+                imageUrl="https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png"
+                timeHorizon="2 years"
+                severity="Critical"
+                onClick={() => {}}
+                showFull={false}
+              />
             </div>
           </div>
         </div>
@@ -141,17 +146,59 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
         <div className="flex-[0.35] flex flex-col items-stretch h-full">
           <div className="flex flex-col gap-5 w-full">
             <div className="flex flex-col gap-4 w-full bg-white py-4 px-4 rounded-lg">
-              <h3 className="text-lg font-bold">Related Storyline</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold">Assessments</h3>
+                <Button variant="default">Track article</Button>
+              </div>
+              
               <div className="space-y-4">
-                {[1, 2].map((i) => (
-                  <div key={i} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                    <img src={imageUrl} alt={source} className="w-12 h-12 rounded-full object-cover" />
-                    <div>
-                      <h4 className="font-semibold">{title}</h4>
-                      <p className="text-sm text-gray-600">{source} | {date}</p>
-                    </div>
+                <div className="text-center grid grid-cols-3 gap-3 bg-gray-100 rounded-md p-2">
+                  <div>
+                    <p className="font-semibold mt-1 text-red-500 text-xl">High</p>
+                    <hr className="mt-2 mb-1 border border-gray-200 w-[85%] mx-auto" />
+                    <p className="text-xs text-gray-600">Probability</p>
+
                   </div>
-                ))}
+                  <div>
+                    <p className="font-semibold mt-1 text-xl">{timeHorizon}</p>
+                    <hr className="mt-2 mb-1 border border-gray-200 w-[85%] mx-auto" />
+                    <p className="text-xs text-gray-600">Time Horizon & Urgency</p>
+
+                  </div>
+                  <div>
+                    <p className="font-semibold mt-1 text-sm">{severity}</p>
+                    <div className={`p-1 px-2 ${severityColorMap[severity]?.bar || severityColorMap.Default.bar} rounded-md w-[25%] mx-auto`}></div>
+                    <hr className="mt-2 mb-1 border border-gray-200 w-[85%] mx-auto" />
+                    <p className="text-xs text-gray-600">Impact Severity</p>
+                  </div>
+                </div>
+
+                <div className="bg-gray-100 rounded-md p-2">
+                  <h3 className="text-sm font-semibold mb-3">Vulnerability & Preparedness</h3>
+                  <ul className="list-item pl-5 space-y-2 text-sm">
+                    <li>Review Your Exposure</li>
+                    <li>Useful Controls</li>
+                    <li>What you need to do</li>
+                  </ul>
+                </div>
+
+                <div className="bg-gray-100 rounded-md p-2">
+                  <h3 className="text-sm font-semibold mb-3">Potential Mitigation Strategies</h3>
+                  <p className="text-gray-700 text-sm">
+                    As the healthcare industry adjusts to these wage hikes, stakeholders will need to balance fair
+                    compensation with sustainable financial practices. The long-term effects of this policy will depend on
+                    whether additional funding or support mechanisms are introduced to help organizations cope with rising costs.
+                  </p>
+                </div>
+
+                <div className="bg-gray-100 rounded-md p-2">
+                  <h3 className="text-sm font-semibold mb-3">Strategic and Competitive Implications</h3>
+                  <p className="text-gray-700 text-sm">
+                    As the healthcare industry adjusts to these wage hikes, stakeholders will need to balance fair
+                    compensation with sustainable financial practices. The long-term effects of this policy will depend on
+                    whether additional funding or support mechanisms are introduced.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
