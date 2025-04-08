@@ -8,7 +8,9 @@ export function meta() {
 }
 
 const DashboardLayout = () => {
-  return <Layout />;
+  return (
+      <Layout />
+  )
 };
 
 export default DashboardLayout;

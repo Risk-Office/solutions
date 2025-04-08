@@ -5,8 +5,11 @@ import SideBar from "~/components/atoms/dashboard/sidebar";
 import AppSizeProvider from "~/components/atoms/SizeProvider";
 import { SidebarProvider, SidebarTrigger } from "~/components/ui/sidebar";
 
+import { ThemeProvider } from "~/components/theme-provider";
+
 const DashboardLayout = () => {
   return (
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
     <main className="flex items-stretch justify-stretch w-full min-h-screen">
       <AppSizeProvider>
         <div className="relative flex flex-row items-stretch w-full h-full">
@@ -33,6 +36,7 @@ const DashboardLayout = () => {
         </div>
       </AppSizeProvider>
     </main>
+    </ThemeProvider>
   );
 };
 

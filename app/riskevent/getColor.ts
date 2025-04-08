@@ -2,20 +2,16 @@
 export const getColor = (status: string): string => {
   switch (status.toLowerCase()) {
     case "critical":
-      return "#FF4757";
-    case "severe":
-      return "#8A2BE2";
-    case "emergency":
-      return "#FF1493";
-    case "high":
-      return "#FFA502";
-    case "medium":
-      return "#2ED573";
+      return "#d21116";
     case "low":
-      return "#1E90FF";
-    case "resolved":
-      return "#57606F";
+      return "#23b4e4";
+    case "high":
+      return "#ffb25a";
+    case "insignificant":
+      return "#1ba019";
+    case "medium":
+      return "#fde030";
     default:
-      return "#CCCCCC"; // default gray
+      return "#CCCCCC";
   }
 };

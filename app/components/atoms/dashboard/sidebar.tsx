@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { ArrowLeftToLine, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeftToLine, ChevronDown, ChevronUp, ClipboardCheck, MessageSquareText, Users } from "lucide-react";
 import {
   Collapsible,
   CollapsibleTrigger,
@@ -23,8 +23,13 @@ import { businessModelData, macroEnvironmentData } from "./navdata";
 import { SolutionTag } from "~/views/home";
 import { offeredSolutions } from "~/constants/solutions";
 import SvgIcon from "../Icon";
+import { useTabChange } from "~/store";
 
 const SideBar = () => {
+    // const currentTab = useTabChange((state) => state.value);
+      const { value: currentTab, teamHubSection, setTeamHubSection } = useTabChange();
+
+
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
   const [currentCollapse, setCurrentCollapse] = useState<string>("");
 
@@ -39,28 +44,44 @@ const SideBar = () => {
     return;
   };
 
+  // Common header section
+  const headerSection = (
+    <div className="flex flex-col gap-1 w-full">
+      <ArrowLeftToLine size={"24px"} className="self-end cursor-pointer" />
+      <SidebarGroup>
+        <div className="flex flex-row items-end justify-center gap-2">
+          <SolutionTag solution={offeredSolutions[0]} />
+          <SvgIcon
+            path={offeredSolutions[0].icon}
+            className="w-[48px] h-[48px]"
+          />
+        </div>
+      </SidebarGroup>
+      <Separator className="bg-deepGray max-w-[90%] mx-auto mt-5" />
+    </div>
+  );
+
   return (
     <div className="flex flex-col w-full h-full text-white gap-5 p-4">
-      {/* <Sidebar> */}
-      {/* <SidebarContent className=""> */}
-      <div className="flex flex-col gap-1 w-full">
-        {/* <SidebarTrigger> */}
-        <ArrowLeftToLine size={"24px"} className="self-end cursor-pointer" />
-        {/* </SidebarTrigger> */}
+      {headerSection}
 
-        <SidebarGroup>
-          <div className="flex flex-row items-end justify-center gap-2">
-            <SolutionTag solution={offeredSolutions[0]} />
-            <SvgIcon
-              path={offeredSolutions[0].icon}
-              className="w-[48px] h-[48px]"
-            />
+      {currentTab === 1 ? (
+        // Team Hub Content
+        <div className="flex-1">
+          {/* Team Hub Sidebar */}
+          <div className="space-y-4">
+            <Button variant="text" className="w-full justify-start gap-2">
+              <MessageSquareText className="w-5 h-5" /> Chat
+            </Button>
+            <Button variant="text" className="w-full justify-start gap-2">
+              <ClipboardCheck className="w-5 h-5" /> My Tasks
+            </Button>
+            <Button variant="text" className="w-full justify-start gap-2">
+              <Users className="w-5 h-5" /> Team Members
+            </Button>
           </div>
-        </SidebarGroup>
-
-        <Separator className="bg-deepGray max-w-[90%] mx-auto mt-5" />
-      </div>
-
+        </div>
+      ) : (
       <div className="flex-1">
         <Tabs defaultValue="macro-environment" className="w-full">
           <TabsList className="grid grid-cols-2 gap-2 w-full mb-4">
@@ -227,8 +248,7 @@ const SideBar = () => {
           </>
         </Tabs>
       </div>
-      {/* </SidebarContent>
-    </Sidebar> */}
+    )}
     </div>
   );
 };

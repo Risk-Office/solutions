@@ -10,6 +10,7 @@ import {
 } from "~/components/ui/breadcrumb";
 import { useTabChange } from "~/store";
 import { Button } from "~/components/ui/button";
+import { ModeToggle } from "~/components/mode-toggle";
 
 const tabs = ["Dashboard", "Team Hub", "Report"];
 
@@ -75,6 +76,7 @@ const Navbar = () => {
           <Button variant={"text"}>
             <Grip />
           </Button>
+          <ModeToggle />
           <Button
             variant={"text"}
             className="bg-lightPurple text-black font-bold max-w-[1.625rem] rounded-full w-full h-full"

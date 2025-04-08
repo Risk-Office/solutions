@@ -1,7 +1,8 @@
 import React from "react";
 import type { RiskEventCardProps } from "~/types/risk-event";
 
-const RiskEventCard: React.FC<RiskEventCardProps> = ({ event, color }) => {
+const RiskEventCard: React.FC<RiskEventCardProps> = ({ event, color, onClick }) => {
+
   const truncatedDescription =
     event.description.length > 150
       ? `${event.description.substring(0, 150)}...`
@@ -9,13 +10,14 @@ const RiskEventCard: React.FC<RiskEventCardProps> = ({ event, color }) => {
 
   return (
     <div
-    className="bg-gray"
+    className="bg-gray cursor-pointer hover:shadow-lg transition-shadow duration-200 ease-in-out"
       style={{
         borderLeft: `10px solid ${color}`,
         padding: "1rem",
         borderRadius: "10px",
         boxShadow: "0 1px 1px rgba(0,0,0,0.1)",
       }}
+       onClick={onClick}
     >
       <h3 className="text-lg bg-gray font-semibold">{event.title}</h3>
 

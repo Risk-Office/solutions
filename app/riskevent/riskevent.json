@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Fire at Costco Business, Mundoon",
-        "description": "Semiconductor giant AMD (Advanced Micro Devices) has announced a new partnership with Costco Business to provide exclusive discounts on AMD products for Costco members. This partnership aims to enhance the shopping experience for Costco members by offering them access to cutting-edge technology at competitive prices.",
+         "description": "Semiconductor giant AMD (Advanced Micro Devices) has announced a new partnership with Costco Business to provide exclusive discounts on AMD products for Costco members. This partnership aims to enhance the shopping experience for Costco members by offering them access to cutting-edge technology at competitive prices.\n\nThe collaboration will include special promotions on AMD processors, graphics cards, and other hardware, making it easier for businesses to upgrade their systems. Costco Business members can expect to see these exclusive offers in the coming weeks, as both companies work together to deliver value and innovation to their customers.",
         "date": "01 October, 2023",
         "status": "critical",
         "time": "2 years"
@@ -36,7 +36,7 @@
         "title": "Mysterious Respiratory Illness Outbreak in Nairobi",
         "description": "WHO investigates unknown pathogen causing pneumonia-like symptoms in 300+ patients. Borders closed as vaccine development accelerates. Global health authorities on high alert.",
         "date": "04 December, 2023",
-        "status": "emergency",
+        "status": "low",
         "time": "2 weeks"
     },
     {
@@ -52,7 +52,7 @@
         "title": "Volcanic Eruption Disrupts Pacific Flights",
         "description": "Mount Sakurajima eruption grounds 600+ flights across Asia. Ash cloud reaches 50,000 feet, affecting climate monitoring satellites. Local residents face long-term evacuation.",
         "date": "09 June, 2024",
-        "status": "severe",
+        "status": "insignificant",
         "time": "1 week"
     },
     {
@@ -68,7 +68,7 @@
         "title": "Toxic Spill Contaminates Danube River",
         "description": "Industrial accident in Hungary releases 40,000 liters of cyanide compounds. Drinking water emergency declared for 2 million people. EU activates crisis response team.",
         "date": "27 February, 2024",
-        "status": "emergency",
+        "status": "low",
         "time": "3 days"
     },
     {
@@ -86,14 +86,6 @@
         "date": "12 April, 2024",
         "status": "high",
         "time": "48 hours"
-    },
-    {
-        "id": 12,
-        "title": "Massive Oil Spill in the Gulf of Mexico",
-        "description": "A tanker collision releases millions of gallons of oil into the Gulf, threatening wildlife and coastal economies. Environmental agencies declare a state of emergency.",
-        "date": "15 February, 2024",
-        "status": "severe",
-        "time": "72 hours"
     },
     {
         "id": 13,
@@ -124,7 +116,7 @@
         "title": "Outbreak of Ebola in West Africa",
         "description": "The WHO confirms an Ebola outbreak in Guinea, with dozens of cases reported. Travel restrictions and quarantine zones are implemented to contain the spread.",
         "date": "25 January, 2024",
-        "status": "emergency",
+        "status": "medium",
         "time": "1 week"
     },
     {
@@ -132,7 +124,7 @@
         "title": "Amazon Rainforest Faces Massive Wildfires",
         "description": "Fires rage across the Amazon, threatening biodiversity and contributing to a surge in global carbon emissions. Local and international organizations launch emergency response efforts.",
         "date": "18 August, 2024",
-        "status": "severe",
+        "status": "low",
         "time": "2 weeks"
     },
     {
@@ -148,7 +140,7 @@
         "title": "Drought Devastates Central Africa's Agriculture",
         "description": "A prolonged drought devastates crops in Central Africa, leading to widespread food shortages and a humanitarian crisis. Relief efforts are underway to mitigate the impacts.",
         "date": "22 September, 2024",
-        "status": "emergency",
+        "status": "medium",
         "time": "1 month"
     },
     {

@@ -10,4 +10,5 @@ export type RiskEvent = {
 export type RiskEventCardProps = {
   event: RiskEvent;
   color: string;
+  onClick?: () => void;
 };
