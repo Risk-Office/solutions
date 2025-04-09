@@ -16,7 +16,7 @@ export interface RiskCardProps {
   date: string;
   imageUrl: string;
   timeHorizon: string;
-  severity: 'Critical' | 'High' | 'Medium' | 'Low';
+  severity: 'Critical' | 'High' | 'Medium' | 'Low' | 'Insignificant';
   showFull?: boolean;
 }
 
@@ -56,13 +56,16 @@ export const RiskCard: React.FC<RiskCardProps & { onClick: () => void }> = ({
       bar: 'bg-red-500',
     },
     High: {
-      bar: 'bg-amber-500',
+      bar: 'bg-amber-600',
     },
     Medium: {
-      bar: 'bg-green-500',
+      bar: 'bg-yellow-400',
     },
     Low: {
-      bar: 'bg-blue-500',
+      bar: 'bg-cyan-500',
+    },
+    Insignificant: {
+      bar: 'bg-green-500',
     },
     Default: {
       bar: 'bg-gray-400',
