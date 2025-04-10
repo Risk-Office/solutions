@@ -3,7 +3,7 @@ import { ArrowLeft, Share2, ClipboardList, Flag, MessageSquareQuote, TrendingDow
 import { Button } from "~/components/ui/button";
 import Modal from "~/components/ui/modal";
 import type { ModalSize } from "~/components/ui/modal";
-import { HelpUsImproveModal, ShareModal, ExportModal, FeedbackModal } from "~/components/ui/modals";
+import { HelpUsImproveModal, ShareModal, ExportModal, FeedbackModal, FlaggedForReviewModal } from "~/components/ui/modals";
 
 import Yes from '~/assets/png/yes-thumbs.png'
 import No from '~/assets/png/no-thumbs.png'
@@ -57,6 +57,7 @@ const TrendDetails: React.FC<TrendDetailsProps> = ({
     const [isHelpUsImproveModalOpen, setIsHelpUsImproveModalOpen] = useState(false);
     const [modalSize, setModalSize] = useState<ModalSize>('default');
     const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+    // const [isFlagModalOpen, setIsFlagModalOpen] = useState(false)
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -267,17 +268,7 @@ const TrendDetails: React.FC<TrendDetailsProps> = ({
                 title="Export to Risk Register"
             />
 
-            <Modal
-                isOpen={isFlagModalOpen}
-                onClose={() => setIsFlagModalOpen(false)}
-                title="Flag for Review"
-                size={modalSize}
-            >
-                <div className="pb-4">
-                    <p className='text-xs text-gray-700 italic'>Please provide details about why this trend needs review.</p>
-                    {/* Add flagging form here */}
-                </div>
-            </Modal>
+            <FlaggedForReviewModal isOpen={isFlagModalOpen} onClose={() => setIsFlagModalOpen(false)} />
 
             <FeedbackModal
                 isOpen={isFeedbackModalOpen}

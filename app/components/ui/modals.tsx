@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { Button } from './button';
 import Modal from './modal';
 import type { ModalSize } from './modal';
@@ -252,6 +253,7 @@ export const SubscribeToExportModal: React.FC<CommonModalProps> = ({ isOpen, onC
 };
 
 export const HelpUsImproveModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => {
+    const navigate = useNavigate();
     return (
         <Modal
             isOpen={isOpen}
@@ -264,7 +266,9 @@ export const HelpUsImproveModal: React.FC<CommonModalProps> = ({ isOpen, onClose
                 <p className="text-center text-gray-600">
                     Your feedback helps us provide better insights tailored to your needs.
                 </p>
-                <Button variant="default" className="w-full" onClick={onClose}>
+                <Button variant="default" className="w-full" onClick={() => {
+                    navigate('/insight')
+                }}>
                     Tell us more
                 </Button>
             </div>
