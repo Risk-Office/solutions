@@ -11,6 +11,7 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useViewState } from "~/store/viewState";
+import { useState } from "react";
 
 const tabs = [
   {
@@ -31,6 +32,7 @@ const tabs = [
 const DashboardEntry = () => {
   const currentTab = useTabChange((state) => state.value);
   const isViewingDetails = useViewState((state) => state.isViewingDetails);
+  const [activeTab, setActiveTab] = useState(tabs[0].value);
 
   switch (currentTab) {
     case 1: {
@@ -46,6 +48,7 @@ const DashboardEntry = () => {
           <Tabs
             defaultValue={tabs[0].value}
             className="w-full bg-transparent h-full grid grid-cols-1 md:grid-cols-[1fr_23rem] 2xl:grid-cols-[1fr_26rem] gap-2"
+            onValueChange={setActiveTab}
           >
             {!isViewingDetails && (
               <div className="w-full">
@@ -73,7 +76,7 @@ const DashboardEntry = () => {
                 <div className="flex flex-row items-center gap-4 bg-white rounded-lg w-full h-full max-h-[3.75rem] py-2 px-4 border border-deepGray mb-4">
                   <div className="flex-1 flex flex-row items-center gap-2 border border-deepGray rounded-lg p-1">
                     <Input
-                      placeholder="Search for Statements/Actions"
+                      placeholder={`Search for ${tabs.find(tab => tab.value === activeTab)?.name}`}
                       className="placeholder:text-primary"
                     />
 
