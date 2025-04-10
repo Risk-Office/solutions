@@ -5,6 +5,7 @@ import { FlaggedForReviewModal, SubscribeToExportModal } from './modals';
 import Strong from '../../assets/png/strong.png';
 
 interface TrendCardProps {
+  id: string;
   title: string;
   tags: string[];
   description: string;
@@ -12,19 +13,22 @@ interface TrendCardProps {
   likelihood: string;
   impactSeverity: 'Critical' | 'High' | 'Medium' | 'Low' | 'Insignificant';
   signal: 'Strong' | 'Moderate' | 'Weak';
+  onClick: () => void;
 }
 
 const TrendCard: React.FC<TrendCardProps> = ({
+  id,
   title,
   tags,
   description,
   detectedDate,
   likelihood,
   impactSeverity,
-  signal
+  signal,
+  onClick
 }) => {
-  const [showFlagModal, setShowFlagModal] = useState(false);
-  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
+  const [isFlagModalOpen, setIsFlagModalOpen] = useState(false);
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
   const severityColorMap = {
     Critical: 'bg-red-500',
@@ -34,11 +38,24 @@ const TrendCard: React.FC<TrendCardProps> = ({
     Insignificant: 'bg-green-500'
   };
 
+  const handleFlagClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsFlagModalOpen(true);
+  };
+
+  const handleExportClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsExportModalOpen(true);
+  };
+
   return (
     <>
       <div className="bg-white rounded-lg p-4 border border-deepGray">
         <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-1 border-b border-gray-200 pb-2 justify-between">
+          <div 
+            className="flex items-center gap-1 border-b border-gray-200 pb-2 justify-between top-div cursor-pointer" 
+            onClick={onClick}
+          >
             <div>
               <h3 className="text-lg font-semibold flex-1">{title}</h3>
 
@@ -59,8 +76,6 @@ const TrendCard: React.FC<TrendCardProps> = ({
             
             <img src={Strong} alt="Strong" className='w-16' />
           </div>
-
-          
 
           <p className="text-sm text-gray-600">{description}</p>
 
@@ -86,15 +101,15 @@ const TrendCard: React.FC<TrendCardProps> = ({
           <div className="flex items-center justify-between gap-1 mt-2">
             <Button
               variant="default"
-              onClick={() => setShowFlagModal(true)}
               className='text-[11px]'
+              onClick={handleFlagClick}
             >
               FLAG FOR REVIEW
             </Button>
             <Button
               variant="default"
-              onClick={() => setShowSubscribeModal(true)}
               className='text-[11px]'
+              onClick={handleExportClick}
             >
               EXPORT TO RISK REGISTER
             </Button>
@@ -103,13 +118,13 @@ const TrendCard: React.FC<TrendCardProps> = ({
       </div>
 
       <FlaggedForReviewModal
-        isOpen={showFlagModal}
-        onClose={() => setShowFlagModal(false)}
+        isOpen={isFlagModalOpen}
+        onClose={() => setIsFlagModalOpen(false)}
       />
 
       <SubscribeToExportModal
-        isOpen={showSubscribeModal}
-        onClose={() => setShowSubscribeModal(false)}
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
       />
     </>
   );

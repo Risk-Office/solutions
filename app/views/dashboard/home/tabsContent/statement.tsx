@@ -135,8 +135,8 @@ const StatementAndAction = () => {
   }
 
   return (
-    <div className="flex flex-row gap-2 w-full h-full">
-      <div className="flex-[0.65] flex flex-col items-stretch overflow-hidden h-full">
+    <div className="grid grid-cols-1 md:grid-cols-[1fr_23rem] 2xl:grid-cols-[1fr_26rem] gap-2 w-full h-full">
+      <div className="flex flex-col items-stretch overflow-hidden h-full">
         {/* <div className="flex flex-row items-center gap-4 bg-white rounded-lg w-full h-full max-h-[3.75rem] py-2 px-4 border border-deepGray mb-4">
           <div className="flex-1 flex flex-row items-center gap-2 border border-deepGray rounded-lg p-1">
             <Input
@@ -167,7 +167,7 @@ const StatementAndAction = () => {
         </div>
       </div>
 
-      <div className="flex-[0.35] flex flex-col items-stretch h-full overflow-auto">
+      <div className="flex flex-col items-stretch h-full overflow-auto">
         <div className="flex flex-col gap-5 w-full">
           <div className="flex flex-col gap-5 w-full bg-white py-2 px-4 rounded-lg max-h-[60vh] overflow-y-auto">
             <span className="text-lg font-bold text-left">

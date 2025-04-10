@@ -42,35 +42,57 @@ const DashboardEntry = () => {
 
     default: {
       return (
-        <div className="flex flex-row gap-2 w-full p-4 relative items-stretch h-full">
+        <div className="w-full p-4 relative h-full">
           <Tabs
             defaultValue={tabs[0].value}
-            className="w-full bg-transparent h-full flex flex-col"
+            className="w-full bg-transparent h-full grid grid-cols-1 md:grid-cols-[1fr_23rem] 2xl:grid-cols-[1fr_26rem] gap-2"
           >
             {!isViewingDetails && (
-              <div className="flex flex-row gap-2 w-full">
-                <div className="flex-[0.65]">
-                  <TabsList
-                    style={{
-                      gridTemplateColumns: tabs.map((_tab) => "1fr").join(" "),
-                    }}
-                    className="grid place-content-center gap-2 w-full px-6 py-4 border h-full max-h-[3.75rem] border-deepGray bg-white rounded-lg"
-                  >
-                    {tabs.map((tab) => (
-                      <TabsTrigger
-                        key={tab.value}
-                        value={tab.value}
-                        className="text-base font-semibold py-2 rounded-[0.625rem]"
-                      >
-                        {tab.name}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </div>
+              <div className="w-full">
+                <TabsList
+                  style={{
+                    gridTemplateColumns: tabs.map((_tab) => "1fr").join(" "),
+                  }}
+                  className="grid place-content-center gap-2 w-full px-6 py-4 border h-full max-h-[3.75rem] border-deepGray bg-white rounded-lg"
+                >
+                  {tabs.map((tab) => (
+                    <TabsTrigger
+                      key={tab.value}
+                      value={tab.value}
+                      className="text-base font-semibold py-2 rounded-[0.625rem]"
+                    >
+                      {tab.name}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
               </div>
             )}
 
-            <div className={`flex-1 ${!isViewingDetails ? "mt-4" : ""}`}>
+            {!isViewingDetails && (
+              <div>
+                <div className="flex flex-row items-center gap-4 bg-white rounded-lg w-full h-full max-h-[3.75rem] py-2 px-4 border border-deepGray mb-4">
+                  <div className="flex-1 flex flex-row items-center gap-2 border border-deepGray rounded-lg p-1">
+                    <Input
+                      placeholder="Search for Statements/Actions"
+                      className="placeholder:text-primary"
+                    />
+
+                    <Button className="w-9 h-8 rounded-lg">
+                      <Search />
+                    </Button>
+                  </div>
+                  <Button
+                    variant={"text"}
+                    className="rounded-lg border border-deepGray"
+                  >
+                    <SlidersHorizontal strokeWidth={"3px"} />
+                  </Button>
+                </div>
+              </div>
+            )}
+            
+
+            <div className={`col-span-2`}>
               {tabs.map((tab) => (
                 <TabsContent
                   key={tab.value}
@@ -83,26 +105,7 @@ const DashboardEntry = () => {
             </div>
           </Tabs>
 
-          {/* <div className="">
-            <div className="flex flex-row items-center gap-4 bg-white rounded-lg w-full h-full max-h-[3.75rem] py-2 px-4 border border-deepGray mb-4">
-              <div className="flex-1 flex flex-row items-center gap-2 border border-deepGray rounded-lg p-1">
-                <Input
-                  placeholder="Search for Statements/Actions"
-                  className="placeholder:text-primary"
-                />
-
-                <Button className="w-9 h-8 rounded-lg">
-                  <Search />
-                </Button>
-              </div>
-              <Button
-                variant={"text"}
-                className="rounded-lg border border-deepGray"
-              >
-                <SlidersHorizontal strokeWidth={"3px"} />
-              </Button>
-            </div>
-          </div> */}
+          
         </div>
       );
     }

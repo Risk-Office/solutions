@@ -1,12 +1,11 @@
-import React from "react";
 import { trackingItems, updateItems } from "~/data/tracking";
 import { Button } from "~/components/ui/button";
 
 const Tracking = () => {
   return (
-    <div className="flex flex-row gap-2 w-full h-full">
+    <div className="grid grid-cols-1 md:grid-cols-[1fr_23rem] 2xl:grid-cols-[1fr_26rem] gap-2 w-full h-full">
       {/* Left side - Table */}
-      <div className="flex-[0.65] flex flex-col items-stretch overflow-hidden h-full">
+      <div className="flex flex-col items-stretch overflow-hidden h-full">
         <div className="w-full bg-white rounded-lg h-full overflow-y-auto">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -37,10 +36,15 @@ const Tracking = () => {
       </div>
 
       {/* Right side - Updates */}
-      <div className="flex-[0.35] flex flex-col items-stretch h-full overflow-auto">
+      <div className="bg-white p-3 rounded-lg flex flex-col items-stretch h-full overflow-auto">
+        <div className="flex items-center justify-between">
+        <h1>Fire at Costco Moondoor</h1>
+
+        <Button variant="text" className="text-sm text-primary">Updates</Button>
+        </div>
         <div className="flex flex-col gap-4">
           {updateItems.map((update) => (
-            <div key={update.id} className="bg-white rounded-lg p-4">
+            <div key={update.id} className="border border-gray-200 rounded-lg p-4">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-start">
                   <h3 className="text-lg font-semibold">{update.title}</h3>

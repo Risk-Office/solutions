@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TrendCard from '~/components/ui/trend-card';
 import { trends } from '~/data/trends';
+import TrendDetails from './trendDetails';
+import { useViewState } from '~/store/viewState';
 
 const Trends = () => {
+  const [selectedTrend, setSelectedTrend] = useState<any>(null);
+  const setIsViewingDetails = useViewState((state) => state.setIsViewingDetails);
+
+  useEffect(() => {
+    setIsViewingDetails(!!selectedTrend);
+    return () => {
+      setIsViewingDetails(false);
+    };
+  }, [selectedTrend, setIsViewingDetails]);
+
+  const handleBack = () => {
+    setSelectedTrend(null);
+  };
+
+  if (selectedTrend) {
+    return <TrendDetails {...selectedTrend} onBack={handleBack} />;
+  }
+
   const criticalTrends = trends.filter(trend => trend.impactSeverity === 'Critical');
   const highTrends = trends.filter(trend => trend.impactSeverity === 'High');
   const mediumTrends = trends.filter(trend => trend.impactSeverity === 'Medium');
@@ -15,7 +35,9 @@ const Trends = () => {
           <hr className='border-t border-gray-200 my-2' />
           <div className="px-2 space-y-4">
             {criticalTrends.map(trend => (
-              <TrendCard key={trend.id} {...trend} />
+              <div key={trend.id}>
+                <TrendCard {...trend} onClick={() => setSelectedTrend(trend)} />
+              </div>
             ))}
           </div>
         </div>
@@ -25,7 +47,9 @@ const Trends = () => {
           <hr className='border-t border-gray-200 my-2' />
           <div className="px-2 space-y-4">
             {highTrends.map(trend => (
-              <TrendCard key={trend.id} {...trend} />
+              <div key={trend.id}>
+                <TrendCard {...trend} onClick={() => setSelectedTrend(trend)} />
+              </div>
             ))}
           </div>
         </div>
@@ -35,7 +59,9 @@ const Trends = () => {
           <hr className='border-t border-gray-200 my-2' />
           <div className="px-2 space-y-4">
             {mediumTrends.map(trend => (
-              <TrendCard key={trend.id} {...trend} />
+              <div key={trend.id}>
+                <TrendCard {...trend} onClick={() => setSelectedTrend(trend)} />
+              </div>
             ))}
           </div>
         </div>

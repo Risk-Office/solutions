@@ -4,20 +4,9 @@ import { Button } from "~/components/ui/button";
 import { RiskCard } from "./statement";
 import Modal from "~/components/ui/modal";
 import type { ModalSize } from "~/components/ui/modal";
-import { RequestReceivedModal, ShareThoughtModal } from "~/components/ui/modals";
+import { RequestReceivedModal, ShareModal, ExportModal, FeedbackModal } from "~/components/ui/modals";
 
 // images
-import Link from '~/assets/png/logos/link.png'
-import LinkedIn from '~/assets/png/logos/linkedin.png'
-import X from '~/assets/png/logos/x.png'
-import Facebook from '~/assets/png/logos/facebook.png'
-import Email from '~/assets/png/logos/mail.png'
-import Whatsapp from '~/assets/png/logos/whatsapp.png'
-import Skype from '~/assets/png/logos/skype.png'
-import Slack from '~/assets/png/logos/slack.png'
-
-import Adobe from '~/assets/png/logos/adobe-pdf.png'
-import PNG from '~/assets/png/logos/png.png'
 
 import Yes from '~/assets/png/yes-thumbs.png'
 import No from '~/assets/png/no-thumbs.png'
@@ -69,7 +58,7 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
-  const [isShareThoughtModalOpen, setIsShareThoughtModalOpen] = useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [modalSize, setModalSize] = useState<ModalSize>('default');
 
   const openModal = (size: ModalSize = 'default') => {
@@ -80,11 +69,6 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
   const openExportModal = (size: ModalSize = 'default') => {
     setModalSize(size);
     setIsExportModalOpen(true);
-  };
-
-  const openShareThoughtModal = (size: ModalSize = 'default') => {
-    setModalSize(size);
-    setIsShareThoughtModalOpen(true);
   };
 
   return (
@@ -100,8 +84,8 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
         </Button>
       </div>
 
-      <div className="flex flex-row gap-2 w-full h-full">
-        <div className="flex-[0.65] flex flex-col space-y-4 items-stretch overflow-hidden h-full">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_23rem] 2xl:grid-cols-[1fr_26rem] gap-2 items-start w-full h-full">
+        <div className="flex flex-col space-y-4 items-stretch overflow-hidden">
 
           <div className="space-y-4 w-full bg-white rounded-lg h-full py-6 px-6 overflow-y-auto">
             <h1 className="text-xl font-bold">Statement and Action</h1>
@@ -188,7 +172,7 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
           </div>
         </div>
 
-        <div className="flex-[0.35] flex flex-col items-stretch h-full">
+        <div className="flex flex-col items-stretch h-full">
           <div className="flex flex-col gap-5 w-full">
             <div className="flex flex-col gap-4 w-full bg-white py-4 px-4 rounded-lg">
               <div className="flex items-center justify-between">
@@ -271,8 +255,18 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
                 <div className="p-2 text-center">
                   <h1 className="text-sm font-semibold mb-3">Was this insight useful?</h1>
                   <div className="flex items-center justify-center gap-2">
-                    <img src={Yes} onClick={() => setIsShareThoughtModalOpen(true)} alt="Yes" className="w-13" />
-                    <img src={No} onClick={() => setIsShareThoughtModalOpen(true)} alt="No" className="w-13" />
+                    <img 
+                      src={Yes} 
+                      onClick={() => setIsFeedbackModalOpen(true)} 
+                      alt="Yes" 
+                      className="w-13 cursor-pointer" 
+                    />
+                    <img 
+                      src={No} 
+                      onClick={() => setIsFeedbackModalOpen(true)} 
+                      alt="No" 
+                      className="w-13 cursor-pointer" 
+                    />
                   </div>
                 </div>
               </div>
@@ -282,76 +276,20 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
       </div>
 
       {/* Modals */}
-      <Modal
+      <ShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
         title="Share this insight"
-        size={modalSize}
-      >
-        <div className="pb-4">
-          <p className='text-xs text-gray-700 italic'>Choose how you want to share this information with your team or network.</p>
-          
-          <div className="mt-6 mb-2 grid grid-cols-2 items-center gap-4 bg-gray-50 px-2 py-2 rounded-lg w-[90%] mx-auto">
-            <div>
-              <p className="text-sm italic">US Department of Labor, State Labor Departments</p>
-              <h1 className="text-lg font-semibold mt-3">Changes in Minimum Wage Law</h1>
-            </div>
-            <div>
-              <img src="https://images.unsplash.com/photo-1557804506-e969d7b32a4b" alt="article placeholder image" className="w-full rounded-sm"/>
-            </div>
-          </div>
+        source={source}
+        articleTitle={title}
+        imageUrl={imageUrl}
+      />
 
-          <div className="grid grid-cols-4 gap-3 w-[85%] mx-auto">
-            {[
-              { image: Link, text: 'Copy Link' },
-              { image: LinkedIn, text: 'LinkedIn' },
-              { image: X, text: 'X' },
-              { image: Facebook, text: 'Facebook' },
-              { image: Email, text: 'Email' },
-              { image: Whatsapp, text: 'WhatsApp' },
-              { image: Skype, text: 'Skype' },
-              { image: Slack, text: 'Slack' }
-            ].map((item, index) => (
-              <button
-                key={index}
-                className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <img src={item.image} alt={item.text} className="w-8 h-8" />
-                <span className="text-xs text-gray-600">{item.text}</span>
-              </button>
-            ))}
-
-          </div>
-        </div>
-      </Modal>
-
-      <Modal
+      <ExportModal
         isOpen={isExportModalOpen}
         onClose={() => setIsExportModalOpen(false)}
         title="Choose your export format"
-        size={modalSize}
-      >
-        <div className="pb-4">
-          <p className='text-xs text-gray-700 italic'>Select the file format that best suits your needs.</p>
-
-          <div className="flex space-x-3 justify-center items-center w-[85%] mx-auto mt-6">
-            {[
-              { image: Adobe },
-              { image: PNG }
-            ].map((item, index) => (
-              <button key={index} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors">
-                <img src={item.image} alt="export format" className="w-[60px]" />
-              </button>
-            ))}
-
-          </div>
-
-          <div className="text-center">
-            <Button variant="default" className="w-[45%] mt-4 mx-auto uppercase font-semibold">Download</Button>
-          </div>
-        </div>
-
-      </Modal>
+      />
 
       {isRequestModalOpen && (
         <RequestReceivedModal
@@ -360,12 +298,10 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
         />
       )}
 
-      {isShareThoughtModalOpen && (
-        <ShareThoughtModal
-          isOpen={isShareThoughtModalOpen}
-          onClose={() => setIsShareThoughtModalOpen(false)}
-        />
-      )}
+      <FeedbackModal
+        isOpen={isFeedbackModalOpen}
+        onClose={() => setIsFeedbackModalOpen(false)}
+      />
     </div>
   );
 };

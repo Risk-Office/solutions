@@ -6,10 +6,33 @@ import ThumbsUp from '~/assets/png/thumbs-up.png';
 import Spinner from '~/assets/png/spinner.png';
 import Integr8 from '~/assets/png/integr8.png';
 
+// Import sharing and export icons
+import Link from '~/assets/png/logos/link.png';
+import LinkedIn from '~/assets/png/logos/linkedin.png';
+import X from '~/assets/png/logos/x.png';
+import Facebook from '~/assets/png/logos/facebook.png';
+import Email from '~/assets/png/logos/mail.png';
+import Whatsapp from '~/assets/png/logos/whatsapp.png';
+import Skype from '~/assets/png/logos/skype.png';
+import Slack from '~/assets/png/logos/slack.png';
+import Adobe from '~/assets/png/logos/adobe-pdf.png';
+import PNG from '~/assets/png/logos/png.png';
+
 interface CommonModalProps {
     isOpen: boolean;
     onClose: () => void;
     size?: ModalSize;
+}
+
+interface ShareModalProps extends CommonModalProps {
+    title: string;
+    source?: string;
+    articleTitle?: string;
+    imageUrl?: string;
+}
+
+interface ExportModalProps extends CommonModalProps {
+    title: string;
 }
 
 export const PreferencesSavedModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => (
@@ -70,24 +93,88 @@ export const ThankYouFeedbackModal: React.FC<CommonModalProps> = ({ isOpen, onCl
     </div>
 );
 
-export const ShareThoughtModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => (
+export const ShareModal: React.FC<ShareModalProps> = ({ 
+    isOpen, 
+    onClose, 
+    title,
+    source,
+    articleTitle,
+    imageUrl
+}) => (
     <Modal
         isOpen={isOpen}
         onClose={onClose}
-        title="Share Your Thoughts on This Insight"
+        title={title}
         size="default"
     >
-        <div className="p-4">
-            <p className="text-sm text-gray-600 mb-4">
-                Help us improve your experience by sharing your thoughts. Let us know your feedback!
-            </p>
-            <textarea
-                className="w-full h-32 p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Write your thoughts here..."
-            />
-            <div className="flex justify-end mt-4 space-x-2">
-                <Button variant="text" onClick={onClose}>DISMISS</Button>
-                <Button>SUBMIT</Button>
+        <div className="pb-4">
+            <p className='text-xs text-gray-700 italic'>Choose how you want to share this information with your team or network.</p>
+            
+            {source && articleTitle && (
+                <div className="mt-6 mb-2 grid grid-cols-2 items-center gap-4 bg-gray-50 px-2 py-2 rounded-lg w-[90%] mx-auto">
+                    <div>
+                        <p className="text-sm italic">{source}</p>
+                        <h1 className="text-lg font-semibold mt-3">{articleTitle}</h1>
+                    </div>
+                    {imageUrl && (
+                        <div>
+                            <img src={imageUrl} alt="article placeholder image" className="w-full rounded-sm"/>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            <div className="grid grid-cols-4 gap-3 w-[85%] mx-auto">
+                {[
+                    { image: Link, text: 'Copy Link' },
+                    { image: LinkedIn, text: 'LinkedIn' },
+                    { image: X, text: 'X' },
+                    { image: Facebook, text: 'Facebook' },
+                    { image: Email, text: 'Email' },
+                    { image: Whatsapp, text: 'WhatsApp' },
+                    { image: Skype, text: 'Skype' },
+                    { image: Slack, text: 'Slack' }
+                ].map((item, index) => (
+                    <button
+                        key={index}
+                        className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors"
+                    >
+                        <img src={item.image} alt={item.text} className="w-8 h-8" />
+                        <span className="text-xs text-gray-600">{item.text}</span>
+                    </button>
+                ))}
+            </div>
+        </div>
+    </Modal>
+);
+
+export const ExportModal: React.FC<ExportModalProps> = ({ 
+    isOpen, 
+    onClose, 
+    title 
+}) => (
+    <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title={title}
+        size="default"
+    >
+        <div className="pb-4">
+            <p className='text-xs text-gray-700 italic'>Select the file format that best suits your needs.</p>
+
+            <div className="flex space-x-3 justify-center items-center w-[85%] mx-auto mt-6">
+                {[
+                    { image: Adobe },
+                    { image: PNG }
+                ].map((item, index) => (
+                    <button key={index} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src={item.image} alt="export format" className="w-[60px]" />
+                    </button>
+                ))}
+            </div>
+
+            <div className="text-center">
+                <Button variant="default" className="w-[45%] mt-4 mx-auto uppercase font-semibold">Download</Button>
             </div>
         </div>
     </Modal>
@@ -163,3 +250,61 @@ export const SubscribeToExportModal: React.FC<CommonModalProps> = ({ isOpen, onC
         </div>
     );
 };
+
+export const HelpUsImproveModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => {
+    return (
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            title="Help us improve your insight"
+            size="default"
+        >
+            <div className="flex flex-col items-center gap-4 p-4">
+                <img src={ThumbsUp} alt="Thumbs up" className="w-16 h-16" />
+                <p className="text-center text-gray-600">
+                    Your feedback helps us provide better insights tailored to your needs.
+                </p>
+                <Button variant="default" className="w-full" onClick={onClose}>
+                    Tell us more
+                </Button>
+            </div>
+        </Modal>
+    );
+};
+
+export const FeedbackModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => (
+    <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title="Share Your Thoughts on This Insight"
+        size="default"
+    >
+        <div className="pb-4">
+            <p className='text-gray-600 mb-4'>Help us improve your experience by sharing your thoughts. Let us know your feedback!</p>
+            
+            <div className="mt-4">
+                <textarea 
+                    className="w-full p-4 border border-gray-200 rounded-lg resize-none h-[150px] focus:outline-none focus:ring-1 focus:ring-gray-300" 
+                    placeholder="Feedback"
+                />
+            </div>
+
+            <div className="flex justify-end gap-2 mt-4">
+                <Button 
+                    variant="text" 
+                    onClick={onClose}
+                    className="px-8"
+                >
+                    DISMISS
+                </Button>
+                <Button 
+                    variant="default"
+                    onClick={onClose}
+                    className="px-8 bg-[#0F172A]"
+                >
+                    SUBMIT
+                </Button>
+            </div>
+        </div>
+    </Modal>
+);
