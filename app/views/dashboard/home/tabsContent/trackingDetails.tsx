@@ -5,6 +5,7 @@ import Modal from "~/components/ui/modal";
 import type { ModalSize } from "~/components/ui/modal";
 import { RequestReceivedModal, ShareModal, ExportModal, FeedbackModal } from "~/components/ui/modals";
 import { RiskCard } from "./statement";
+import DraggableChat from '~/components/ui/draggablechat'
 
 // images
 import Yes from '~/assets/png/yes-thumbs.png';
@@ -121,6 +122,17 @@ const TrackingDetails: React.FC<TrackingDetailsProps> = ({
         }, 2000);
     };
 
+    //   Chat
+  const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
+  
+  const openChat = (): void => {
+    setIsChatOpen(true);
+  };
+  
+  const closeChat = (): void => {
+    setIsChatOpen(false);
+  };
+
     return (
         <div>
             <div className="mb-4">
@@ -151,7 +163,7 @@ const TrackingDetails: React.FC<TrackingDetailsProps> = ({
                                 </p>
                                 <Share2 onClick={() => openModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                                 <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                                <MessageSquareQuote size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                                <MessageSquareQuote onClick={openChat} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                                 <Bell size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                             </div>
 
@@ -453,6 +465,12 @@ const TrackingDetails: React.FC<TrackingDetailsProps> = ({
             <FeedbackModal
                 isOpen={isFeedbackModalOpen}
                 onClose={() => setIsFeedbackModalOpen(false)}
+            />
+
+            <DraggableChat 
+                isOpen={isChatOpen} 
+                onClose={closeChat}
+                initialPosition={{ x: window.innerWidth - 380, y: 100 }}
             />
         </div>
     );

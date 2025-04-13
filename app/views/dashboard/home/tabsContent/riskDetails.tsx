@@ -4,8 +4,8 @@ import { Button } from "~/components/ui/button";
 import { RiskCard } from "./statement";
 import Modal from "~/components/ui/modal";
 import type { ModalSize } from "~/components/ui/modal";
-import { RequestReceivedModal, ShareModal, ExportModal, FeedbackModal } from "~/components/ui/modals";
-
+import { RequestReceivedModal, ShareModal, ExportModal, AddNotesModal, FeedbackModal } from "~/components/ui/modals";
+import DraggableChat from '~/components/ui/draggablechat'
 // images
 
 import Yes from '~/assets/png/yes-thumbs.png'
@@ -59,7 +59,24 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [isAddNotesModalOpen, setIsAddNotesModalOpen] = useState(false)
   const [modalSize, setModalSize] = useState<ModalSize>('default');
+
+  const openNotesModal = (size: ModalSize = 'default') => {
+    setModalSize(size);
+    setIsAddNotesModalOpen(true)
+  }
+
+  //   Chat
+  const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
+  
+  const openChat = (): void => {
+    setIsChatOpen(true);
+  };
+  
+  const closeChat = (): void => {
+    setIsChatOpen(false);
+  };
 
   const openModal = (size: ModalSize = 'default') => {
     setModalSize(size);
@@ -106,8 +123,8 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
                   </p>
                   <Share2 onClick={() => openModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                   <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <MessageSquareQuote size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <Pen size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                  <MessageSquareQuote onClick={openChat} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                  <Pen onClick={() => openNotesModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                   <ClipboardList size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                 </div>
 
@@ -301,6 +318,17 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
       <FeedbackModal
         isOpen={isFeedbackModalOpen}
         onClose={() => setIsFeedbackModalOpen(false)}
+      />
+
+      <AddNotesModal
+        isOpen={isAddNotesModalOpen}
+        onClose={() => setIsAddNotesModalOpen(false)}
+      />
+
+      <DraggableChat 
+        isOpen={isChatOpen} 
+        onClose={closeChat}
+        initialPosition={{ x: window.innerWidth - 380, y: 100 }}
       />
     </div>
   );

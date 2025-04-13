@@ -4,7 +4,11 @@ import { Button } from "~/components/ui/button";
 import { RiskCard } from "./statement";
 import Modal from "~/components/ui/modal";
 import type { ModalSize } from "~/components/ui/modal";
+import { ArrowUp } from 'lucide-react'
 import { RequestReceivedModal, ShareModal, ExportModal, FeedbackModal, AddNotesModal } from "~/components/ui/modals";
+import DraggableChat from '~/components/ui/draggablechat'
+// import { Bar, BarChart } from "recharts"
+// import { ChartConfig, ChartContainer } from "~/components/ui/chart"
 
 // images
 
@@ -22,7 +26,16 @@ interface ArticlesDetailsProps {
   onBack: () => void;
 }
 
-
+// const chartConfig = {
+//   desktop: {
+//     label: "Desktop",
+//     color: "#2563eb",
+//   },
+//   mobile: {
+//     label: "Mobile",
+//     color: "#60a5fa",
+//   },
+// } satisfies ChartConfig
 
 const ArticlesDetails: React.FC<ArticlesDetailsProps> = ({
   title,
@@ -78,6 +91,27 @@ const ArticlesDetails: React.FC<ArticlesDetailsProps> = ({
     setIsAddNotesModalOpen(true)
   }
 
+    //   Chat
+  const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
+  
+  const openChat = (): void => {
+    setIsChatOpen(true);
+  };
+  
+  const closeChat = (): void => {
+    setIsChatOpen(false);
+  };
+
+  const chartData = [
+    { month: "January", desktop: 186, mobile: 80 },
+    { month: "February", desktop: 305, mobile: 200 },
+    { month: "March", desktop: 237, mobile: 120 },
+    { month: "April", desktop: 73, mobile: 190 },
+    { month: "May", desktop: 209, mobile: 130 },
+    { month: "June", desktop: 214, mobile: 140 },
+]
+
+
   return (
     <div>
       <div className="mb-4">
@@ -99,13 +133,13 @@ const ArticlesDetails: React.FC<ArticlesDetailsProps> = ({
             
             <div className="bg-white mt-3">
                 <div
-      style={{ backgroundImage: `url(${featuredImage})` }}
-      className="flex items-end justify-start bg-cover bg-no-repeat min-h-[15rem] w-full rounded-[0.6rem]"
-    >
-      <div className="flex items-center justify-center p-1 bg-gold min-h-[1.875rem] rounded-bl-[0.6rem] w-full max-w-[6rem]">
-        <span className="text-semibold text-sm">{category}</span>
-      </div>
-    </div>
+                    style={{ backgroundImage: `url(${featuredImage})` }}
+                    className="flex items-end justify-start bg-cover bg-no-repeat min-h-[15rem] w-full rounded-[0.6rem]"
+                >
+                    <div className="flex items-center justify-center p-1 bg-gold min-h-[1.875rem] rounded-bl-[0.6rem] w-full max-w-[6rem]">
+                        <span className="text-semibold text-sm">{category}</span>
+                    </div>
+                </div>
                 <div className="flex items-center justify-between">
                   <h2 className="text-md font-semibold mb-2">{title}</h2>
                   {/* <img src={imageUrl} alt={source} className="w-12 h-12 rounded-lg object-cover" /> */}
@@ -120,7 +154,7 @@ const ArticlesDetails: React.FC<ArticlesDetailsProps> = ({
                   </p>
                   <Share2 onClick={() => openModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                   <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <MessageSquareQuote size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                  <MessageSquareQuote onClick={openChat} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                   <Pen onClick={() => openNotesModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                   <ClipboardList size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                 </div>
@@ -142,6 +176,48 @@ const ArticlesDetails: React.FC<ArticlesDetailsProps> = ({
 
                 </div>
               </div>
+          </div>
+
+
+          <div className="grid grid-cols-1 md:grid-cols-[14rem_1fr] 2xl:grid-cols-[17rem_1fr] gap-4">
+            <div className="p-3 bg-white rounded-md">
+                <p className="text-lg text-center font-semibold">Your locations</p>
+
+                <div className="space-y-5 mt-3 text-center">
+                    <div>
+                        <div className="flex text-gray-700 items-center justify-center">
+                            <span className="text-2xl">8%</span>
+                            <ArrowUp />
+                        </div>
+                        <p className="text-md font-medium text-gray-500">Anchorage</p>
+                    </div>
+
+                    <div>
+                        <div className="flex text-gray-700 items-center justify-center">
+                            <span className="text-2xl">6%</span>
+                            <ArrowUp />
+                        </div>
+                        <p className="text-md font-medium text-gray-500">Tacoma</p>
+                    </div>
+
+                    <div>
+                        <div className="flex text-gray-700 items-center justify-center">
+                            <span className="text-2xl">2%</span>
+                            <ArrowUp />
+                        </div>
+                        <p className="text-md font-medium text-gray-500">Baltimore</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="p-3 bg-white rounded-md">
+                {/* <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <BarChart accessibilityLayer data={chartData}>
+        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+        <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+      </BarChart>
+    </ChartContainer> */}
+            </div>
           </div>
 
           {/* <div className="w-full bg-white rounded-lg h-full py-6 px-6 overflow-y-auto">
@@ -319,6 +395,12 @@ const ArticlesDetails: React.FC<ArticlesDetailsProps> = ({
       <AddNotesModal
         isOpen={isAddNotesModalOpen}
         onClose={() => setIsAddNotesModalOpen(false)}
+      />
+
+      <DraggableChat 
+        isOpen={isChatOpen} 
+        onClose={closeChat}
+        initialPosition={{ x: window.innerWidth - 380, y: 100 }}
       />
     </div>
   );

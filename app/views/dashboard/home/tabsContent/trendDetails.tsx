@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ArrowLeft, Share2, ClipboardList, Flag, MessageSquareQuote, TrendingDown } from "lucide-react";
+import { ArrowLeft, Share2, ClipboardList, Pen, Flag, MessageSquareQuote, TrendingDown } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import Modal from "~/components/ui/modal";
 import type { ModalSize } from "~/components/ui/modal";
-import { HelpUsImproveModal, ShareModal, ExportModal, FeedbackModal, FlaggedForReviewModal } from "~/components/ui/modals";
+import { HelpUsImproveModal, ShareModal, ExportModal, FeedbackModal, AddNotesModal, FlaggedForReviewModal } from "~/components/ui/modals";
+import DraggableChat from '~/components/ui/draggablechat'
 
 import Yes from '~/assets/png/yes-thumbs.png'
 import No from '~/assets/png/no-thumbs.png'
@@ -55,9 +56,26 @@ const TrendDetails: React.FC<TrendDetailsProps> = ({
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [isFlagModalOpen, setIsFlagModalOpen] = useState(false);
     const [isHelpUsImproveModalOpen, setIsHelpUsImproveModalOpen] = useState(false);
+    const [isAddNotesModalOpen, setIsAddNotesModalOpen] = useState(false)
     const [modalSize, setModalSize] = useState<ModalSize>('default');
     const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
     // const [isFlagModalOpen, setIsFlagModalOpen] = useState(false)
+
+    const openNotesModal = (size: ModalSize = 'default') => {
+    setModalSize(size);
+    setIsAddNotesModalOpen(true)
+  }
+
+    //   Chat
+  const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
+  
+  const openChat = (): void => {
+    setIsChatOpen(true);
+  };
+  
+  const closeChat = (): void => {
+    setIsChatOpen(false);
+  };
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -118,7 +136,8 @@ const TrendDetails: React.FC<TrendDetailsProps> = ({
                                 </div>
                                 <Share2 onClick={() => openModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                                 <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                                <MessageSquareQuote size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                                <MessageSquareQuote onClick={openChat} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                                <Pen onClick={() => openNotesModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                                 <Flag onClick={() => openFlagModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                             </div>
 
@@ -281,6 +300,17 @@ const TrendDetails: React.FC<TrendDetailsProps> = ({
                     onClose={() => setIsHelpUsImproveModalOpen(false)}
                 />
             )}
+
+            <AddNotesModal
+                isOpen={isAddNotesModalOpen}
+                onClose={() => setIsAddNotesModalOpen(false)}
+            />
+
+            <DraggableChat 
+                isOpen={isChatOpen} 
+                onClose={closeChat}
+                initialPosition={{ x: window.innerWidth - 380, y: 100 }}
+            />
         </div>
     );
 };
