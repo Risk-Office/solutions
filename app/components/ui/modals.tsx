@@ -312,3 +312,40 @@ export const FeedbackModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) =
         </div>
     </Modal>
 );
+
+export const AddNotesModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => (
+    <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title="Share Your Thoughts on This Insight"
+        size="default"
+    >
+        <div className="pb-4">
+            <p className='text-gray-600 mb-4'>Add your notes</p>
+            
+            <div className="mt-4">
+                <textarea 
+                    className="w-full p-4 border border-gray-200 rounded-lg resize-none h-[150px] focus:outline-none focus:ring-1 focus:ring-gray-300" 
+                    placeholder="Write down important details you want to remember about this"
+                />
+            </div>
+
+            <div className="flex justify-end gap-2 mt-4">
+                <Button 
+                    variant="text" 
+                    onClick={onClose}
+                    className="px-8"
+                >
+                    DISMISS
+                </Button>
+                <Button 
+                    variant="default"
+                    onClick={onClose}
+                    className="px-8 bg-[#0F172A]"
+                >
+                    SUBMIT
+                </Button>
+            </div>
+        </div>
+    </Modal>
+);

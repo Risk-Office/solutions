@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { Button } from "~/components/ui/button";
@@ -14,6 +14,8 @@ import featuredImage from "~/assets/png/dashboard-image.png";
 import articleImage from "~/assets/png/articles-image.png";
 import { SolutionTag } from "~/views/home";
 import { offeredSolutions } from "~/constants/solutions";
+import ArticlesDetails from "./articlesDetails"
+import { useViewState } from '~/store/viewState';
 
 const articlesArr = [
   {
@@ -51,44 +53,79 @@ const recommendedNews = [
   },
 ];
 
+const articles = [
+  {
+    id: 1,
+    category: "POLITICAL",
+    title: "Tax incentives for elderly care",
+    subtitle: "Tax incentives for elder care",
+    timeHorizon: "2years",
+    impactSeverity: "Critical",
+    description:
+      "Families caring for aging relatives may soon lose critical financial support as key tax incentives for elder care face elimination.",
+    featuredImage: featuredImage,
+  },
+];
+
 const NewsAndArticles = () => {
+  const [selectedArticle, setSelectedArticle] = useState<any>(null);
+  const setIsViewingDetails = useViewState((state) => state.setIsViewingDetails);
+
+  useEffect(() => {
+    setIsViewingDetails(!!selectedArticle);
+    return () => {
+      setIsViewingDetails(false);
+    };
+  }, [selectedArticle, setIsViewingDetails]);
+
+  const handleBack = () => {
+    setSelectedArticle(null);
+  };
+
+  if (selectedArticle) {
+    return <ArticlesDetails {...selectedArticle} onBack={handleBack} />;
+  }
+
   return (
     <div className="flex flex-row gap-2 w-full h-full">
       <div className="flex-[0.65] flex flex-col gap-5 w-full relative">
         <div className="flex flex-col gap-4 bg-white rounded-xl w-full px-[1.5rem] py-4">
           <span className="text-lg font-bold text-left">Featured</span>
 
-          <div
-            style={{ backgroundImage: `url(${featuredImage})` }}
-            className="flex items-end justify-start bg-cover bg-no-repeat min-h-[15rem] w-full rounded-[0.6rem]"
-          >
-            <div className="flex items-center justify-center p-1 bg-gold min-h-[1.875rem] rounded-bl-[0.6rem] w-full max-w-[6rem]">
-              <span className="text-semibold text-sm">POLITICAL</span>
-            </div>
-          </div>
+          {articles.map((article) => (
+  <div
+    key={article.id}
+    onClick={() => setSelectedArticle(article)}
+    className="cursor-pointer"
+  >
+    <div
+      style={{ backgroundImage: `url(${article.featuredImage})` }}
+      className="flex items-end justify-start bg-cover bg-no-repeat min-h-[15rem] w-full rounded-[0.6rem]"
+    >
+      <div className="flex items-center justify-center p-1 bg-gold min-h-[1.875rem] rounded-bl-[0.6rem] w-full max-w-[6rem]">
+        <span className="text-semibold text-sm">{article.category}</span>
+      </div>
+    </div>
 
-          <div className="flex flex-col w-full">
-            <div className="flex flex-col gap-2 w-full">
-              <span className="font-semibold text-base">
-                Tax incentives for elderly care
-              </span>
+    <div className="flex flex-col w-full">
+      <div className="flex flex-col gap-2 w-full">
+        <span className="font-semibold text-base">{article.title}</span>
 
-              <div className="flex flex-row items-center space-x-4 h-5 text-sm italic">
-                <span>Tax incentives for elder care</span>
-                <Separator orientation="vertical" className="bg-deepGray" />
-                <span>Time Horizon: 2years</span>
-                <Separator orientation="vertical" className="bg-deepGray" />
-                <span>Impact severity: Critical</span>
-              </div>
+        <div className="flex flex-row items-center space-x-4 h-5 text-sm italic">
+          <span>{article.subtitle}</span>
+          <Separator orientation="vertical" className="bg-deepGray" />
+          <span>Time Horizon: {article.timeHorizon}</span>
+          <Separator orientation="vertical" className="bg-deepGray" />
+          <span>Impact severity: {article.impactSeverity}</span>
+        </div>
 
-              <Separator className="my-1 bg-deepGray w-full max-w-[50%]" />
-            </div>
+        <Separator className="my-1 bg-deepGray w-full max-w-[50%]" />
+      </div>
 
-            <span>
-              Families caring for aging relatives may soon lose critical financial
-              support as key tax incentives for elder care face elimination.{" "}
-            </span>
-          </div>
+      <span>{article.description}</span>
+    </div>
+  </div>
+))}
         </div>
 
         <div className="flex flex-col gap-4 bg-white rounded-xl w-full px-[1.5rem] py-4">
