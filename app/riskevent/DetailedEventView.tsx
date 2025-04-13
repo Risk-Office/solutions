@@ -3,7 +3,14 @@ import { useState } from "react";
 import type { RiskEvent } from "~/types/risk-event";
 import { getColor } from "~/riskevent/getColor";
 import RiskEventCard from "./RiskEventCard";
-import { ArrowLeft, ClipboardList, FolderInput, MessagesSquare, Pencil, Share2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ClipboardList,
+  FolderInput,
+  MessagesSquare,
+  Pencil,
+  Share2,
+} from "lucide-react";
 import { Button } from "~/components/ui/button";
 
 const DetailedEventView: React.FC<{
@@ -28,33 +35,32 @@ const DetailedEventView: React.FC<{
       </button>
 
       {/* Event Details */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h1 className="text-2xl font-bold mb-4">{event.title}</h1>
-        <div className="bg-[#f7f7f7] p-4 rounded-lg mb-4">
-          <div className="flex gap-4 mb-6 text-gray-600">
-            <span className="pr-2 text-sm italic text-gray-950 border-r border-gray-300">{event.date}</span>
-            <Share2 className="pr-2 text-gray-950 border-r border-gray-300"/>
-            <FolderInput className="pr-2 text-gray-950 border-r border-gray-300"/>
-            <MessagesSquare className="pr-2 text-gray-950 border-r border-gray-300"/>
-            <Pencil className="pr-2 text-gray-950 border-r border-gray-300"/>
-            <ClipboardList className="pr-2 text-gray-950 border-r border-gray-300"/>
-            
+      <div className="bg-white dark:bg-[var(--inner-color)] p-6 rounded-lg shadow-sm">
+        <h1 className="text-2xl font-bold mb-4 dark:text-white">{event.title}</h1>
+        <div className="bg-gray dark:bg-[var(--nav-color)] p-4 rounded-lg mb-4">
+          <div className="flex gap-4 mb-6 text-primary dark:text-white">
+            <span className="pr-2 text-sm italic text-primary dark:text-white border-r dark:border-gray-600 border-gray-300">
+              {event.date}
+            </span>
+            <Share2 className="pr-2 text-primary dark:text-white dark:border-gray-600 border-r border-gray-300" />
+            <FolderInput className="pr-2 text-primary dark:text-white dark:border-gray-600 border-r border-gray-300" />
+            <MessagesSquare className="pr-2 text-primary dark:text-white dark:border-gray-600 border-r border-gray-300" />
+            <Pencil className="pr-2 text-primary dark:text-white dark:border-gray-600 border-r border-gray-300" />
+            <ClipboardList className="pr-2 text-primary dark:text-white dark:border-gray-600 border-r border-gray-300" />
           </div>
-          <div className="space-y-4">
-            {event.description.split('\n\n').map((paragraph, index) => (
-    <p key={index} className="text-gray-800 mb-4 last:mb-0">
-      {paragraph}
-    </p>
-  ))}
+          <div className="space-y-4 text-red-500">
+            {event.description.split("\n\n").map((paragraph, index) => (
+              <p key={index} className="text-primary dark:text-white mb-4 last:mb-0">
+                {paragraph}
+              </p>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Rating Card */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h2 className="text-xl mb-2">
-          Rate the impact of this incident
-        </h2>
+      <div className="bg-white dark:bg-[var(--inner-color)] p-6 rounded-lg shadow-sm">
+        <h2 className="text-xl mb-2 dark:text-white">Rate the impact of this incident</h2>
         <div className="flex gap-4 mb-6">
           {["critical", "high", "medium", "low", "insignificant"].map(
             (status) => (
@@ -73,7 +79,7 @@ const DetailedEventView: React.FC<{
                       : "transparent",
                 }}
               >
-                <span className="capitalize">{status}</span>
+                <span className="capitalize dark:text-white">{status}</span>
                 <div
                   className="w-4 h-4 rounded-sm"
                   style={{ backgroundColor: getColor(status) }}
@@ -84,11 +90,9 @@ const DetailedEventView: React.FC<{
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">
-              Comments
-            </label>
+            <label className="block text-sm font-medium mb-2 dark:text-white">Comments</label>
             <textarea
-              className="w-full p-2 border rounded-md resize-none"
+              className="w-full p-2 border dark:border-gray-300 rounded-md resize-none dark:placeholder:text-white"
               rows={2}
               placeholder="Tell us the reason why you rate this risk event"
             />
@@ -102,8 +106,8 @@ const DetailedEventView: React.FC<{
       </div>
 
       {/* Related Events */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h2 className="text-xl font-semibold mb-4">Related Risk Events</h2>
+      <div className="bg-white dark:bg-[var(--nav-color)] p-6 rounded-lg shadow-sm">
+        <h2 className="text-xl font-semibold mb-4 dark:text-white">Related Risk Events</h2>
         <div className="grid gap-4">
           {relatedEvents.map((relatedEvent) => (
             <RiskEventCard

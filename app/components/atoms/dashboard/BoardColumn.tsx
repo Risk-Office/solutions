@@ -17,7 +17,7 @@ const BoardColumn: React.FC<{
 
   return (
     <div className="bg-white shadow-sm w-80 flex-shrink-0 min-h-[12rem] rounded-lg overflow-hidden">
-      <div className="border-t-4 border-red-500 p-4">
+      <div className="border-t-8 border-primary p-4">
         {board.isEditing ? (
           <Input
             value={tempTitle}

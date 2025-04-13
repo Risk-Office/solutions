@@ -7,13 +7,22 @@ import {
   type DragStartEvent,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import { Plus, Calendar, Filter, ClipboardCheck } from "lucide-react";
+import {
+  Plus,
+  Filter,
+  ClipboardCheck,
+  ArrowLeft,
+  Kanban,
+  CalendarDays,
+} from "lucide-react";
 import { Button } from "~/components/ui/button";
 import CreateTaskModal from "~/components/atoms/dashboard/CreateTaskModal";
 import TaskCard from "~/components/atoms/dashboard/TaskCard";
 import BoardColumn from "~/components/atoms/dashboard/BoardColumn";
 import CalendarView from "~/components/atoms/dashboard/CalendarView";
+import TaskHistory from "~/components/atoms/dashboard/TaskHistory";
 import type { BoardType, TaskType } from "~/types/teamhubtypes";
+import TaskDetailsPage from "~/components/atoms/dashboard/TaskDetailsPage";
 
 const initialTasks: TaskType[] = [
   {
@@ -87,10 +96,36 @@ const MyTasksPage: React.FC = () => {
     TaskType["criticalLevel"] | "all"
   >("all");
   const [viewMode, setViewMode] = useState<"board" | "calendar">("board");
+  const [selectedTask, setSelectedTask] = useState<TaskType | null>(null);
+  const [showDetailsView, setShowDetailsView] = useState(false);
+  const [showTaskHistory, setShowTaskHistory] = useState(false);
 
+  // Function to toggle task history view
+  const toggleTaskHistory = () => {
+    setShowTaskHistory(!showTaskHistory);
+  };
+
+  // Filter tasks based on the selected critical level
   const filteredTasks = tasks.filter(
     (task) => filterLevel === "all" || task.criticalLevel === filterLevel
   );
+
+  // Function to handle task selection
+  const handleTaskSelect = (task: TaskType) => {
+    setSelectedTask(task);
+    setShowDetailsView(true);
+  };
+
+  // Function to handle back to board view
+  const handleBackToBoard = () => {
+    setShowDetailsView(false);
+    setSelectedTask(null);
+  };
+
+  // Function to close task history
+  const closeTaskHistory = () => {
+    setShowTaskHistory(false);
+  };
 
   const handleDragStart = (event: DragStartEvent) => {
     const task = tasks.find((t) => t.id === event.active.id);
@@ -280,119 +315,180 @@ const MyTasksPage: React.FC = () => {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <div className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-2">
-          <ClipboardCheck className="text-red-500" />
-          <h1 className="text-lg font-semibold">Tasks [{tasks.length}]</h1>
+      {showTaskHistory ? (
+        <div className="w-full">
+          <div className="mb-4">
+            <Button
+              onClick={closeTaskHistory}
+              variant="text"
+              className="flex items-center gap-1 text-red-500 "
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="font-semibold">Back</span>
+            </Button>
+          </div>
+          <TaskHistory onClose={closeTaskHistory} />
         </div>
-        <div className="flex items-center gap-4">
-          <div className="group flex items-center">
-            <button
-              onClick={() => setViewMode("board")}
-              className={`flex items-center gap-2 text-red-500 font-semibold px-2 py-1 rounded-l-lg ${
-                viewMode === "board"
-                  ? "bg-red-500 text-white"
-                  : "group-hover:bg-red-500 group-hover:text-white"
-              } transition-colors`}
+      ) : showDetailsView && selectedTask ? (
+        <div className="w-full">
+          <div className="mb-4">
+            <Button
+              onClick={handleBackToBoard}
+              variant="text"
+              className="flex items-center gap-1 text-red-500 "
             >
-              <ClipboardCheck className="w-5 h-5" /> Board
-            </button>
-            <button
-              onClick={handleAddBoard}
-              className="bg-gray-200 text-gray-600 px-2 py-1 rounded-r-lg group-hover:bg-red-500 group-hover:text-white transition-colors"
-            >
-              <Plus className="w-5 h-5" />
-            </button>
+              <ArrowLeft className="w-4 h-4" />
+              <span className="font-semibold">Back</span>
+            </Button>
           </div>
-          <button
-            onClick={() => setViewMode("calendar")}
-            className={`flex items-center gap-2 bg-white p-2 rounded-lg shadow-sm ${
-              viewMode === "calendar" ? "bg-red-500 text-black" : ""
-            }`}
-          >
-            <Calendar className="w-5 h-5" /> Calendar
-          </button>
-          <div className="flex items-center gap-1 bg-white p-2 rounded-lg shadow-sm">
-            <Filter className="w-4 h-4" /> Filter By
-            <select
-              value={filterLevel}
-              onChange={(e) =>
-                setFilterLevel(
-                  e.target.value as TaskType["criticalLevel"] | "all"
-                )
-              }
-              className="border-none outline-none bg-transparent"
-            >
-              <option value="all">All</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-              <option value="critical">Critical</option>
-              <option value="Insignificant">Insignificant</option>
-            </select>
-          </div>
-          <button className="bg-white p-2 rounded-lg shadow-sm">
-            Task History
-          </button>
-          <Button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-red-500 text-white hover:bg-red-600"
-          >
-            Create Task
-          </Button>
+          <TaskDetailsPage
+            task={selectedTask}
+            onClose={handleBackToBoard}
+            onUpdateStatus={handleUpdateTaskStatus}
+          />
         </div>
-      </div>
-
-      {/* Task Columns */}
-      {viewMode === "board" ? (
-        <DndContext
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          collisionDetection={closestCorners}
-        >
-          <div className="flex gap-4 overflow-x-auto pb-4">
-            {boards.map((board) => (
-              <BoardColumn
-                key={board.id}
-                board={board}
-                onTitleChange={(newTitle) =>
-                  handleBoardTitleChange(board.id, newTitle)
-                }
-              >
-                <SortableContext items={board.tasks}>
-                  <div className="p-4 space-y-4">
-                    {board.tasks
-                      .map((taskId) =>
-                        filteredTasks.find((task) => task.id === taskId)
-                      )
-                      .filter(
-                        (task) =>
-                          task &&
-                          (filterLevel === "all" ||
-                            task.criticalLevel === filterLevel)
-                      )
-                      .map(
-                        (task) =>
-                          task && (
-                            <TaskCard
-                              key={task.id}
-                              task={task}
-                              onUpdateStatus={handleUpdateTaskStatus}
-                            />
-                          )
-                      )}
-                  </div>
-                </SortableContext>
-              </BoardColumn>
-            ))}
-          </div>
-          <DragOverlay>
-            {activeTask && <TaskCard task={activeTask} isOverlay />}
-          </DragOverlay>
-        </DndContext>
       ) : (
-        <CalendarView tasks={tasks} />
+        <>
+          {/* Header */}
+          <div className="flex justify-between items-center bg-white p-2 rounded-md shadow-md mb-6">
+            <div className="flex items-center my-2">
+              <ClipboardCheck className="text-red-500" size={30} />
+              <div className="flex flex-col ml-2">
+                <h1 className="text-lg font-semibold">Tasks</h1>
+                <span className="text-sm text-gray-500">
+                  All Totals [{tasks.length}]
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center border border-gray-200 p-2 rounded-lg">
+                <div className="border border-gray-200 rounded-lg flex">
+                  {/* Board Button */}
+                  <button
+                    onClick={() => setViewMode("board")}
+                    className={`flex items-center gap-2 font-medium px-3 py-2 rounded-l-lg ${
+                      viewMode === "board"
+                        ? "bg-red-500 text-white"
+                        : "text-gray-700 hover:bg-red-50"
+                    } transition-colors h-10`}
+                  >
+                    <Kanban className="w-5 h-5" /> Board
+                  </button>
+
+                  {/* Add Board Button (Same Height) */}
+                  <button
+                    onClick={handleAddBoard}
+                    className={`px-3 py-2 ${
+                      viewMode === "board"
+                        ? "text-black hover:bg-red-500 hover:text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    } rounded-r-lg transition-colors h-10 flex items-center justify-center cursor-pointer`}
+                  >
+                    <Plus className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Calendar Button */}
+                <button
+                  onClick={() => setViewMode("calendar")}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg ml-4 h-10 cursor-pointer ${
+                    viewMode === "calendar"
+                      ? "bg-red-500 text-white border-red-500"
+                      : "text-gray-700 hover:bg-red-50"
+                  } transition-colors`}
+                >
+                  <CalendarDays className="w-5 h-5" /> Calendar
+                </button>
+              </div>
+
+              <div className="flex items-center gap-1 border border-gray-200 px-2 py-2 rounded-lg h-10">
+                <Filter className="w-4 h-4 text-gray-600" />
+                <span className="text-gray-700">Filter By</span>
+                <select
+                  value={filterLevel}
+                  onChange={(e) =>
+                    setFilterLevel(
+                      e.target.value as TaskType["criticalLevel"] | "all"
+                    )
+                  }
+                  className="border-none outline-none bg-transparent text-gray-700 ml-1"
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="critical">Critical</option>
+                  <option value="insignificant">Insignificant</option>
+                </select>
+              </div>
+              <button
+                onClick={toggleTaskHistory}
+                className="border border-gray-200 px-3 py-2 rounded-lg h-10 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+              >
+                Task History
+              </button>
+              <Button
+                onClick={() => setShowCreateModal(true)}
+                className="bg-red-500 text-white hover:bg-red-600"
+              >
+                Create Task
+              </Button>
+            </div>
+          </div>
+
+          {/* Task Columns */}
+          {viewMode === "board" ? (
+            <DndContext
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+              collisionDetection={closestCorners}
+            >
+              <div className="flex gap-4 overflow-x-auto pb-4">
+                {boards.map((board) => (
+                  <BoardColumn
+                    key={board.id}
+                    board={board}
+                    onTitleChange={(newTitle) =>
+                      handleBoardTitleChange(board.id, newTitle)
+                    }
+                  >
+                    <SortableContext items={board.tasks}>
+                      <div className="p-4 space-y-4">
+                        {board.tasks
+                          .map((taskId) =>
+                            filteredTasks.find((task) => task.id === taskId)
+                          )
+                          .filter(
+                            (task) =>
+                              task &&
+                              (filterLevel === "all" ||
+                                task.criticalLevel === filterLevel)
+                          )
+                          .map(
+                            (task) =>
+                              task && (
+                                <TaskCard
+                                  key={task.id}
+                                  task={task}
+                                  onUpdateStatus={handleUpdateTaskStatus}
+                                  onSelect={handleTaskSelect}
+                                  isSelected={false}
+                                />
+                              )
+                          )}
+                      </div>
+                    </SortableContext>
+                  </BoardColumn>
+                ))}
+              </div>
+              <DragOverlay>
+                {activeTask && <TaskCard task={activeTask} isOverlay />}
+              </DragOverlay>
+            </DndContext>
+          ) : (
+            <CalendarView tasks={tasks} />
+          )}
+        </>
       )}
 
       {/* Create Task Modal */}

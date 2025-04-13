@@ -1,15 +1,15 @@
-import {useState} from "react";
+import { useState } from "react";
 import RiskEventCard from "~/riskevent/RiskEventCard";
-import riskEvents from "../../../../riskevent/riskevent.json"
+import riskEvents from "~/riskevent/riskevent.json";
 import { getColor } from "~/riskevent/getColor";
 import DetailedEventView from "~/riskevent/DetailedEventView";
 import type { RiskEvent } from "~/types/risk-event";
 
 const RiskEvents = () => {
-    const [selectedEvent, setSelectedEvent] = useState<RiskEvent | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<RiskEvent | null>(null);
 
-return (
-    <div className="flex flex-col w-full h-[810px] overflow-y-auto p-4">
+  return (
+    <div className="flex flex-col w-full h-[810px] dark:bg-[var(--nav-color)] rounded-md overflow-y-auto p-4">
       {selectedEvent ? (
         <DetailedEventView
           event={selectedEvent}

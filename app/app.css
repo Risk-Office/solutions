@@ -24,23 +24,11 @@
 }
 
 .dark {
-  --primary: oklch(0.63 0.2577 29.23);
-  --tertiary: oklch(0.27 0.0103 229.31);
-  --red: oklch(0.27 0.0103 229.31);
-  --gray: oklch(0.27 0.0103 229.31);
-  --deepGray: oklch(0.27 0.0103 229.31);
-  --lightPurple: oklch(0.27 0.0103 229.31);
-  --clay: oklch(0.27 0.0103 229.31);
-  --gold: oklch(0.27 0.0103 229.31);
-
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(0 0% 98%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 5.9% 10%);
-  --sidebar-accent-foreground: hsl(0 0% 98%);
-  --sidebar-border: hsl(240 5.9% 10%);
-  --sidebar-ring: hsl(240 5.9% 10%);
+  --primary: #090c22;
+  --nav-color: #383838;
+  --inner-color: #222222;
+  --gray: #585858;
+  --text-color: #fff;
 }
 
 @theme {
