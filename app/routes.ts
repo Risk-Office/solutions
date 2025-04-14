@@ -8,6 +8,7 @@ import {
 export default [
   index("routes/home.tsx"),
   route("insight", "routes/insight.tsx"),
+  route("scratch", "routes/scratch.tsx"),
   route("more-info", "routes/more-info.tsx"),
   route("more-info-2", "routes/more-info2.tsx"),
   layout("routes/dashboard/layout.tsx", [
