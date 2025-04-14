@@ -32,6 +32,7 @@ import revenueStream from "~/assets/svg/revenue-streams.svg";
 import revenueStreamActive from "~/assets/svg/revenue-streams-active.svg";
 import costStructure from "~/assets/svg/cost-structure.svg";
 import costStructureActive from "~/assets/svg/cost-structure-active.svg";
+import type { ReactNode } from "react";
 
 interface BaseTab {
   icon: string;
@@ -41,7 +42,7 @@ interface BaseTab {
 
 interface DropdownTab extends BaseTab {
   type: "dropdown";
-  dropDownData: string[];
+  dropDownData: { name: string; path: string }[];
 }
 
 interface LinkTab extends BaseTab {
@@ -65,13 +66,15 @@ export const macroEnvironmentData: TabsData[] = [
     type: "dropdown",
     activeIcon: political,
     dropDownData: [
-      "Government Funding",
-      "Healthcare Policy",
-      "Labour Policy",
-      "Tax Policy",
-      "Energy Policy",
-      "Political Climate",
-      "Educational Policy",
+      { name: "Government Funding", path: "/dashboard/government-funding" },
+      { name: "Healthcare Policy", path: "/dashboard/healthcare-policy" },
+      { name: "Labour Policy", path: "/dashboard/labour-policy" },
+
+      // create actual routes for these
+      { name: "Tax Policy", path: "/dashboard/government-funding" },
+      { name: "Energy Policy", path: "/dashboard/government-funding" },
+      { name: "Political Climate", path: "/dashboard/government-funding" },
+      { name: "Educational Policy", path: "/dashboard/government-funding" },
     ],
   },
   {
@@ -80,11 +83,15 @@ export const macroEnvironmentData: TabsData[] = [
     activeIcon: economicActive,
     type: "dropdown",
     dropDownData: [
-      "Healthcare Services CPI",
-      "Interest Rates",
-      "Disposable Income",
-      "Housing",
-      "Labour & Wages",
+      // create the actual routes for these
+      {
+        name: "Healthcare Services CPI",
+        path: "/dashboard/government-funding",
+      },
+      { name: "Interest Rates", path: "/dashboard/government-funding" },
+      { name: "Disposable Income", path: "/dashboard/government-funding" },
+      { name: "Housing", path: "/dashboard/government-funding" },
+      { name: "Labour & Wages", path: "/dashboard/government-funding" },
     ],
   },
   {
@@ -93,11 +100,12 @@ export const macroEnvironmentData: TabsData[] = [
     activeIcon: technology,
     type: "dropdown",
     dropDownData: [
-      "Healthcare Tech R & D",
-      "Process Inovation",
-      "Automation & AI",
-      "Technology Adoption",
-      "Cybersecurity",
+      // create the actual routes for these
+      { name: "Healthcare Tech R & D", path: "/dashboard/government-funding" },
+      { name: "Process Inovation", path: "/dashboard/government-funding" },
+      { name: "Automation & AI", path: "/dashboard/government-funding" },
+      { name: "Technology Adoption", path: "/dashboard/government-funding" },
+      { name: "Cybersecurity", path: "/dashboard/government-funding" },
     ],
   },
   {
@@ -106,12 +114,13 @@ export const macroEnvironmentData: TabsData[] = [
     activeIcon: environmentalActive,
     type: "dropdown",
     dropDownData: [
-      "Climate Change",
-      "Energy Consumption",
-      "Waste Management",
-      "Pollution",
-      "Carbon Footprint",
-      "Zoning & Location",
+      // create the actual routes for these
+      { name: "Climate Change", path: "/dashboard/government-funding" },
+      { name: "Energy Consumption", path: "/dashboard/government-funding" },
+      { name: "Waste Management", path: "/dashboard/government-funding" },
+      { name: "Pollution", path: "/dashboard/government-funding" },
+      { name: "Carbon Footprint", path: "/dashboard/government-funding" },
+      { name: "Zoning & Location", path: "/dashboard/government-funding" },
     ],
   },
   {
@@ -120,13 +129,20 @@ export const macroEnvironmentData: TabsData[] = [
     activeIcon: legalActive,
     type: "dropdown",
     dropDownData: [
-      "Industry",
-      "Licensing & Accreditation",
-      "Employment",
-      "Contract",
-      "Elder right & protection",
-      "Taxes",
-      "Data Privacy",
+      // create the actual routes for these
+      { name: "Industry", path: "/dashboard/government-funding" },
+      {
+        name: "Licensing & Accreditation",
+        path: "/dashboard/government-funding",
+      },
+      { name: "Employment", path: "/dashboard/government-funding" },
+      { name: "Contract", path: "/dashboard/government-funding" },
+      {
+        name: "Elder right & protection",
+        path: "/dashboard/government-funding",
+      },
+      { name: "Taxes", path: "/dashboard/government-funding" },
+      { name: "Data Privacy", path: "/dashboard/government-funding" },
     ],
   },
   {
@@ -135,11 +151,12 @@ export const macroEnvironmentData: TabsData[] = [
     activeIcon: socialDemoActive,
     type: "dropdown",
     dropDownData: [
-      "Age Distribution",
-      "Income Distribution",
-      "Family Structure",
-      "Quality Expectations",
-      "Lifestyle & Attitudes",
+      // create the actual routes for these
+      { name: "Age Distribution", path: "/dashboard/government-funding" },
+      { name: "Income Distribution", path: "/dashboard/government-funding" },
+      { name: "Family Structure", path: "/dashboard/government-funding" },
+      { name: "Quality Expectations", path: "/dashboard/government-funding" },
+      { name: "Lifestyle & Attitudes", path: "/dashboard/government-funding" },
     ],
   },
   {
@@ -148,12 +165,13 @@ export const macroEnvironmentData: TabsData[] = [
     activeIcon: competitiveActive,
     type: "dropdown",
     dropDownData: [
-      "Clients/Buyers",
-      "Suppliers",
-      "Substitutes",
-      "New Entrants",
-      "Complimentary Products",
-      "Government Effect",
+      // create the actual routes for these
+      { name: "Clients/Buyers", path: "/dashboard/government-funding" },
+      { name: "Suppliers", path: "/dashboard/government-funding" },
+      { name: "Substitutes", path: "/dashboard/government-funding" },
+      { name: "New Entrants", path: "/dashboard/government-funding" },
+      { name: "Complimentary Products", path: "/dashboard/government-funding" },
+      { name: "Government Effect", path: "/dashboard/government-funding" },
     ],
   },
 ];
@@ -172,13 +190,35 @@ export const businessModelData: TabsData[] = [
     activeIcon: partners,
     type: "dropdown",
     dropDownData: [
-      "Operations & Supply Chain Partners",
-      "Financial & Legal Partners",
-      "Technology & IT Support",
-      "Marketing and Sales Partner",
-      "Human Resource & Team Management",
-      "Facility & Infrastructure Support",
-      "Industry Specific and Specialized partners",
+      // create the actual routes for these
+      {
+        name: "Operations & Supply Chain Partners",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Financial & Legal Partners",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Technology & IT Support",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Marketing and Sales Partner",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Human Resource & Team Management",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Facility & Infrastructure Support",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Industry Specific and Specialized partners",
+        path: "/dashboard/government-funding",
+      },
     ],
   },
   {
@@ -187,12 +227,31 @@ export const businessModelData: TabsData[] = [
     activeIcon: resourcesActive,
     type: "dropdown",
     dropDownData: [
-      "Human Resources",
-      "Financial Resources",
-      "Physical Resources",
-      "Intellectual & Intangible resources",
-      "Technological Resources",
-      "Regulatory & Complaince Resources",
+      // create the actual routes for these
+      {
+        name: "Human Resources",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Financial Resources",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Physical Resources",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Intellectual & Intangible resources",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Technological Resources",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Regulatory & Complaince Resources",
+        path: "/dashboard/government-funding",
+      },
     ],
   },
   {
@@ -201,13 +260,35 @@ export const businessModelData: TabsData[] = [
     activeIcon: activitiesActive,
     type: "dropdown",
     dropDownData: [
-      "Financial Services",
-      "Hospitalities Services",
-      "Brokage",
-      "Franchising",
-      "E-commerce",
-      "Rental / Leasing",
-      "Administrative",
+      // create the actual routes for these
+      {
+        name: "Financial Services",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Hospitalities Services",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Brokage",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Franchising",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "E-commerce",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Rental / Leasing",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Administrative",
+        path: "/dashboard/government-funding",
+      },
     ],
   },
   {
@@ -216,16 +297,47 @@ export const businessModelData: TabsData[] = [
     activeIcon: valuePropActive,
     type: "dropdown",
     dropDownData: [
-      "Cost Efficiency & Saving",
-      "Quality & Performance",
-      "Convenience & Accessibility",
-      "Customization & Personalization",
-      "Risk Reduction & Security",
-      "Brand & Trust Reputation",
-      "Innovation & Differentiation",
-      "Emotional & Experiential Benefits",
-      "Speed & Agility",
-      "Environmental & Social Impact",
+      // create the actual routes for these
+      {
+        name: "Cost Efficiency & Saving",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Quality & Performance",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Convenience & Accessibility",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Customization & Personalization",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Risk Reduction & Security",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Brand & Trust Reputation",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Innovation & Differentiation",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Emotional & Experiential Benefits",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Speed & Agility",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Environmental & Social Impact",
+        path: "/dashboard/government-funding",
+      },
     ],
   },
   {
@@ -234,10 +346,23 @@ export const businessModelData: TabsData[] = [
     activeIcon: customerSegmentActive,
     type: "dropdown",
     dropDownData: [
-      "B2B (Business-to-Business)",
-      "B2C (Business-to-Consumer)",
-      "Non-Profit Organizations",
-      "Government (B2G)",
+      // create the actual routes for these
+      {
+        name: "B2B (Business-to-Business)",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "B2C (Business-to-Consumer)",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Non-Profit Organizations",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Government (B2G)",
+        path: "/dashboard/government-funding",
+      },
     ],
   },
   {
@@ -246,12 +371,31 @@ export const businessModelData: TabsData[] = [
     activeIcon: crmActive,
     type: "dropdown",
     dropDownData: [
-      "Customer Relationship Management (CRM) Systems",
-      "Customer Service &  Support",
-      "Personalized Communication & Engagement",
-      "Loyalty Programs & Incentives",
-      "Regular Customer Feedback & Improvement",
-      "Proactive Relationship Building",
+      // create the actual routes for these
+      {
+        name: "Customer Relationship Management (CRM) Systems",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Customer Service &  Support",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Personalized Communication & Engagement",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Loyalty Programs & Incentives",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Regular Customer Feedback & Improvement",
+        path: "/dashboard/government-funding",
+      },
+      {
+        name: "Proactive Relationship Building",
+        path: "/dashboard/government-funding",
+      },
     ],
   },
   {
@@ -260,14 +404,16 @@ export const businessModelData: TabsData[] = [
     activeIcon: channelsActive,
     type: "dropdown",
     dropDownData: [
-      "Direct Channels",
-      "Indirect Channels",
-      "Digital Channels",
-      "Physical Channels",
-      "Hybrid Channels",
+      // create the actual routes for these
+      { name: "Direct Channels", path: "/dashboard/government-funding" },
+      { name: "Indirect Channels", path: "/dashboard/government-funding" },
+      { name: "Digital Channels", path: "/dashboard/government-funding" },
+      { name: "Physical Channels", path: "/dashboard/government-funding" },
+      { name: "Hybrid Channels", path: "/dashboard/government-funding" },
     ],
   },
   {
+    // create the actual routes for these
     title: "Revenue Streams",
     icon: revenueStream,
     url: "",
@@ -280,11 +426,15 @@ export const businessModelData: TabsData[] = [
     activeIcon: costStructureActive,
     type: "dropdown",
     dropDownData: [
-      "Fixed Costs",
-      "Variable Costs",
-      "Semi-Variable Costs",
-      "Financing Costs",
-      "Compliance & Regulatory Costs",
+      // create the actual routes for these
+      { name: "Fixed Costs", path: "/dashboard/government-funding" },
+      { name: "Variable Costs", path: "/dashboard/government-funding" },
+      { name: "Semi-Variable Costs", path: "/dashboard/government-funding" },
+      { name: "Financing Costs", path: "/dashboard/government-funding" },
+      {
+        name: "Compliance & Regulatory Costs",
+        path: "/dashboard/government-funding",
+      },
     ],
   },
 ];

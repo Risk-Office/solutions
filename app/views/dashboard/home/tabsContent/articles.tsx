@@ -32,8 +32,10 @@ const articlesArr = [
 const NewsAndArticles = () => {
   return (
     <div className="flex flex-col gap-5 w-full relative">
-      <div className="flex flex-col gap-4 bg-white rounded-xl w-full px-[1.5rem] py-4">
-        <span className="text-lg font-bold text-left">Featured</span>
+      <div className="flex flex-col gap-4 bg-white dark:bg-[var(--nav-color)] rounded-xl w-full px-[1.5rem] py-4">
+        <span className="text-lg font-bold text-left dark:text-white">
+          Featured
+        </span>
 
         <div
           style={{ backgroundImage: `url(${featuredImage})` }}
@@ -46,33 +48,41 @@ const NewsAndArticles = () => {
 
         <div className="flex flex-col w-full">
           <div className="flex flex-col gap-2 w-full">
-            <span className="font-semibold text-base">
+            <span className="font-semibold text-base dark:text-white">
               Tax incentives for elderly care
             </span>
 
-            <div className="flex flex-row items-center space-x-4 h-5 text-sm italic">
+            <div className="flex flex-row items-center space-x-4 h-5 text-sm italic dark:text-white">
               <span>Tax incentives for elder care</span>
-              <Separator orientation="vertical" className="bg-deepGray" />
+              <Separator
+                orientation="vertical"
+                className="bg-deepGray dark:bg-gray-600"
+              />
               <span>Time Horizon: 2years</span>
-              <Separator orientation="vertical" className="bg-deepGray" />
+              <Separator
+                orientation="vertical"
+                className="bg-deepGray dark:bg-gray-600"
+              />
               <span>Impact severity: Critical</span>
             </div>
 
-            <Separator className="my-1 bg-deepGray w-full max-w-[50%]" />
+            <Separator className="my-1 dark:bg-gray-600 bg-deepGray w-full max-w-[50%]" />
           </div>
 
-          <span>
+          <span className="dark:text-white font-normal text-sm">
             Families caring for aging relatives may soon lose critical financial
             support as key tax incentives for elder care face elimination.{" "}
           </span>
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 bg-white rounded-xl w-full px-[1.5rem] py-4">
+      <div className="flex flex-col gap-4 bg-white dark:bg-[var(--nav-color)] rounded-xl w-full px-[1.5rem] py-4">
         <div className="flex flex-row items-center justify-between w-full">
           <div className="flex flex-col w-full">
-            <span className="text-lg font-bold text-left">Articles</span>
-            <Separator className="my-1 bg-deepGray w-full max-w-[30%]" />
+            <span className="text-lg font-bold text-left dark:text-white">
+              Articles
+            </span>
+            <Separator className="my-1 dark:bg-gray-600 bg-deepGray w-full max-w-[30%]" />
           </div>
 
           <div className="flex flex-row items-center gap-4">
@@ -109,8 +119,8 @@ const NewsAndArticles = () => {
                   className="w-full min-h-[3.5rem] max-w-[5.125rem]"
                 />
                 <div className="flex flex-col gap-2 w-full">
-                  <span>{item.title}</span>
-                  <Link to={"/dashboard"} className="underline">
+                  <span className="dark:text-white">{item.title}</span>
+                  <Link to={"/dashboard"} className="underline dark:text-white">
                     Read More
                   </Link>
                 </div>

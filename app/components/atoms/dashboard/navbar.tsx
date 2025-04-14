@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router";
 import { Bell, Grip, Bolt } from "lucide-react";
 import {
   Breadcrumb,
@@ -10,21 +11,28 @@ import {
 } from "~/components/ui/breadcrumb";
 import { useTabChange } from "~/store";
 import { Button } from "~/components/ui/button";
+import { ModeToggle } from "~/components/mode-toggle";
 
-const tabs = ["Dashboard", "Team Hub", "Report"];
+export const dashboardTabs = [
+  { name: "Dashboard", path: "/dashboard" },
+  { name: "Team Hub", path: "/dashboard/team-hub" },
+  { name: "Report", path: "/dashboard/report" },
+];
 
 const Navbar = () => {
-  const changeTab = useTabChange((state) => state.changeTab);
-  const currentTab = useTabChange((state) => state.value);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col justify-between gap-4 w-full">
       <div className="flex flex-row items-center justify-between w-full gap-2">
         <div className="flex flex-col justify-between">
-          <span className="text-xl font-medium">Welcome back, Feranmi</span>
+          <span className="text-xl font-medium dark:text-[var(--text-color)]">
+            Welcome back, Feranmi
+          </span>
 
           <Breadcrumb>
-            <BreadcrumbList>
+            <BreadcrumbList className="dark:text-[var(--text-color)]">
               <BreadcrumbItem>
                 <BreadcrumbLink href="/">Home</BreadcrumbLink>
               </BreadcrumbItem>
@@ -40,7 +48,7 @@ const Navbar = () => {
           </Breadcrumb>
         </div>
 
-        <div className="flex flex-row gap-2 text-sm">
+        <div className="flex flex-row gap-2 text-sm dark:text-[var(--text-color)]">
           <span>Thursday, March 26, 2025</span>
           <span>12:42 PM</span>
         </div>
@@ -48,36 +56,46 @@ const Navbar = () => {
 
       <div className="flex flex-row items-center justify-between w-full">
         <div className="flex flex-row items-end gap-4 w-full">
-          {tabs.map((tab, tabIndex) => (
+          {dashboardTabs.map((tab, tabIndex) => (
             <Button
-              key={tab}
+              key={tab.name}
               variant={"text"}
               size={"text"}
-              onClick={() => changeTab(tabIndex)}
-              className={`text-base font-medium rounded-none px-1 text-center ${
-                currentTab === tabIndex
+              onClick={() => navigate(tab.path)}
+              className={`text-base font-medium rounded-none px-1 text-center dark:text-[var(--text-color)] ${
+                tab.path === pathname
                   ? "border-b-2 border-b-primary text-primary"
-                  : "text-clay"
+                  : "text-clay dark:text-[var(--text-color)]"
               }`}
             >
-              {tab}
+              {tab.name}
             </Button>
           ))}
         </div>
 
         <div className="flex flex-row items-center justify-between w-full max-w-[13.25rem] pb-1">
-          <Button variant={"text"}>
+          <Button
+            variant={"text"}
+            className="dark:bg-white dark:border dark:border-white dark:rounded-full max-w-[2.3rem]"
+          >
             <Bolt />
-          </Button>
-          <Button variant={"text"}>
-            <Bell />
-          </Button>
-          <Button variant={"text"}>
-            <Grip />
           </Button>
           <Button
             variant={"text"}
-            className="bg-lightPurple text-black font-bold max-w-[1.625rem] rounded-full w-full h-full"
+            className="dark:bg-white dark:border dark:border-white dark:rounded-full max-w-[2.3rem]"
+          >
+            <Bell />
+          </Button>
+          <Button
+            variant={"text"}
+            className="dark:bg-white dark:border dark:border-white dark:rounded-full max-w-[2.3rem]"
+          >
+            <Grip />
+          </Button>
+          <ModeToggle className="dark:bg-white dark:border dark:border-white dark:rounded-full" />
+          <Button
+            variant={"text"}
+            className="bg-lightPurple text-black font-bold max-w-[2.3rem] rounded-full w-full h-full dark:bg-white dark:text-[#090c22]"
           >
             FM
           </Button>
