@@ -157,7 +157,7 @@ const countriesData = [
 const StatCard = ({ color, title, subtitle, value }) => {
   return (
     <div className="bg-white rounded-lg shadow p-4 flex-1">
-      <div className="flex items-center mb-2">
+      <div className="flex items-center py-2 mb-2">
         <div className={`w-10 h-10 ${color} rounded`}></div>
         <div className="ml-3">
           <p className="font-medium text-gray-700">{title}</p>
