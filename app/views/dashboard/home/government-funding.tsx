@@ -76,7 +76,9 @@ const DashboardEntry = () => {
                 <div className="flex flex-row items-center gap-4 bg-white rounded-lg w-full h-full max-h-[3.75rem] py-2 px-4 border border-deepGray mb-4">
                   <div className="flex-1 flex flex-row items-center gap-2 border border-deepGray rounded-lg p-1">
                     <Input
-                      placeholder={`Search for ${tabs.find(tab => tab.value === activeTab)?.name}`}
+                      placeholder={`Search for ${
+                        tabs.find((tab) => tab.value === activeTab)?.name
+                      }`}
                       className="placeholder:text-primary"
                     />
 
@@ -93,7 +95,6 @@ const DashboardEntry = () => {
                 </div>
               </div>
             )}
-            
 
             <div className={`col-span-2`}>
               {tabs.map((tab) => (
@@ -107,8 +108,6 @@ const DashboardEntry = () => {
               ))}
             </div>
           </Tabs>
-
-          
         </div>
       );
     }
