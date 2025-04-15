@@ -89,7 +89,7 @@ const countriesData = [
     id: "US",
     name: "United States",
     color: "#b9b74c",
-    path: "M45,102 L65,102 L65,110 L45,110 Z",
+    path: "M45,102 L65 353,102 L65,110 L45,110 Z",
   },
   {
     id: "BR",
