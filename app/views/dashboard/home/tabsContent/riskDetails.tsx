@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { ArrowLeft, ClipboardList, Pen, Share2, MessageSquareQuote } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { RiskCard } from "./statement";
-import Modal from "~/components/ui/modal";
 import type { ModalSize } from "~/components/ui/modal";
 import { RequestReceivedModal, ShareModal, ExportModal, AddNotesModal, FeedbackModal } from "~/components/ui/modals";
 import DraggableChat from '~/components/ui/draggablechat'
+import Menus from '~/components/ui/menus'
 // images
 
 import Yes from '~/assets/png/yes-thumbs.png'
@@ -122,10 +122,7 @@ const RiskDetails: React.FC<RiskDetailsProps> = ({
                     &nbsp;  [{date}]
                   </p>
                   <Share2 onClick={() => openModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <MessageSquareQuote onClick={openChat} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <Pen onClick={() => openNotesModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <ClipboardList size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                  <Menus />
                 </div>
 
                 <hr className="my-4 border border-gray-300" />

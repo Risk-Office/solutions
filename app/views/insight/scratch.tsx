@@ -129,8 +129,6 @@ const Scratch = () => {
                     </div>
                 </div>
             </div>
-
-            <h1>Scratch</h1>
         </div>
     )
 }
