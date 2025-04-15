@@ -6,6 +6,7 @@ import type { ModalSize } from "~/components/ui/modal";
 import { RequestReceivedModal, ShareModal, ExportModal, FeedbackModal } from "~/components/ui/modals";
 import { RiskCard } from "./statement";
 import DraggableChat from '~/components/ui/draggablechat'
+import Menus from "~/components/ui/menus";
 
 // images
 import Yes from '~/assets/png/yes-thumbs.png';
@@ -162,9 +163,10 @@ const TrackingDetails: React.FC<TrackingDetailsProps> = ({
                                     {lastUpdate} |
                                 </p>
                                 <Share2 onClick={() => openModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                                <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                                <Menus />
+                                {/* <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                                 <MessageSquareQuote onClick={openChat} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                                <Bell size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                                <Bell size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" /> */}
                             </div>
 
                             <hr className="my-4 border border-gray-300" />

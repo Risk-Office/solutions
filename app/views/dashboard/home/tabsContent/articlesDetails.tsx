@@ -7,6 +7,7 @@ import type { ModalSize } from "~/components/ui/modal";
 import { ArrowUp } from 'lucide-react'
 import { RequestReceivedModal, ShareModal, ExportModal, FeedbackModal, AddNotesModal } from "~/components/ui/modals";
 import DraggableChat from '~/components/ui/draggablechat'
+import Menus from "~/components/ui/menus";
 // import { Bar, BarChart } from "recharts"
 // import { ChartConfig, ChartContainer } from "~/components/ui/chart"
 
@@ -153,9 +154,10 @@ const ArticlesDetails: React.FC<ArticlesDetailsProps> = ({
                     Reading time: 3 minutes |
                   </p>
                   <Share2 onClick={() => openModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                  {/* <ClipboardList onClick={() => openExportModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                   <MessageSquareQuote onClick={openChat} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
-                  <Pen onClick={() => openNotesModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
+                  <Pen onClick={() => openNotesModal('default')} size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" /> */}
+                  <Menus />
                   <ClipboardList size={16} className="cursor-pointer text-gray-600 hover:text-gray-800" />
                 </div>
 
