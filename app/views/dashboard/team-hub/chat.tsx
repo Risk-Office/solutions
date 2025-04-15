@@ -171,7 +171,7 @@ const ChatPage = () => {
                 <AvatarFallback>{message.user[0]}</AvatarFallback>
               </Avatar>
               <div
-                className={`max-w-[70%] p-3 rounded-lg shadow-sm ${
+                className={`max-w-[70%] p-3 rounded-lg ${
                   message.align === "right"
                     ? "bg-[#f7f7f7] border border-gray-200"
                     : "bg-[#f7f7f7] border border-gray-200"
@@ -181,7 +181,7 @@ const ChatPage = () => {
                   <span className="font-medium text-sm">{message.user}</span>
                   <span className="text-xs opacity-75">{message.time}</span>
                 </div>
-                <p className="text-sm ">{message.text}</p>
+                <p className="text-sm text-gray-700">{message.text}</p>
               </div>
               {/* Hoverable Emoji Reaction */}
               <div
@@ -198,7 +198,7 @@ const ChatPage = () => {
               </div>
             </div>
           ))}
-          <div className="flex gap-2 items-center bg-[#f7f7f7] rounded-lg shadow-sm border border-gray-200 p-4 mt-4">
+          <div className="flex gap-2 items-center bg-[#f7f7f7] rounded-lg border border-gray-200 p-4 mt-4">
             <Button variant="text" size="icon" className="rounded-full">
               <Smile className="h-5 w-5 text-gray-600" />
             </Button>

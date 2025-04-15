@@ -110,7 +110,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`bg-white rounded-lg shadow p-4 cursor-pointer ${
+      className={`bg-white rounded-lg shadow p-4 cursor-pointer hover:border hover:border-primary  ${
         isSelected ? "ring-2 ring-red-500" : ""
       } ${isDragging ? "opacity-60" : ""} select-none relative`}
       data-task-id={task.id}

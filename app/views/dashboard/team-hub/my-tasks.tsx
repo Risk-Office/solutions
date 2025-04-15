@@ -352,7 +352,7 @@ const MyTasksPage: React.FC = () => {
           {/* Header */}
           <div className="flex justify-between items-center bg-white p-2 rounded-md shadow-md mb-6">
             <div className="flex items-center my-2">
-              <ClipboardCheck className="text-red-500" size={30} />
+              <ClipboardCheck size={30} />
               <div className="flex flex-col ml-2">
                 <h1 className="text-lg font-semibold">Tasks</h1>
                 <span className="text-sm text-gray-500">
@@ -369,7 +369,7 @@ const MyTasksPage: React.FC = () => {
                     onClick={() => setViewMode("board")}
                     className={`flex items-center gap-2 font-medium px-3 py-2 rounded-l-lg ${
                       viewMode === "board"
-                        ? "bg-red-500 text-white"
+                        ? "bg-primary text-white"
                         : "text-gray-700 hover:bg-red-50"
                     } transition-colors h-10`}
                   >
@@ -381,7 +381,7 @@ const MyTasksPage: React.FC = () => {
                     onClick={handleAddBoard}
                     className={`px-3 py-2 ${
                       viewMode === "board"
-                        ? "text-black hover:bg-red-500 hover:text-white"
+                        ? "text-primary hover:bg-primary hover:text-white"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     } rounded-r-lg transition-colors h-10 flex items-center justify-center cursor-pointer`}
                   >
@@ -392,10 +392,8 @@ const MyTasksPage: React.FC = () => {
                 {/* Calendar Button */}
                 <button
                   onClick={() => setViewMode("calendar")}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg ml-4 h-10 cursor-pointer ${
-                    viewMode === "calendar"
-                      ? "bg-red-500 text-white border-red-500"
-                      : "text-gray-700 hover:bg-red-50"
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg ml-4 h-10 cursor-pointer text-primary font-semibold ${
+                    viewMode === "calendar" ? "text-white" : "text-primary"
                   } transition-colors`}
                 >
                   <CalendarDays className="w-5 h-5" /> Calendar
@@ -423,13 +421,13 @@ const MyTasksPage: React.FC = () => {
               </div>
               <button
                 onClick={toggleTaskHistory}
-                className="border border-gray-200 px-3 py-2 rounded-lg h-10 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                className="border border-gray-200 px-3 py-2 rounded-lg h-10 text-primary font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 Task History
               </button>
               <Button
                 onClick={() => setShowCreateModal(true)}
-                className="bg-red-500 text-white hover:bg-red-600"
+                className="bg-primary text-white hover:bg-primary"
               >
                 Create Task
               </Button>
