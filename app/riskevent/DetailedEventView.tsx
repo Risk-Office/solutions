@@ -36,7 +36,9 @@ const DetailedEventView: React.FC<{
 
       {/* Event Details */}
       <div className="bg-white dark:bg-[var(--inner-color)] p-6 rounded-lg shadow-sm">
-        <h1 className="text-2xl font-bold mb-4 dark:text-white">{event.title}</h1>
+        <h1 className="text-2xl font-bold mb-4 dark:text-white">
+          {event.title}
+        </h1>
         <div className="bg-gray dark:bg-[var(--nav-color)] p-4 rounded-lg mb-4">
           <div className="flex gap-4 mb-6 text-primary dark:text-white">
             <span className="pr-2 text-sm italic text-primary dark:text-white border-r dark:border-gray-600 border-gray-300">
@@ -50,7 +52,10 @@ const DetailedEventView: React.FC<{
           </div>
           <div className="space-y-4 text-red-500">
             {event.description.split("\n\n").map((paragraph, index) => (
-              <p key={index} className="text-primary dark:text-white mb-4 last:mb-0">
+              <p
+                key={index}
+                className="text-primary dark:text-white mb-4 last:mb-0"
+              >
                 {paragraph}
               </p>
             ))}
@@ -60,7 +65,9 @@ const DetailedEventView: React.FC<{
 
       {/* Rating Card */}
       <div className="bg-white dark:bg-[var(--inner-color)] p-6 rounded-lg shadow-sm">
-        <h2 className="text-xl mb-2 dark:text-white">Rate the impact of this incident</h2>
+        <h2 className="text-xl mb-2 dark:text-white">
+          Rate the impact of this incident
+        </h2>
         <div className="flex gap-4 mb-6">
           {["critical", "high", "medium", "low", "insignificant"].map(
             (status) => (
@@ -90,7 +97,9 @@ const DetailedEventView: React.FC<{
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2 dark:text-white">Comments</label>
+            <label className="block text-sm font-medium mb-2 dark:text-white">
+              Comments
+            </label>
             <textarea
               className="w-full p-2 border dark:border-gray-300 rounded-md resize-none dark:placeholder:text-white"
               rows={2}
@@ -107,7 +116,9 @@ const DetailedEventView: React.FC<{
 
       {/* Related Events */}
       <div className="bg-white dark:bg-[var(--nav-color)] p-6 rounded-lg shadow-sm">
-        <h2 className="text-xl font-semibold mb-4 dark:text-white">Related Risk Events</h2>
+        <h2 className="text-xl font-semibold mb-4 dark:text-white">
+          Related Risk Events
+        </h2>
         <div className="grid gap-4">
           {relatedEvents.map((relatedEvent) => (
             <RiskEventCard
