@@ -23,6 +23,14 @@
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
+.dark {
+  --primary: #090c22;
+  --nav-color: #383838;
+  --inner-color: #222222;
+  --gray: #585858;
+  --text-color: #fff;
+}
+
 @theme {
   /* FONTS */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,

@@ -1,0 +1,154 @@
+[
+    {
+        "id": 1,
+        "title": "Fire at Costco Business, Mundoon",
+         "description": "Semiconductor giant AMD (Advanced Micro Devices) has announced a new partnership with Costco Business to provide exclusive discounts on AMD products for Costco members. This partnership aims to enhance the shopping experience for Costco members by offering them access to cutting-edge technology at competitive prices.\n\nThe collaboration will include special promotions on AMD processors, graphics cards, and other hardware, making it easier for businesses to upgrade their systems. Costco Business members can expect to see these exclusive offers in the coming weeks, as both companies work together to deliver value and innovation to their customers.",
+        "date": "01 October, 2023",
+        "status": "critical",
+        "time": "2 years"
+    },
+    {
+        "id": 2,
+        "title": "7.8 Magnitude Earthquake Strikes Coastal Japan",
+        "description": "A massive earthquake hit Honshu region, triggering tsunami warnings and damaging critical infrastructure. Rescue teams are deployed as aftershocks continue to hamper recovery efforts. Global tech supply chains face potential disruptions.",
+        "date": "15 March, 2024",
+        "status": "critical",
+        "time": "48 hours"
+    },
+    {
+        "id": 3,
+        "title": "Cyberattack Cripples Major Hospital Network",
+        "description": "Ransomware attack on Mercy Health Systems compromises 12 million patient records. Emergency services diverted as IT teams work to restore systems. FBI investigating possible foreign state-sponsored actors.",
+        "date": "22 November, 2023",
+        "status": "high",
+        "time": "72 hours"
+    },
+    {
+        "id": 4,
+        "title": "Category 5 Hurricane Approaches Gulf Coast",
+        "description": "Hurricane Lysandra intensifies rapidly, forcing mandatory evacuations across Louisiana. Oil refineries shut down operations, potentially impacting global energy markets. Storm surge predicted to reach 25 feet.",
+        "date": "30 August, 2024",
+        "status": "critical",
+        "time": "36 hours"
+    },
+    {
+        "id": 5,
+        "title": "Mysterious Respiratory Illness Outbreak in Nairobi",
+        "description": "WHO investigates unknown pathogen causing pneumonia-like symptoms in 300+ patients. Borders closed as vaccine development accelerates. Global health authorities on high alert.",
+        "date": "04 December, 2023",
+        "status": "low",
+        "time": "2 weeks"
+    },
+    {
+        "id": 6,
+        "title": "Massive Data Breach at Insurance Giant",
+        "description": "HealthGuard admits security lapse exposing sensitive medical histories of 8.3 million policyholders. Class action lawsuit filed as dark web markets flood with stolen data.",
+        "date": "18 January, 2024",
+        "status": "high",
+        "time": "5 days"
+    },
+    {
+        "id": 7,
+        "title": "Volcanic Eruption Disrupts Pacific Flights",
+        "description": "Mount Sakurajima eruption grounds 600+ flights across Asia. Ash cloud reaches 50,000 feet, affecting climate monitoring satellites. Local residents face long-term evacuation.",
+        "date": "09 June, 2024",
+        "status": "insignificant",
+        "time": "1 week"
+    },
+    {
+        "id": 8,
+        "title": "AI Malfunction in Radiation Therapy Systems",
+        "description": "FDA recalls 1,200 medical devices after software error causes overdoses. 14 cancer patients hospitalized as investigations focus on algorithm training data flaws.",
+        "date": "12 September, 2023",
+        "status": "critical",
+        "time": "24 hours"
+    },
+    {
+        "id": 9,
+        "title": "Toxic Spill Contaminates Danube River",
+        "description": "Industrial accident in Hungary releases 40,000 liters of cyanide compounds. Drinking water emergency declared for 2 million people. EU activates crisis response team.",
+        "date": "27 February, 2024",
+        "status": "low",
+        "time": "3 days"
+    },
+    {
+        "id": 10,
+        "title": "Global Food Shortages Spark Widespread Protests",
+        "description": "Rising food prices and supply chain disruptions lead to violent protests in multiple countries. Governments declare martial law in several regions to curb unrest.",
+        "date": "05 May, 2024",
+        "status": "critical",
+        "time": "1 week"
+    },
+    {
+        "id": 11,
+        "title": "AI Surveillance System Misidentifies Citizens",
+        "description": "A nationwide AI surveillance system malfunctions, incorrectly identifying citizens as suspects in criminal activities. Public outcry leads to a review of AI ethics and regulations.",
+        "date": "12 April, 2024",
+        "status": "high",
+        "time": "48 hours"
+    },
+    {
+        "id": 13,
+        "title": "Arctic Ice Melt Reaches Historic Levels",
+        "description": "Satellite data shows unprecedented ice melt in the Arctic, sparking global discussions on climate change. Coastal cities brace for rising sea levels and extreme weather patterns.",
+        "date": "10 July, 2024",
+        "status": "high",
+        "time": "2 weeks"
+    },
+    {
+        "id": 14,
+        "title": "Terrorist Attack on Paris Metro",
+        "description": "A coordinated attack on Paris Metro stations results in multiple casualties and widespread panic. Authorities are investigating the involvement of extremist groups.",
+        "date": "28 March, 2024",
+        "status": "critical",
+        "time": "48 hours"
+    },
+    {
+        "id": 15,
+        "title": "Hackers Compromise Global Financial Markets",
+        "description": "A sophisticated cyberattack targets global stock exchanges, briefly halting trading and causing major disruptions in financial markets. Investigations into the perpetrators are underway.",
+        "date": "01 April, 2024",
+        "status": "critical",
+        "time": "36 hours"
+    },
+    {
+        "id": 16,
+        "title": "Outbreak of Ebola in West Africa",
+        "description": "The WHO confirms an Ebola outbreak in Guinea, with dozens of cases reported. Travel restrictions and quarantine zones are implemented to contain the spread.",
+        "date": "25 January, 2024",
+        "status": "medium",
+        "time": "1 week"
+    },
+    {
+        "id": 17,
+        "title": "Amazon Rainforest Faces Massive Wildfires",
+        "description": "Fires rage across the Amazon, threatening biodiversity and contributing to a surge in global carbon emissions. Local and international organizations launch emergency response efforts.",
+        "date": "18 August, 2024",
+        "status": "low",
+        "time": "2 weeks"
+    },
+    {
+        "id": 18,
+        "title": "Massive Snowstorm Paralyzes New York City",
+        "description": "A record-breaking snowstorm causes city-wide shutdowns, with thousands of flights canceled and emergency services stretched to their limits. Authorities declare a state of emergency.",
+        "date": "15 December, 2024",
+        "status": "high",
+        "time": "48 hours"
+    },
+    {
+        "id": 19,
+        "title": "Drought Devastates Central Africa's Agriculture",
+        "description": "A prolonged drought devastates crops in Central Africa, leading to widespread food shortages and a humanitarian crisis. Relief efforts are underway to mitigate the impacts.",
+        "date": "22 September, 2024",
+        "status": "medium",
+        "time": "1 month"
+    },
+    {
+        "id": 20,
+        "title": "Breakthrough in Fusion Energy Technology",
+        "description": "A leading energy research institution announces a significant breakthrough in fusion energy, potentially revolutionizing global power generation. Governments and corporations begin preparations for widespread adoption.",
+        "date": "10 January, 2025",
+        "status": "high",
+        "time": "1 year"
+    }
+]
