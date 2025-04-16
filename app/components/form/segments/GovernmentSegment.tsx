@@ -13,21 +13,26 @@ export default function GovernmentSegment({ onNext, onPrevious }: GovernmentSegm
     const [currentLayer, setCurrentLayer] = useState(1);
 
     const governmentTypes = [
-        { id: 'federal', label: 'Federal' },
-        { id: 'state', label: 'State' },
-        { id: 'local', label: 'Local' },
-        { id: 'municipal', label: 'Municipal' },
-        { id: 'international', label: 'International' }
+        { id: 'federal', label: 'Federal/National' },
+        { id: 'state', label: 'State/Provincial' },
+        { id: 'local', label: 'Country/Regional' },
+        { id: 'municipal', label: 'Municipal/Local/City' },
+        { id: 'tribal', label: 'Tribal/Indigenuous Government Authorities' },
+        { id: 'international', label: 'For gov-to-gov or foreign gov' }
     ];
 
     const departments = [
-        { id: 'defense', label: 'Defense' },
-        { id: 'health', label: 'Health' },
-        { id: 'education', label: 'Education' },
+        { id: 'defense', label: 'Defense/Security' },
+        { id: 'safety', label: 'Public Safety' },
+        { id: 'health', label: 'Health and Human Services' },
         { id: 'transportation', label: 'Transportation' },
-        { id: 'finance', label: 'Finance' },
-        { id: 'justice', label: 'Justice' },
-        { id: 'environment', label: 'Environment' }
+        { id: 'education', label: 'Education' },
+        { id: 'resources', label: 'Environmental/Natural Resources' },
+        { id: 'housing', label: 'Housing/Urban Development' },
+        { id: 'finance', label: 'Finance/Treasury/Taxation' },
+        { id: 'technology', label: 'Technology/Innovation/Smart Cities' },
+        { id: 'regulatory', label: 'Regulatory Compliance' },
+        { id: 'general', label: 'Procurement/General Services' }
     ];
 
     const handleGovernmentTypeChange = (selected: string[]) => {

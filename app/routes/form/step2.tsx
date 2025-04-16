@@ -6,20 +6,47 @@ import { useFormStore } from "~/store/useForm";
 import B2BSegment from "~/components/form/segments/B2BSegment";
 import GovernmentSegment from "~/components/form/segments/GovernmentSegment";
 import B2CSegment from "~/components/form/segments/B2CSegment";
+import NonProfitSegment from "~/components/form/segments/NonProfitSegment";
 
 import Sideimg from '~/assets/png/forms/form2.png';
 
+interface FormData {
+    customerSegments: string[];
+    b2bData?: any;
+    governmentData?: any;
+    b2cData?: any;
+    nonProfitData?: any;
+    othersData?: any;
+    [key: string]: any;
+}
+
 export default function Step2() {
-    const { formData, setCurrentStep } = useFormStore();
+    const { formData, setCurrentStep, updateFormData } = useFormStore();
     const navigate = useNavigate();
     const [activeSegment, setActiveSegment] = useState<string>("");
 
-    // Set first segment as active on initial load if not already set
+    // Reset active segment and update when segments change
     useEffect(() => {
-        if (formData.customerSegments.length > 0 && !activeSegment) {
-            setActiveSegment(formData.customerSegments[0]);
+        // Ensure customerSegments is a flat array of strings
+        const segments = formData.customerSegments || [];
+        const flatSegments = segments.filter((item: any) => typeof item === 'string');
+        
+        if (flatSegments.length === 0) {
+            // If no segments selected, go back to step 1
+            navigate('/form/step1');
+            return;
         }
-    }, [formData.customerSegments, activeSegment]);
+
+        // Update formData if we had to flatten the array
+        if (flatSegments.length !== segments.length) {
+            updateFormData({ customerSegments: flatSegments });
+        }
+
+        // If current active segment is not in the list anymore, set to first available
+        if (!flatSegments.includes(activeSegment)) {
+            setActiveSegment(flatSegments[0]);
+        }
+    }, [formData.customerSegments, activeSegment, navigate, updateFormData]);
 
     const handlePrevious = () => {
         setCurrentStep(1);
@@ -44,7 +71,7 @@ export default function Step2() {
             case 'b2c':
                 return <B2CSegment onNext={handleNext} onPrevious={handlePrevious} />;
             case 'non-profit':
-                return <div>Non-profit segment coming soon</div>;
+                return <NonProfitSegment onNext={handleNext} onPrevious={handlePrevious} />;
             case 'others':
                 return <div>Others segment coming soon</div>;
             default:
@@ -52,27 +79,42 @@ export default function Step2() {
         }
     };
 
+    const getSegmentLabel = (segment: string): string => {
+        switch(segment) {
+            case 'b2b': return 'B2B (Business-to-Business)';
+            case 'government': return 'Government (B2G)';
+            case 'b2c': return 'B2C (Business-to-Consumer)';
+            case 'non-profit': return 'Non-profit Organizations';
+            case 'others': return 'Others';
+            default: return '';
+        }
+    };
+
+    const getSegmentData = (segment: string): any => {
+        switch(segment) {
+            case 'b2b': return formData.b2bData;
+            case 'government': return formData.governmentData;
+            case 'b2c': return formData.b2cData;
+            case 'non-profit': return formData.nonProfitData;
+            case 'others': return formData.othersData;
+            default: return undefined;
+        }
+    };
+
+    // Ensure we're only working with flat arrays
+    const segments = (formData.customerSegments || []).filter((item: any) => typeof item === 'string');
+
     return (
         <div>
             <TabTitle title="Customer Segment Details" />
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4">
                 {/* Left Sidebar - Show selected customer segments */}
                 <div className="border-r border-gray-300 pt-10">
                     <div className="w-[90%] mx-auto">
                         <div className="space-y-2">
-                            {formData.customerSegments.map((segment) => {
-                                const isCompleted = formData[`${segment}Data`] !== undefined;
-                                const getSegmentLabel = (seg: string) => {
-                                    switch(seg) {
-                                        case 'b2b': return 'B2B (Business-to-Business)';
-                                        case 'government': return 'Government (B2G)';
-                                        case 'b2c': return 'B2C (Business-to-Consumer)';
-                                        case 'non-profit': return 'Non-profit Organizations';
-                                        case 'others': return 'Others';
-                                        default: return '';
-                                    }
-                                };
+                            {segments.map((segment: string) => {
+                                const isCompleted = getSegmentData(segment) !== undefined;
                                 
                                 return (
                                     <button
@@ -108,7 +150,7 @@ export default function Step2() {
                 </div>
 
                 {/* Main Content Area - Show questions for the active segment */}
-                <div className="col-span-2 pb-10">
+                <div className="col-span-2 bg-gray-50 pb-10">
                     {renderSegment()}
                 </div>
 

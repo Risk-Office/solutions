@@ -16,7 +16,6 @@ export interface Option {
 
 export default function Step1() {
     const { formData, updateFormData, setCurrentStep } = useFormStore();
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const navigate = useNavigate();
     const options: Option[] = [
         { id: 'b2b', label: 'B2B (Business-to-Business)' },
@@ -27,7 +26,9 @@ export default function Step1() {
     ];
 
     const toggleOption = (selected: string[]) => {
-        updateFormData({ customerSegments: selected });
+        // Ensure only storing a flat array of strings
+        const flatSelected = selected.filter(item => typeof item === 'string');
+        updateFormData({ customerSegments: flatSelected });
     };
 
     const handleNext = () => {
@@ -45,7 +46,7 @@ export default function Step1() {
         <div>
             <TabTitle title="Target Customer Segments" />
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4">
                 <div className="border-r border-gray-300 pt-24">
                     <div className="w-[70%] mx-auto">
                         <div className="flex flex-col items-center justify-center gap-2 bg-gray p-2 w-full rounded-lg">
@@ -74,7 +75,7 @@ export default function Step1() {
                 </div>
 
 
-                <div className="col-span-2 pb-10">
+                <div className="col-span-2 pb-10 bg-gray-50">
                     <h3 className="text-md font-medium mb-6 pt-6 pl-6">Question</h3>
 
                     <hr className="w-[70%] border border-gray-300" />
@@ -84,14 +85,14 @@ export default function Step1() {
 
                         <CustomCheckbox
                             options={options}
-                            selected={formData.customerSegments}
+                            selected={formData.customerSegments || []}
                             onChange={toggleOption}
                         />
 
                         <div className="mt-24 flex items-center justify-end space-x-3 pr-6">
                             <Button variant="text" className="text-sm uppercase mt-24 border border-blue-900" disabled>Back</Button>
                             <Button variant="default" className="text-sm uppercase mt-24" onClick={handleNext}
-                                disabled={formData.customerSegments.length === 0}>Next</Button>
+                                disabled={!formData.customerSegments || formData.customerSegments.length === 0}>Next</Button>
                         </div>
                     </div>
                 </div>
