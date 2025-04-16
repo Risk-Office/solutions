@@ -5,34 +5,38 @@ import SideBar from "~/components/atoms/dashboard/sidebar";
 import AppSizeProvider from "~/components/atoms/SizeProvider";
 import { SidebarProvider, SidebarTrigger } from "~/components/ui/sidebar";
 
+import { ThemeProvider } from "~/components/theme-provider";
+
 const DashboardLayout = () => {
   return (
-    <main className="flex items-stretch justify-stretch w-full min-h-screen">
-      <AppSizeProvider>
-        <div className="relative flex flex-row items-stretch w-full h-full">
-          <div className="sticky top-0 left-0 w-full max-w-[15rem] max-h-screen overflow-y-auto bg-primary">
-            {/* <SidebarProvider> */}
-            <SideBar />
-            {/* <main>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <main className="flex items-stretch justify-stretch w-full min-h-screen">
+        <AppSizeProvider>
+          <div className="relative flex flex-row items-stretch w-full h-full">
+            <div className="sticky top-0 left-0 w-full max-w-[15rem] max-h-screen overflow-y-auto bg-primary">
+              {/* <SidebarProvider> */}
+              <SideBar />
+              {/* <main>
               <SidebarTrigger />
             </main>
             <div>
               <SidebarTrigger />
             </div>
           </SidebarProvider> */}
-          </div>
+            </div>
 
-          <div className="flex flex-col w-full">
-            <div className="sticky top-0 z-50 flex items-center justify-center w-full bg-white min-h-[5rem] px-4 pt-2">
-              <Navbar />
-            </div>
-            <div className="flex-1 w-full bg-gray border-t border-t-deepGray">
-              <Outlet />
+            <div className="flex flex-col w-full">
+              <div className="sticky top-0 z-50 flex items-center justify-center w-full bg-white dark:bg-[var(--nav-color)] min-h-[5rem] px-4 pt-2">
+                <Navbar />
+              </div>
+              <div className="flex-1 w-full dark:bg-[var(--gray)] bg-gray border-t border-t-deepGray dark:border-t-0">
+                <Outlet />
+              </div>
             </div>
           </div>
-        </div>
-      </AppSizeProvider>
-    </main>
+        </AppSizeProvider>
+      </main>
+    </ThemeProvider>
   );
 };
 

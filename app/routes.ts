@@ -3,6 +3,7 @@ import {
   index,
   route,
   layout,
+  prefix,
 } from "@react-router/dev/routes";
 
 export default [
@@ -11,8 +12,25 @@ export default [
   route("scratch", "routes/scratch.tsx"),
   route("more-info", "routes/more-info.tsx"),
   route("more-info-2", "routes/more-info2.tsx"),
-  layout("routes/dashboard/layout.tsx", [
-    route("dashboard", "routes/dashboard/home.tsx"),
+
+  ...prefix("dashboard", [
+    layout("routes/dashboard/layout.tsx", [
+      index("routes/dashboard/overview.tsx"),
+      route("government-funding", "routes/dashboard/government-funding.tsx"),
+      route("healthcare-policy", "routes/dashboard/healthcare-policy.tsx"),
+      route("labour-policy", "routes/dashboard/labour-policy.tsx"),
+
+      // team-hub
+
+      ...prefix("team-hub", [
+        index("routes/team-hub/chat.tsx"),
+        route("my-tasks", "routes/team-hub/my-tasks.tsx"),
+        route("team-members", "routes/team-hub/team-members.tsx"),
+      ]),
+
+      // report
+      route("report", "routes/report/index.tsx"),
+    ]),
   ]),
   layout("routes/form/layout.tsx", [
     route("form", "routes/form/step1.tsx"), // default to first step

@@ -14,8 +14,8 @@ import featuredImage from "~/assets/png/dashboard-image.png";
 import articleImage from "~/assets/png/articles-image.png";
 import { SolutionTag } from "~/views/home";
 import { offeredSolutions } from "~/constants/solutions";
-import ArticlesDetails from "./articlesDetails"
-import { useViewState } from '~/store/viewState';
+import ArticlesDetails from "./articlesDetails";
+import { useViewState } from "~/store/viewState";
 
 const articlesArr = [
   {
@@ -69,7 +69,9 @@ const articles = [
 
 const NewsAndArticles = () => {
   const [selectedArticle, setSelectedArticle] = useState<any>(null);
-  const setIsViewingDetails = useViewState((state) => state.setIsViewingDetails);
+  const setIsViewingDetails = useViewState(
+    (state) => state.setIsViewingDetails
+  );
 
   useEffect(() => {
     setIsViewingDetails(!!selectedArticle);
@@ -93,39 +95,43 @@ const NewsAndArticles = () => {
           <span className="text-lg font-bold text-left">Featured</span>
 
           {articles.map((article) => (
-  <div
-    key={article.id}
-    onClick={() => setSelectedArticle(article)}
-    className="cursor-pointer"
-  >
-    <div
-      style={{ backgroundImage: `url(${article.featuredImage})` }}
-      className="flex items-end justify-start bg-cover bg-no-repeat min-h-[15rem] w-full rounded-[0.6rem]"
-    >
-      <div className="flex items-center justify-center p-1 bg-gold min-h-[1.875rem] rounded-bl-[0.6rem] w-full max-w-[6rem]">
-        <span className="text-semibold text-sm">{article.category}</span>
-      </div>
-    </div>
+            <div
+              key={article.id}
+              onClick={() => setSelectedArticle(article)}
+              className="cursor-pointer"
+            >
+              <div
+                style={{ backgroundImage: `url(${article.featuredImage})` }}
+                className="flex items-end justify-start bg-cover bg-no-repeat min-h-[15rem] w-full rounded-[0.6rem]"
+              >
+                <div className="flex items-center justify-center p-1 bg-gold min-h-[1.875rem] rounded-bl-[0.6rem] w-full max-w-[6rem]">
+                  <span className="text-semibold text-sm">
+                    {article.category}
+                  </span>
+                </div>
+              </div>
 
-    <div className="flex flex-col w-full">
-      <div className="flex flex-col gap-2 w-full">
-        <span className="font-semibold text-base">{article.title}</span>
+              <div className="flex flex-col w-full">
+                <div className="flex flex-col gap-2 w-full">
+                  <span className="font-semibold text-base">
+                    {article.title}
+                  </span>
 
-        <div className="flex flex-row items-center space-x-4 h-5 text-sm italic">
-          <span>{article.subtitle}</span>
-          <Separator orientation="vertical" className="bg-deepGray" />
-          <span>Time Horizon: {article.timeHorizon}</span>
-          <Separator orientation="vertical" className="bg-deepGray" />
-          <span>Impact severity: {article.impactSeverity}</span>
-        </div>
+                  <div className="flex flex-row items-center space-x-4 h-5 text-sm italic">
+                    <span>{article.subtitle}</span>
+                    <Separator orientation="vertical" className="bg-deepGray" />
+                    <span>Time Horizon: {article.timeHorizon}</span>
+                    <Separator orientation="vertical" className="bg-deepGray" />
+                    <span>Impact severity: {article.impactSeverity}</span>
+                  </div>
 
-        <Separator className="my-1 bg-deepGray w-full max-w-[50%]" />
-      </div>
+                  <Separator className="my-1 bg-deepGray w-full max-w-[50%]" />
+                </div>
 
-      <span>{article.description}</span>
-    </div>
-  </div>
-))}
+                <span>{article.description}</span>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="flex flex-col gap-4 bg-white rounded-xl w-full px-[1.5rem] py-4">
@@ -235,21 +241,18 @@ const NewsAndArticles = () => {
           </div>
 
           <div className="bg-white w-full flex flex-col gap-2 py-2 px-4 rounded-lg">
-            <span className="text-lg font-bold text-left">
-              Take Our Survey
-            </span>
+            <span className="text-lg font-bold text-left">Take Our Survey</span>
 
             <div className="flex flex-row items-center justify-center gap-2 bg-gray p-2 w-full rounded-lg">
               <span className="font-normal text-sm">
-                Join other Assisted Living Facilities to understand the
-                trend in Labor Policy
+                Join other Assisted Living Facilities to understand the trend in
+                Labor Policy
               </span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
   );
 };
 
