@@ -1,6 +1,6 @@
 import { useTabChange } from "~/store";
-import TeamHub from "./team-hub";
-import Report from "./report";
+// import TeamHub from "../team-hub";
+// import Report from "../report/report";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import NewsAndArticles from "./tabsContent/articles";
 import RiskEvents from "./tabsContent/riskEvents";
