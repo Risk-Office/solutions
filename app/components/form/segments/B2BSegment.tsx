@@ -1,14 +1,24 @@
 import { CustomCheckbox } from "~/components/form/customcheckbox";
 import { Button } from "~/components/ui/button";
 import { useFormStore } from "~/store/useForm";
+import { useEffect } from "react";
 
 interface B2BSegmentProps {
     onNext: () => void;
     onPrevious: () => void;
+    currentSection: number;
+    onSectionChange: (section: number) => void;
 }
 
-export default function B2BSegment({ onNext, onPrevious }: B2BSegmentProps) {
+export default function B2BSegment({ onNext, onPrevious, currentSection, onSectionChange }: B2BSegmentProps) {
     const { formData, updateSegmentData } = useFormStore();
+
+    // Debug logging
+    useEffect(() => {
+        console.log('Form Data:', formData);
+        console.log('Segment Data:', formData?.segmentData);
+        console.log('B2B Data:', formData?.segmentData?.b2bData);
+    }, [formData]);
 
     const businessTypes = [
         { id: 'manufacturing', label: 'Manufacturing' },
@@ -21,21 +31,27 @@ export default function B2BSegment({ onNext, onPrevious }: B2BSegmentProps) {
     ];
 
     const handleBusinessTypeChange = (selected: string[]) => {
-        updateSegmentData('b2b', { businessTypes: selected });
+        updateSegmentData('b2bData', { businessTypes: selected });
     };
+
+    // Ensure we have valid data before rendering
+    if (!formData?.segmentData?.b2bData) {
+        console.error('Missing b2bData in form state');
+        return null;
+    }
 
     return (
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <h3 className="text-lg font-medium">Questions for B2B (Business-to-Business)</h3>
-                <span className="text-sm text-gray-500">1/1</span>
+                <span className="text-sm text-gray-500">{currentSection}/1</span>
             </div>
 
             <div className="mb-4">
                 <label className="block text-sm font-medium mb-2">What type of businesses are your B2B customers?</label>
                 <CustomCheckbox
                     options={businessTypes}
-                    selected={formData.b2bData?.businessTypes || []}
+                    selected={formData.segmentData.b2bData.businessTypes || []}
                     onChange={handleBusinessTypeChange}
                 />
             </div>

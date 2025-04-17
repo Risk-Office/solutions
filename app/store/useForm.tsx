@@ -1,76 +1,136 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-// Define types for your form data
+export interface SegmentData {
+    b2bData: {
+        businessTypes: string[];
+    };
+    b2cData: {
+        dataTypes: string[];
+        demographics: {
+            ageRange?: string[];
+            gender?: string[];
+            householdType?: string[];
+            householdIncome?: string[];
+            homeOwnership?: string[];
+            residenceType?: string[];
+            residenceLength?: string[];
+            maritalStatus?: string[];
+            dependents?: string[];
+            employment?: string[];
+            education?: string[];
+            occupation?: string[];
+            ethnicity?: string[];
+            country?: string;
+            nationality?: string;
+            state?: string;
+            city?: string;
+            areaType?: string;
+            language?: string;
+            journeyStage?: string;
+            newVisitors?: string;
+            firstTimeBuyers?: string;
+            returningCustomers?: string;
+            churnedCustomers?: string;
+        };
+    };
+    governmentData: {
+        types: string[];
+        departments: string[];
+    };
+    nonProfitData: {
+        missionFocus: string[];
+        otherMission?: string;
+        employeeSize: string[];
+        volunteerSize: string[];
+        fundingSources: string[];
+        otherFunding?: string;
+        operationalMaturity: string[];
+        programModel: string[];
+        geographicalReach: string[];
+        legalStructure: string[];
+    };
+}
+
 export interface FormData {
-    customerSegments: string[];
-    b2bData?: Record<string, any>;
-    governmentData?: Record<string, any>;
-    b2cData?: Record<string, any>;
-    nonProfitData?: Record<string, any>;
-    othersData?: Record<string, any>;
     currentStep: number;
+    customerSegments: string[];
+    valueProposition: {
+        costEfficiency: string[];
+        quality: string[];
+        convenience: string[];
+        innovation: string[];
+    };
+    segmentData: SegmentData;
 }
 
-// Define the store interface
-interface FormStore {
+export const useFormStore = create<{
     formData: FormData;
-    updateFormData: (newData: Partial<Omit<FormData, 'currentStep'>>) => void;
-    updateSegmentData: (segment: string, data: Record<string, any>) => void;
+    updateFormData: (data: Partial<Omit<FormData, 'currentStep'>>) => void;
     setCurrentStep: (step: number) => void;
-    resetForm: () => void;
-}
-
-// Initial form data
-const initialFormData: FormData = {
-    customerSegments: [],
-    // Initialize other fields as needed
-    currentStep: 1,
-};
-
-// Create the Zustand store with persistence
-export const useFormStore = create<FormStore>()(
+    updateSegmentData: (segment: keyof SegmentData, data: Partial<SegmentData[keyof SegmentData]>) => void;
+}>()(
     persist(
         (set) => ({
-            formData: initialFormData,
-
-            updateFormData: (newData) =>
-                set((state) => ({
-                    formData: {
-                        ...state.formData,
-                        ...newData,
+            formData: {
+                currentStep: 1,
+                customerSegments: [],
+                valueProposition: {
+                    costEfficiency: [],
+                    quality: [],
+                    convenience: [],
+                    innovation: []
+                },
+                segmentData: {
+                    b2bData: {
+                        businessTypes: []
                     },
+                    b2cData: {
+                        dataTypes: [],
+                        demographics: {}
+                    },
+                    governmentData: {
+                        types: [],
+                        departments: []
+                    },
+                    nonProfitData: {
+                        missionFocus: [],
+                        otherMission: '',
+                        employeeSize: [],
+                        volunteerSize: [],
+                        fundingSources: [],
+                        otherFunding: '',
+                        operationalMaturity: [],
+                        programModel: [],
+                        geographicalReach: [],
+                        legalStructure: []
+                    }
+                }
+            },
+            updateFormData: (data) =>
+                set((state) => ({
+                    formData: { ...state.formData, ...data }
                 })),
-
+            setCurrentStep: (step) =>
+                set((state) => ({
+                    formData: { ...state.formData, currentStep: step }
+                })),
             updateSegmentData: (segment, data) =>
                 set((state) => ({
                     formData: {
                         ...state.formData,
-                        [`${segment}Data`]: {
-                            ...(typeof state.formData[`${segment}Data` as keyof FormData] === 'object' && state.formData[`${segment}Data` as keyof FormData] !== null
-                                ? state.formData[`${segment}Data` as keyof FormData]
-                                : {}),
-                            ...data,
-                        },
-                    },
-                })),
-
-            setCurrentStep: (step) =>
-                set((state) => ({
-                    formData: {
-                        ...state.formData,
-                        currentStep: step,
-                    },
-                })),
-
-            resetForm: () =>
-                set(() => ({
-                    formData: initialFormData,
-                })),
+                        segmentData: {
+                            ...state.formData.segmentData,
+                            [segment]: {
+                                ...state.formData.segmentData[segment],
+                                ...data
+                            }
+                        }
+                    }
+                }))
         }),
         {
-            name: 'form-storage',
-            partialize: (state) => ({ formData: state.formData }),
+            name: 'form-storage'
         }
     )
 );

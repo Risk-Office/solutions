@@ -6,41 +6,37 @@ import { useState } from "react";
 interface GovernmentSegmentProps {
     onNext: () => void;
     onPrevious: () => void;
+    currentSection: number;
+    onSectionChange: (section: number) => void;
 }
 
-export default function GovernmentSegment({ onNext, onPrevious }: GovernmentSegmentProps) {
+export default function GovernmentSegment({ onNext, onPrevious, currentSection, onSectionChange }: GovernmentSegmentProps) {
     const { formData, updateSegmentData } = useFormStore();
     const [currentLayer, setCurrentLayer] = useState(1);
 
     const governmentTypes = [
-        { id: 'federal', label: 'Federal/National' },
-        { id: 'state', label: 'State/Provincial' },
-        { id: 'local', label: 'Country/Regional' },
-        { id: 'municipal', label: 'Municipal/Local/City' },
-        { id: 'tribal', label: 'Tribal/Indigenuous Government Authorities' },
-        { id: 'international', label: 'For gov-to-gov or foreign gov' }
+        { id: 'federal', label: 'Federal' },
+        { id: 'state', label: 'State/Province' },
+        { id: 'local', label: 'Local/Municipal' },
+        { id: 'international', label: 'International' }
     ];
 
     const departments = [
-        { id: 'defense', label: 'Defense/Security' },
-        { id: 'safety', label: 'Public Safety' },
-        { id: 'health', label: 'Health and Human Services' },
-        { id: 'transportation', label: 'Transportation' },
+        { id: 'health', label: 'Health' },
         { id: 'education', label: 'Education' },
-        { id: 'resources', label: 'Environmental/Natural Resources' },
-        { id: 'housing', label: 'Housing/Urban Development' },
-        { id: 'finance', label: 'Finance/Treasury/Taxation' },
-        { id: 'technology', label: 'Technology/Innovation/Smart Cities' },
-        { id: 'regulatory', label: 'Regulatory Compliance' },
-        { id: 'general', label: 'Procurement/General Services' }
+        { id: 'transportation', label: 'Transportation' },
+        { id: 'defense', label: 'Defense' },
+        { id: 'finance', label: 'Finance' },
+        { id: 'environment', label: 'Environment' },
+        { id: 'other', label: 'Other' }
     ];
 
     const handleGovernmentTypeChange = (selected: string[]) => {
-        updateSegmentData('government', { types: selected });
+        updateSegmentData('governmentData', { types: selected });
     };
 
     const handleDepartmentChange = (selected: string[]) => {
-        updateSegmentData('government', { departments: selected });
+        updateSegmentData('governmentData', { departments: selected });
     };
 
     const handleNextLayer = () => {
@@ -63,37 +59,37 @@ export default function GovernmentSegment({ onNext, onPrevious }: GovernmentSegm
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <h3 className="text-lg font-medium">Questions for Government (B2G)</h3>
-                <span className="text-sm text-gray-500">{currentLayer}/2</span>
+                <span className="text-sm text-gray-500">{currentSection}/2</span>
             </div>
 
-            {currentLayer === 1 && (
+            {currentSection === 1 && (
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">What kind of government do you deal with?</label>
                     <CustomCheckbox
                         options={governmentTypes}
-                        selected={formData.governmentData?.types || []}
+                        selected={formData.segmentData.governmentData?.types || []}
                         onChange={handleGovernmentTypeChange}
                     />
                 </div>
             )}
 
-            {currentLayer === 2 && (
+            {currentSection === 2 && (
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">Select functional area/department/ministry</label>
                     <CustomCheckbox
                         options={departments}
-                        selected={formData.governmentData?.departments || []}
+                        selected={formData.segmentData.governmentData?.departments || []}
                         onChange={handleDepartmentChange}
                     />
                 </div>
             )}
 
             <div className="mt-24 flex items-center justify-end space-x-3">
-                <Button variant="text" className="text-sm uppercase border border-blue-900" onClick={handlePreviousLayer}>
+                <Button variant="text" className="text-sm uppercase border border-blue-900" onClick={onPrevious}>
                     Back
                 </Button>
-                <Button variant="default" className="text-sm uppercase" onClick={handleNextLayer}>
-                    {currentLayer === 2 ? 'Next' : 'Continue'}
+                <Button variant="default" className="text-sm uppercase" onClick={onNext}>
+                    {currentSection === 2 ? 'Next' : 'Continue'}
                 </Button>
             </div>
         </div>

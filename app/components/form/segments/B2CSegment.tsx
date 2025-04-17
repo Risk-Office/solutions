@@ -14,11 +14,12 @@ import {
 interface B2CSegmentProps {
     onNext: () => void;
     onPrevious: () => void;
+    currentSection: number;
+    onSectionChange: (section: number) => void;
 }
 
-export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
+export default function B2CSegment({ onNext, onPrevious, currentSection, onSectionChange }: B2CSegmentProps) {
     const { formData, updateSegmentData } = useFormStore();
-    const [currentLayer, setCurrentLayer] = useState(1);
     const [activeTab, setActiveTab] = useState('age');
 
     const dataTypes = [
@@ -137,27 +138,16 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
     ];
 
     const handleDataTypeChange = (selected: string[]) => {
-        updateSegmentData('b2c', { dataTypes: selected });
+        updateSegmentData('b2cData', { dataTypes: selected });
     };
 
     const handleDemographicChange = (field: string, value: any) => {
-        updateSegmentData('b2c', { demographics: { ...formData.b2cData?.demographics, [field]: value } });
-    };
-
-    const handleNextLayer = () => {
-        if (currentLayer < 2) {
-            setCurrentLayer(currentLayer + 1);
-        } else {
-            onNext();
-        }
-    };
-
-    const handlePreviousLayer = () => {
-        if (currentLayer > 1) {
-            setCurrentLayer(currentLayer - 1);
-        } else {
-            onPrevious();
-        }
+        updateSegmentData('b2cData', { 
+            demographics: { 
+                ...formData.segmentData.b2cData?.demographics, 
+                [field]: value 
+            } 
+        });
     };
 
     const renderDemographicContent = () => {
@@ -169,7 +159,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Age Range (Select all that applies)</label>
                             <CustomCheckbox
                                 options={ageOptions}
-                                selected={formData.b2cData?.demographics?.ageRange || []}
+                                selected={formData.segmentData.b2cData?.demographics?.ageRange || []}
                                 onChange={(selected) => handleDemographicChange('ageRange', selected)}
                             />
                         </div>
@@ -177,7 +167,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Gender Identity (Select all that applies)</label>
                             <CustomCheckbox
                                 options={genderOptions}
-                                selected={formData.b2cData?.demographics?.gender || []}
+                                selected={formData.segmentData.b2cData?.demographics?.gender || []}
                                 onChange={(selected) => handleDemographicChange('gender', selected)}
                             />
                         </div>
@@ -190,7 +180,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Household Type (Select all that applies)</label>
                             <CustomCheckbox
                                 options={householdTypeOptions}
-                                selected={formData.b2cData?.demographics?.householdType || []}
+                                selected={formData.segmentData.b2cData?.demographics?.householdType || []}
                                 onChange={(selected) => handleDemographicChange('householdType', selected)}
                             />
                         </div>
@@ -199,7 +189,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter household income bracket"
-                                value={formData.b2cData?.demographics?.householdIncome || ''}
+                                value={formData.segmentData.b2cData?.demographics?.householdIncome || ''}
                                 onChange={(e) => handleDemographicChange('householdIncome', e.target.value)}
                             />
                         </div>
@@ -207,7 +197,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Home Ownership Status (Select all that applies)</label>
                             <CustomCheckbox
                                 options={homeOwnershipOptions}
-                                selected={formData.b2cData?.demographics?.homeOwnership || []}
+                                selected={formData.segmentData.b2cData?.demographics?.homeOwnership || []}
                                 onChange={(selected) => handleDemographicChange('homeOwnership', selected)}
                             />
                         </div>
@@ -215,7 +205,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Type of Residence (Select all that applies)</label>
                             <CustomCheckbox
                                 options={residenceTypeOptions}
-                                selected={formData.b2cData?.demographics?.residenceType || []}
+                                selected={formData.segmentData.b2cData?.demographics?.residenceType || []}
                                 onChange={(selected) => handleDemographicChange('residenceType', selected)}
                             />
                         </div>
@@ -223,7 +213,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Length of Residence (Select all that applies)</label>
                             <CustomCheckbox
                                 options={residenceLengthOptions}
-                                selected={formData.b2cData?.demographics?.residenceLength || []}
+                                selected={formData.segmentData.b2cData?.demographics?.residenceLength || []}
                                 onChange={(selected) => handleDemographicChange('residenceLength', selected)}
                             />
                         </div>
@@ -236,7 +226,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Marital Status (Select all that applies)</label>
                             <CustomCheckbox
                                 options={maritalOptions}
-                                selected={formData.b2cData?.demographics?.maritalStatus || []}
+                                selected={formData.segmentData.b2cData?.demographics?.maritalStatus || []}
                                 onChange={(selected) => handleDemographicChange('maritalStatus', selected)}
                             />
                         </div>
@@ -244,7 +234,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Number of Dependents (Select all that applies)</label>
                             <CustomCheckbox
                                 options={dependentsOptions}
-                                selected={formData.b2cData?.demographics?.dependents || []}
+                                selected={formData.segmentData.b2cData?.demographics?.dependents || []}
                                 onChange={(selected) => handleDemographicChange('dependents', selected)}
                             />
                         </div>
@@ -252,7 +242,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Employment Status (Select all that applies)</label>
                             <CustomCheckbox
                                 options={employmentOptions}
-                                selected={formData.b2cData?.demographics?.employment || []}
+                                selected={formData.segmentData.b2cData?.demographics?.employment || []}
                                 onChange={(selected) => handleDemographicChange('employment', selected)}
                             />
                         </div>
@@ -263,7 +253,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                     <div className="space-y-4">
                         <div>
                             <label className="block text-sm font-medium mb-2">Country</label>
-                            <FormSelect value={formData.b2cData?.demographics?.country || ''} onValueChange={(value) => handleDemographicChange('country', value)}>
+                            <FormSelect value={formData.segmentData.b2cData?.demographics?.country || ''} onValueChange={(value) => handleDemographicChange('country', value)}>
                                 <FormSelectTrigger>
                                     <FormSelectValue placeholder="Select country" />
                                 </FormSelectTrigger>
@@ -281,7 +271,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter nationality/citizenship"
-                                value={formData.b2cData?.demographics?.nationality || ''}
+                                value={formData.segmentData.b2cData?.demographics?.nationality || ''}
                                 onChange={(e) => handleDemographicChange('nationality', e.target.value)}
                             />
                         </div>
@@ -290,7 +280,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter state/province"
-                                value={formData.b2cData?.demographics?.state || ''}
+                                value={formData.segmentData.b2cData?.demographics?.state || ''}
                                 onChange={(e) => handleDemographicChange('state', e.target.value)}
                             />
                         </div>
@@ -299,7 +289,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter city or postal code"
-                                value={formData.b2cData?.demographics?.city || ''}
+                                value={formData.segmentData.b2cData?.demographics?.city || ''}
                                 onChange={(e) => handleDemographicChange('city', e.target.value)}
                             />
                         </div>
@@ -308,7 +298,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter area type"
-                                value={formData.b2cData?.demographics?.areaType || ''}
+                                value={formData.segmentData.b2cData?.demographics?.areaType || ''}
                                 onChange={(e) => handleDemographicChange('areaType', e.target.value)}
                             />
                         </div>
@@ -321,7 +311,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Education Level (Select all that applies)</label>
                             <CustomCheckbox
                                 options={educationOptions}
-                                selected={formData.b2cData?.demographics?.education || []}
+                                selected={formData.segmentData.b2cData?.demographics?.education || []}
                                 onChange={(selected) => handleDemographicChange('education', selected)}
                             />
                         </div>
@@ -329,7 +319,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Occupation (Select all that applies)</label>
                             <CustomCheckbox
                                 options={occupationOptions}
-                                selected={formData.b2cData?.demographics?.occupation || []}
+                                selected={formData.segmentData.b2cData?.demographics?.occupation || []}
                                 onChange={(selected) => handleDemographicChange('occupation', selected)}
                             />
                         </div>
@@ -342,13 +332,13 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <label className="block text-sm font-medium mb-2">Ethnicity or Race (Select all that applies)</label>
                             <CustomCheckbox
                                 options={ethnicityOptions}
-                                selected={formData.b2cData?.demographics?.ethnicity || []}
+                                selected={formData.segmentData.b2cData?.demographics?.ethnicity || []}
                                 onChange={(selected) => handleDemographicChange('ethnicity', selected)}
                             />
                         </div>
                         <div>
                             <label className="block text-sm font-medium mb-2">Language Preference</label>
-                            <FormSelect value={formData.b2cData?.demographics?.language || ''} onValueChange={(value) => handleDemographicChange('language', value)}>
+                            <FormSelect value={formData.segmentData.b2cData?.demographics?.language || ''} onValueChange={(value) => handleDemographicChange('language', value)}>
                                 <FormSelectTrigger>
                                     <FormSelectValue placeholder="Select language preference" />
                                 </FormSelectTrigger>
@@ -371,7 +361,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter customer journey stage"
-                                value={formData.b2cData?.demographics?.journeyStage || ''}
+                                value={formData.segmentData.b2cData?.demographics?.journeyStage || ''}
                                 onChange={(e) => handleDemographicChange('journeyStage', e.target.value)}
                             />
                         </div>
@@ -380,7 +370,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter new visitors information"
-                                value={formData.b2cData?.demographics?.newVisitors || ''}
+                                value={formData.segmentData.b2cData?.demographics?.newVisitors || ''}
                                 onChange={(e) => handleDemographicChange('newVisitors', e.target.value)}
                             />
                         </div>
@@ -389,7 +379,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter first time buyers information"
-                                value={formData.b2cData?.demographics?.firstTimeBuyers || ''}
+                                value={formData.segmentData.b2cData?.demographics?.firstTimeBuyers || ''}
                                 onChange={(e) => handleDemographicChange('firstTimeBuyers', e.target.value)}
                             />
                         </div>
@@ -398,7 +388,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter returning customers information"
-                                value={formData.b2cData?.demographics?.returningCustomers || ''}
+                                value={formData.segmentData.b2cData?.demographics?.returningCustomers || ''}
                                 onChange={(e) => handleDemographicChange('returningCustomers', e.target.value)}
                             />
                         </div>
@@ -407,7 +397,7 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                             <FormInput
                                 type="text"
                                 placeholder="Enter churned customers information"
-                                value={formData.b2cData?.demographics?.churnedCustomers || ''}
+                                value={formData.segmentData.b2cData?.demographics?.churnedCustomers || ''}
                                 onChange={(e) => handleDemographicChange('churnedCustomers', e.target.value)}
                             />
                         </div>
@@ -422,24 +412,23 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <h3 className="text-lg font-medium">Questions for B2C (Business-to-Consumer)</h3>
-                <span className="text-sm text-gray-500">{currentLayer}/2</span>
+                <span className="text-sm text-gray-500">{currentSection}/2</span>
             </div>
 
-            {currentLayer === 1 && (
+            {currentSection === 1 && (
                 <div className="mb-4">
                     <label className="block text-md font-medium mb-3">What data types does your company keep on retail customers? (select all that applies)</label>
                     <CustomCheckbox
                         options={dataTypes}
-                        selected={formData.b2cData?.dataTypes || []}
+                        selected={formData.segmentData.b2cData?.dataTypes || []}
                         onChange={handleDataTypeChange}
                     />
                 </div>
             )}
 
-            {currentLayer === 2 && (
+            {currentSection === 2 && (
                 <div>
                     <p className="text-md mb-3 font-medium">Demographics</p>
-
                     <div className="flex gap-6">
                         {/* Vertical Tabs Sidebar */}
                         <div className="w-64 border-r border-gray-200">
@@ -447,10 +436,11 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
                                 {tabs.map((tab) => (
                                     <button
                                         key={tab.id}
-                                        className={`px-4 py-3 text-left text-sm font-medium ${activeTab === tab.id
+                                        className={`px-4 py-3 text-left text-sm font-medium ${
+                                            activeTab === tab.id
                                                 ? 'bg-gray-100 border-l-4 border-gray-900 text-gray-700'
                                                 : 'text-gray-600 hover:bg-gray-100'
-                                            }`}
+                                        }`}
                                         onClick={() => setActiveTab(tab.id)}
                                     >
                                         {tab.label}
@@ -468,11 +458,11 @@ export default function B2CSegment({ onNext, onPrevious }: B2CSegmentProps) {
             )}
 
             <div className="mt-24 flex items-center justify-end space-x-3">
-                <Button variant="text" className="text-sm uppercase border border-blue-900" onClick={handlePreviousLayer}>
+                <Button variant="text" className="text-sm uppercase border border-blue-900" onClick={onPrevious}>
                     Back
                 </Button>
-                <Button variant="default" className="text-sm uppercase" onClick={handleNextLayer}>
-                    {currentLayer === 2 ? 'Next' : 'Continue'}
+                <Button variant="default" className="text-sm uppercase" onClick={onNext}>
+                    {currentSection === 2 ? 'Next' : 'Continue'}
                 </Button>
             </div>
         </div>

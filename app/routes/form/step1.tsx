@@ -4,8 +4,9 @@ import { Button } from "~/components/ui/button";
 import { SolutionTag } from "~/views/home";
 import { useState } from "react";
 import { CustomCheckbox } from "~/components/form/customcheckbox";
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router";
 import { useFormStore } from "~/store/useForm";
+import { FormNavigation } from "~/components/form/FormNavigation";
 
 import Sideimg from '~/assets/png/forms/form2.png';
 
@@ -37,9 +38,18 @@ export default function Step1() {
     };
 
     const handleSaveForLater = () => {
-        // With Zustand persist, data is already saved to localStorage
-        console.log('Form data saved:', formData);
-        // Could add additional save logic here if needed
+        console.log('Form Data:', {
+            step1: {
+                customerSegments: formData.customerSegments
+            },
+            step2: {
+                valueProposition: formData.valueProposition
+            },
+            step3: {
+                // Add step3 data when implemented
+            },
+            currentStep: formData.currentStep
+        });
     };
 
     return (
@@ -89,10 +99,11 @@ export default function Step1() {
                             onChange={toggleOption}
                         />
 
-                        <div className="mt-24 flex items-center justify-end space-x-3 pr-6">
-                            <Button variant="text" className="text-sm uppercase mt-24 border border-blue-900" disabled>Back</Button>
-                            <Button variant="default" className="text-sm uppercase mt-24" onClick={handleNext}
-                                disabled={!formData.customerSegments || formData.customerSegments.length === 0}>Next</Button>
+                        <div className="mt-24">
+                            <FormNavigation
+                                currentStep={1}
+                                nextDisabled={!formData.customerSegments || formData.customerSegments.length === 0}
+                            />
                         </div>
                     </div>
                 </div>
