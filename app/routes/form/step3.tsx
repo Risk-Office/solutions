@@ -54,6 +54,34 @@ export default function Step3() {
         { id: 'testimonials', label: 'Positive customer testimonials and referrals' }
     ];
 
+    const financialPainPoints = [
+        { id: 'high_costs', label: 'High costs of products/services' },
+        { id: 'hidden_fees', label: 'Hidden fees or unclear pricing' },
+        { id: 'budget_constraints', label: 'Budget constraints or affordability issues' },
+        { id: 'poor_roi', label: 'Poor return on investment (ROI)' }
+    ];
+
+    const operationalPainPoints = [
+        { id: 'inefficient_workflows', label: 'Inefficient or slow workflows' },
+        { id: 'difficulty_info', label: 'Difficulty accessing necessary information' },
+        { id: 'complex_processes', label: 'Complex purchasing or onboarding processes' },
+        { id: 'lack_automation', label: 'Lack of automation or excessive manual work' }
+    ];
+
+    const supportPainPoints = [
+        { id: 'inadequate_self_service', label: 'Inadequate self-service options' },
+        { id: 'difficulty_support', label: 'Difficulty reaching support teams' },
+        { id: 'poor_service', label: 'Poor customer service or lack of responsiveness' },
+        { id: 'unclear_communication', label: 'Unclear or misleading communication' }
+    ];
+
+    const productPainPoints = [
+        { id: 'poor_integration', label: 'Poor integration with existing tools' },
+        { id: 'security_concerns', label: 'Security and compliance concerns' },
+        { id: 'lack_features', label: 'Lack of essential features or functionalities' },
+        { id: 'unreliable_products', label: 'Unreliable or low-quality products/services' }
+    ];
+
     const handleCostEfficiencyChange = (selected: string[]) => {
         updateFormData({
             valueProposition: {
@@ -104,6 +132,42 @@ export default function Step3() {
             valueProposition: {
                 ...formData.valueProposition,
                 brand: selected
+            }
+        });
+    };
+
+    const handleFinancialPainChange = (selected: string[]) => {
+        updateFormData({
+            painPoints: {
+                ...formData.painPoints,
+                financial: selected
+            }
+        });
+    };
+
+    const handleOperationalPainChange = (selected: string[]) => {
+        updateFormData({
+            painPoints: {
+                ...formData.painPoints,
+                operational: selected
+            }
+        });
+    };
+
+    const handleSupportPainChange = (selected: string[]) => {
+        updateFormData({
+            painPoints: {
+                ...formData.painPoints,
+                support: selected
+            }
+        });
+    };
+
+    const handleProductPainChange = (selected: string[]) => {
+        updateFormData({
+            painPoints: {
+                ...formData.painPoints,
+                product: selected
             }
         });
     };
@@ -162,13 +226,14 @@ export default function Step3() {
 
                         <div className="space-y-8">
                             <div>
-                                <h3 className="text-md font-medium mb-4">
-                                    What unique value does your business offer to resolve the pain points of your target customers?
-                                </h3>
+                               
 
                                 <div className="space-y-6">
                                     {currentSection === 1 && (
                                         <>
+                                            <h3 className="text-lg font-medium mb-4">
+                                                What unique value does your business offer to resolve the pain points of your target customers?
+                                            </h3>
                                             <div>
                                                 <h4 className="text-md font-medium mb-3">Cost Efficiency & Savings (Select all that apply)</h4>
                                                 <CustomCheckbox
@@ -227,7 +292,49 @@ export default function Step3() {
 
                                     {currentSection === 2 && (
                                         <>
-                                            {/* Add second section content here */}
+                                            <div>
+                                                <h3 className="text-lg font-medium mb-4">
+                                                    What are your customers' main pain points?
+                                                </h3>
+
+                                                <div className="space-y-6">
+                                                    <div>
+                                                        <h4 className="text-md font-medium mb-3">Financial Pain Points (Select all that apply)</h4>
+                                                        <CustomCheckbox
+                                                            options={financialPainPoints}
+                                                            selected={formData.painPoints?.financial || []}
+                                                            onChange={handleFinancialPainChange}
+                                                        />
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 className="text-md font-medium mb-3">Process & Operational Pain Points (Select all that apply)</h4>
+                                                        <CustomCheckbox
+                                                            options={operationalPainPoints}
+                                                            selected={formData.painPoints?.operational || []}
+                                                            onChange={handleOperationalPainChange}
+                                                        />
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 className="text-md font-medium mb-3">Support & Service Pain Points (Select all that apply)</h4>
+                                                        <CustomCheckbox
+                                                            options={supportPainPoints}
+                                                            selected={formData.painPoints?.support || []}
+                                                            onChange={handleSupportPainChange}
+                                                        />
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 className="text-md font-medium mb-3">Product & Performance Pain Points (Select all that apply)</h4>
+                                                        <CustomCheckbox
+                                                            options={productPainPoints}
+                                                            selected={formData.painPoints?.product || []}
+                                                            onChange={handleProductPainChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </>
                                     )}
                                 </div>
@@ -255,7 +362,13 @@ export default function Step3() {
                                     !formData.valueProposition?.convenience?.length ||
                                     !formData.valueProposition?.customization?.length ||
                                     !formData.valueProposition?.riskReduction?.length ||
-                                    !formData.valueProposition?.brand?.length : false}
+                                    !formData.valueProposition?.brand?.length 
+                                    : currentSection === 2 ?
+                                    !formData.painPoints?.financial?.length ||
+                                    !formData.painPoints?.operational?.length ||
+                                    !formData.painPoints?.support?.length ||
+                                    !formData.painPoints?.product?.length
+                                    : false}
                             />
                         </div>
                     </div>

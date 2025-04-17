@@ -4,6 +4,9 @@ import { persist } from 'zustand/middleware';
 export interface SegmentData {
     b2bData: {
         businessTypes: string[];
+        selectedSector?: string;
+        selectedSubSector?: string;
+        selectedIndustry?: string;
     };
     b2cData: {
         dataTypes: string[];
@@ -60,6 +63,26 @@ export interface FormData {
         quality: string[];
         convenience: string[];
         innovation: string[];
+        customization: string[];
+        riskReduction: string[];
+        brand: string[];
+    };
+    painPoints: {
+        financial: string[];
+        operational: string[];
+        support: string[];
+        product: string[];
+    };
+    customerRelations: {
+        crm: string[];
+        customerService: string[];
+        personalizedComm: string[];
+        loyalty: string[];
+        feedback: string[];
+        relationshipBuilding: string[];
+        socialMedia: string[];
+        branding: string[];
+        afterSales: string[];
     };
     segmentData: SegmentData;
 }
@@ -79,7 +102,27 @@ export const useFormStore = create<{
                     costEfficiency: [],
                     quality: [],
                     convenience: [],
-                    innovation: []
+                    innovation: [],
+                    customization: [],
+                    riskReduction: [],
+                    brand: []
+                },
+                painPoints: {
+                    financial: [],
+                    operational: [],
+                    support: [],
+                    product: []
+                },
+                customerRelations: {
+                    crm: [],
+                    customerService: [],
+                    personalizedComm: [],
+                    loyalty: [],
+                    feedback: [],
+                    relationshipBuilding: [],
+                    socialMedia: [],
+                    branding: [],
+                    afterSales: []
                 },
                 segmentData: {
                     b2bData: {

@@ -42,7 +42,7 @@ export const CustomCheckbox = ({ options, selected, onChange }: CustomCheckboxPr
                     </div>
                     <label
                         htmlFor={option.id}
-                        className="ml-3 text-gray-700 font-medium cursor-pointer"
+                        className="ml-3 text-gray-500 font-normal cursor-pointer"
                     >
                         {option.label}
                     </label>
