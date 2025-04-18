@@ -93,6 +93,29 @@ export interface FormData {
         hybridChannels: string[];
     };
     segmentData: SegmentData;
+    keyResources: {
+        humanResources: string[];
+        physicalResources: string[];
+        financialResources: string[];
+        intellectualResources: string[];
+        technologicalResources: string[];
+        regulatoryResources: string[];
+    };
+    businessActivities: {
+        administrativeServices: string[];
+        consultancyServices: string[];
+        creativeServices: string[];
+        customerSupportServices: string[];
+    };
+    keyPartnerships: {
+        operationsAndSupplyChain: string[];
+        financialAndLegal: string[];
+        technologyAndIT: string[];
+        marketingAndSales: string[];
+        humanResources: string[];
+        facilityAndInfrastructure: string[];
+        industrySpecific: string[];
+    };
 }
 
 export const useFormStore = create<{
@@ -164,6 +187,29 @@ export const useFormStore = create<{
                         geographicalReach: [],
                         legalStructure: []
                     }
+                },
+                keyResources: {
+                    humanResources: [],
+                    physicalResources: [],
+                    financialResources: [],
+                    intellectualResources: [],
+                    technologicalResources: [],
+                    regulatoryResources: []
+                },
+                businessActivities: {
+                    administrativeServices: [],
+                    consultancyServices: [],
+                    creativeServices: [],
+                    customerSupportServices: []
+                },
+                keyPartnerships: {
+                    operationsAndSupplyChain: [],
+                    financialAndLegal: [],
+                    technologyAndIT: [],
+                    marketingAndSales: [],
+                    humanResources: [],
+                    facilityAndInfrastructure: [],
+                    industrySpecific: []
                 }
             },
             updateFormData: (data) =>

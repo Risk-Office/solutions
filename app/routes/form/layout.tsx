@@ -16,8 +16,8 @@ const topTabs = [
     { label: "Customer Channels", path: "/form/step5" }, // Step 7
     { label: "Key Resources", path: "/form/step6" }, // Step 10
     { label: "Key Activities", path: "/form/step7" }, // Step 13
-    { label: "Key Partnerships", path: "/form/step15" }, // Step 15
-    { label: "Cost Structure", path: "/form/step18" }, // Step 18
+    { label: "Key Partnerships", path: "/form/step8" }, // Step 15
+    { label: "Cost Structure", path: "/form/step9" }, // Step 18
     { label: "Revenue Streams", path: "/form/step20" }, // Step 20
 ];
 
