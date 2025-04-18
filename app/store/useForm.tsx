@@ -84,6 +84,14 @@ export interface FormData {
         branding: string[];
         afterSales: string[];
     };
+    customerChannels: {
+        selectedChannel: string;
+        directChannels: string[];
+        indirectChannels: string[];
+        digitalChannels: string[];
+        physicalChannels: string[];
+        hybridChannels: string[];
+    };
     segmentData: SegmentData;
 }
 
@@ -123,6 +131,14 @@ export const useFormStore = create<{
                     socialMedia: [],
                     branding: [],
                     afterSales: []
+                },
+                customerChannels: {
+                    selectedChannel: '',
+                    directChannels: [],
+                    indirectChannels: [],
+                    digitalChannels: [],
+                    physicalChannels: [],
+                    hybridChannels: []
                 },
                 segmentData: {
                     b2bData: {

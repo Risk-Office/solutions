@@ -38,7 +38,7 @@ export default [
     route("form/step2", "routes/form/step2.tsx"),
     route("form/step3", "routes/form/step3.tsx"),
     route("form/step4", "routes/form/step4.tsx"),
-    // route("step5", "routes/form/step5.tsx"),
+    route("form/step5", "routes/form/step5.tsx"),
     // route("step6", "routes/form/step6.tsx"),
     // route("step7", "routes/form/step7.tsx"),
     // route("step8", "routes/form/step8.tsx"),

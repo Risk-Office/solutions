@@ -5,7 +5,7 @@ import { CustomCheckbox } from "~/components/form/customcheckbox";
 import { useNavigate } from "react-router";
 import { useFormStore } from "~/store/useForm";
 import { FormNavigation } from "~/components/form/FormNavigation";
-import Sideimg from '~/assets/png/forms/form1.png';
+import Sideimg from '~/assets/png/forms/form3.png';
 
 export default function Step4() {
     const { formData, updateFormData } = useFormStore();
