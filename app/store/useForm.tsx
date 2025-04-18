@@ -116,6 +116,16 @@ export interface FormData {
         facilityAndInfrastructure: string[];
         industrySpecific: string[];
     };
+    costStructure: {
+        fixedCosts: string[];
+        variableCosts: string[];
+        semiVariableCosts: string[];
+        financingCosts: string[];
+        complianceCosts: string[];
+        researchAndDevelopment: string[];
+        customerAcquisition: string[];
+    };
+    revenueStreams: string[];
 }
 
 export const useFormStore = create<{
@@ -210,7 +220,17 @@ export const useFormStore = create<{
                     humanResources: [],
                     facilityAndInfrastructure: [],
                     industrySpecific: []
-                }
+                },
+                costStructure: {
+                    fixedCosts: [],
+                    variableCosts: [],
+                    semiVariableCosts: [],
+                    financingCosts: [],
+                    complianceCosts: [],
+                    researchAndDevelopment: [],
+                    customerAcquisition: []
+                },
+                revenueStreams: []
             },
             updateFormData: (data) =>
                 set((state) => ({

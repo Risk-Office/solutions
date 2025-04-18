@@ -7,6 +7,7 @@ import { CustomCheckbox } from "~/components/form/customcheckbox";
 import { useNavigate } from "react-router";
 import { useFormStore } from "~/store/useForm";
 import { FormNavigation } from "~/components/form/FormNavigation";
+import { SaveForLaterModal } from "~/components/ui/modals";
 
 import Sideimg from '~/assets/png/forms/form2.png';
 
@@ -18,6 +19,8 @@ export interface Option {
 export default function Step1() {
     const { formData, updateFormData, setCurrentStep } = useFormStore();
     const navigate = useNavigate();
+    const [showSaveModal, setShowSaveModal] = useState(false);
+
     const options: Option[] = [
         { id: 'b2b', label: 'B2B (Business-to-Business)' },
         { id: 'government', label: 'Government (B2G)' },
@@ -50,59 +53,58 @@ export default function Step1() {
             },
             currentStep: formData.currentStep
         });
+        setShowSaveModal(true);
     };
 
     return (
         <div>
-            <TabTitle title="Target Customer Segments" />
+            <TabTitle title="Customer Segments" />
 
             <div className="grid grid-cols-4">
-                <div className="border-r border-gray-300 pt-24">
-                    <div className="w-[70%] mx-auto">
-                        <div className="flex flex-col items-center justify-center gap-2 bg-gray p-2 w-full rounded-lg">
-                            <div className="flex-[0.4] flex flex-col gap-2">
-                                <img
-                                    src={offeredSolutions[8].icon}
-                                    alt={offeredSolutions[8].name}
-                                    className="w-[52px] h-[48px]"
+                <div className="border-r border-gray-300 pt-10">
+                    <div className="w-[90%] mx-auto">
+                        <div className="space-y-6">
+                            <div className="p-4">
+                                <CustomCheckbox
+                                    options={options}
+                                    selected={formData.customerSegments || []}
+                                    onChange={toggleOption}
                                 />
-                                <SolutionTag solution={offeredSolutions[8]} />
                             </div>
-
-                            <div className="flex-1 flex items-center justify-start">
-                                <span className="font-normal text-sm">
-                                    {offeredSolutions[8].description}
-                                </span>
-                            </div>
-
-                            <Button variant="default" className="mt-4">Subscribe to Integr8</Button>
                         </div>
 
                         <div className="text-center">
-                            <Button variant="default" onClick={handleSaveForLater} className="text-sm uppercase mt-24">Save & Continue Later</Button>
+                            <Button variant="default" onClick={handleSaveForLater} className="text-sm uppercase mt-24">
+                                Save & Continue Later
+                            </Button>
                         </div>
                     </div>
                 </div>
 
-
                 <div className="col-span-2 pb-10 bg-gray-50">
-                    <h3 className="text-md font-medium mb-6 pt-6 pl-6">Question</h3>
+                    <div className="p-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-lg font-medium">Questions</h3>
+                            <span className="text-sm text-gray-500">1/1</span>
+                        </div>
 
-                    <hr className="w-[70%] border border-gray-300" />
-
-                    <div className="pl-6">
-                        <h3 className="text-md font-medium mb-6 pt-6">Who are your target customers? (select all that applies)</h3>
-
-                        <CustomCheckbox
-                            options={options}
-                            selected={formData.customerSegments || []}
-                            onChange={toggleOption}
-                        />
+                        <div className="space-y-8">
+                            <div>
+                                <h3 className="text-lg font-medium mb-4">
+                                    Who are your target customers?
+                                </h3>
+                                <p className="text-sm text-gray-600 mb-4">
+                                    Select all the customer segments that apply to your business.
+                                </p>
+                            </div>
+                        </div>
 
                         <div className="mt-24">
                             <FormNavigation
                                 currentStep={1}
-                                nextDisabled={!formData.customerSegments || formData.customerSegments.length === 0}
+                                currentSection={1}
+                                totalSections={1}
+                                nextDisabled={!formData.customerSegments?.length}
                             />
                         </div>
                     </div>
@@ -112,6 +114,11 @@ export default function Step1() {
                     <img src={Sideimg} alt="sideimg" className="w-full h-full object-cover" />
                 </div>
             </div>
-        </div >
+
+            <SaveForLaterModal
+                isOpen={showSaveModal}
+                onClose={() => setShowSaveModal(false)}
+            />
+        </div>
     );
 }

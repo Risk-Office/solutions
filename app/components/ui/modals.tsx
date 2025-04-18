@@ -349,3 +349,48 @@ export const AddNotesModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) =
         </div>
     </Modal>
 );
+
+export const FormSubmittedModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => {
+    const navigate = useNavigate();
+    return (
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            title="Your responses have been submitted"
+            size="default"
+        >
+            <div className="flex flex-col items-center gap-4 p-4">
+                <img src={ThumbsUp} alt="Thumbs up" className="w-16 h-16" />
+                <p className="text-center text-gray-600">
+                    Thank you for sharing your details, we'll use this information to provide tailored insight.
+                </p>
+                <Button variant="default" className="w-full" onClick={() => {
+                    navigate('/dashboard');
+                }}>
+                    Go to dashboard
+                </Button>
+            </div>
+        </Modal>
+    );
+};
+
+export const SaveForLaterModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => {
+    return (
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            title="Progress Saved"
+            size="default"
+        >
+            <div className="flex flex-col items-center gap-4 p-4">
+                <img src={ThumbsUp} alt="Thumbs up" className="w-16 h-16" />
+                <p className="text-center text-gray-600">
+                    Your progress has been saved. You can continue filling out the form at any time.
+                </p>
+                <Button variant="default" className="w-full" onClick={onClose}>
+                    Close
+                </Button>
+            </div>
+        </Modal>
+    );
+};

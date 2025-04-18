@@ -262,6 +262,21 @@ export default function Step2() {
 
     const segments = (formData.customerSegments || []).filter((item): item is string => typeof item === 'string');
 
+    const isSegmentCompleted = (segment: string) => {
+        switch(segment) {
+            case 'b2b':
+                return formData.segmentData?.b2bData?.selectedIndustry || formData.segmentData?.b2bData?.selectedSector;
+            case 'b2c':
+                return formData.segmentData?.b2cData?.dataTypes?.length > 0;
+            case 'government':
+                return formData.segmentData?.governmentData?.types?.length > 0;
+            case 'non-profit':
+                return formData.segmentData?.nonProfitData?.missionFocus?.length > 0;
+            default:
+                return false;
+        }
+    };
+
     return (
         <div>
             <TabTitle title="Value Proposition" />
@@ -283,7 +298,11 @@ export default function Step2() {
                                     >
                                         <div className="mr-3">
                                             <svg className={`w-5 h-5 ${activeSegment === segment ? 'text-amber-700' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                {isSegmentCompleted(segment) ? (
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                ) : (
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                )}
                                             </svg>
                                         </div>
                                         {getSegmentLabel(segment)}

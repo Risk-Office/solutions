@@ -10,15 +10,15 @@ export function meta() {
 }
 
 const topTabs = [
-    { label: "Customer Segment", path: "/form", activePaths: ["/form", "/form/step2"] }, // Step 1 & 2
-    { label: "Value Proposition", path: "/form/step3" }, // Step 3
-    { label: "Customer Relationship Management", path: "/form/step4" }, // Step 5
-    { label: "Customer Channels", path: "/form/step5" }, // Step 7
-    { label: "Key Resources", path: "/form/step6" }, // Step 10
-    { label: "Key Activities", path: "/form/step7" }, // Step 13
-    { label: "Key Partnerships", path: "/form/step8" }, // Step 15
-    { label: "Cost Structure", path: "/form/step9" }, // Step 18
-    { label: "Revenue Streams", path: "/form/step20" }, // Step 20
+    { label: "Customer Segment", path: "/form", activePaths: ["/form", "/form/step2"] },
+    { label: "Value Proposition", path: "/form/step3" },
+    { label: "Customer Relationship Management", path: "/form/step4" },
+    { label: "Customer Channels", path: "/form/step5" },
+    { label: "Key Resources", path: "/form/step6" },
+    { label: "Key Activities", path: "/form/step7" },
+    { label: "Key Partnerships", path: "/form/step8" },
+    { label: "Cost Structure", path: "/form/step9" },
+    { label: "Revenue Streams", path: "/form/step10" },
 ];
 
 export default function FormLayout() {

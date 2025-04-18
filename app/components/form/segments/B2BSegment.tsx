@@ -25,13 +25,20 @@ interface B2BData {
 
 export default function B2BSegment({ onNext, onPrevious, currentSection, onSectionChange }: B2BSegmentProps) {
     const { formData, updateSegmentData } = useFormStore();
-    const [activeSector, setActiveSector] = React.useState<string>("");
-    const [activeSubSector, setActiveSubSector] = React.useState<string>("");
+    const [activeSector, setActiveSector] = React.useState<string>(formData.segmentData?.b2bData?.selectedSector || "");
+    const [activeSubSector, setActiveSubSector] = React.useState<string>(formData.segmentData?.b2bData?.selectedSubSector || "");
     
     useEffect(() => {
         console.log('Form Data:', formData);
         console.log('Segment Data:', formData.segmentData);
         console.log('B2B Data:', formData.segmentData?.b2bData);
+        // Initialize with saved data
+        if (formData.segmentData?.b2bData?.selectedSector) {
+            setActiveSector(formData.segmentData.b2bData.selectedSector);
+        }
+        if (formData.segmentData?.b2bData?.selectedSubSector) {
+            setActiveSubSector(formData.segmentData.b2bData.selectedSubSector);
+        }
     }, [formData]);
 
     if (!formData.segmentData?.b2bData) {
