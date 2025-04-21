@@ -24,8 +24,8 @@ const StatCard: React.FC<StatCardProps> = ({
           )}
         </div>
       </div>
-      <hr className="my-2 text-gray-300" />
-      <p className="text-2xl text-center font-extrabold">{value}</p>
+      <hr className="my-2 text-gray-200" />
+      <p className="text-xl text-center font-bold">{value}</p>
     </div>
   );
 };

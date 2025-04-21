@@ -402,7 +402,7 @@ const OverviewPage = () => {
         {/* World/Region Map - 65% width */}
         <div className="lg:w-[65%] bg-white rounded-lg shadow p-4">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="text-lg font-medium">World/Region Map</h2>
+            <h2 className="text-lg font-bold">World/Region Map</h2>
             <div className="flex space-x-2">
               <button
                 className={`px-3 py-1 text-sm rounded ${
@@ -436,8 +436,7 @@ const OverviewPage = () => {
               </button>
             </div>
           </div>
-          <hr className="mb-4" />
-
+          <hr className="my-2 text-gray-200" />
           <div className="relative">
             <MapChart
               timeframe={mapTimeframe}
@@ -457,8 +456,8 @@ const OverviewPage = () => {
       <div className="flex gap-4 mb-6">
         {/* Impact Bubble Chart */}
         <div className="bg-white rounded-lg shadow p-4 w-[65%]">
-          <h2 className="text-lg font-medium mb-2">Impact Bubble Chart</h2>
-          <hr className="mb-4" />
+          <h2 className="text-lg font-semibold mb-2">Impact Bubble Chart</h2>
+          <hr className="my-2 text-gray-200" />
 
           <div className="flex">
             <div className="flex flex-col justify-between py-12">
@@ -550,14 +549,14 @@ const OverviewPage = () => {
               </button>
             </div>
           </div>
-          <hr className="mb-4" />
+          <hr className="my-2 text-gray-200" />
           {renderHighlightContent()}
         </div>
 
         {/* Word Cloud - 35% width */}
         <div className="lg:w-[35%] bg-white rounded-lg shadow p-4 h-[400px]">
           <h2 className="text-lg font-medium mb-2">Word Cloud</h2>
-          <hr className="mb-4" />
+          <hr className="my-2 text-gray-200" />
 
           <WordCloud />
         </div>

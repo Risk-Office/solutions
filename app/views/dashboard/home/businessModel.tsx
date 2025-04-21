@@ -146,7 +146,7 @@ const BusinessModelOverviewPage = () => {
         {/* World/Region Map - 65% width */}
         <div className="lg:w-[65%] bg-white rounded-lg shadow p-4">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="text-lg font-medium">World/Region Map</h2>
+            <h2 className="text-lg font-bold">World/Region Map</h2>
             <div className="flex space-x-2">
               <button
                 className={`px-3 py-1 text-sm rounded ${
@@ -180,7 +180,7 @@ const BusinessModelOverviewPage = () => {
               </button>
             </div>
           </div>
-          <hr className="mb-4" />
+          <hr className="my-2 text-gray-200" />
 
           <div className="relative">
             <MapChart
@@ -200,13 +200,8 @@ const BusinessModelOverviewPage = () => {
       <div className="flex gap-4 mb-6">
         {/* Impact Bubble Chart */}
         <div className="bg-white rounded-lg shadow p-4 w-[65%]">
-          {/* <h2 className="text-lg font-medium mb-2">BMC Risk Trend</h2>
-          <hr className="mb-4" /> */}
-
           <div className="flex-1">
-            {/* <div className="flex-1"> */}
             <FactorTrendChart modelType={"business"} />
-            {/* </div> */}
           </div>
         </div>
 
@@ -251,7 +246,7 @@ const BusinessModelOverviewPage = () => {
       {/* important highlight */}
       <div className="bg-white rounded-lg shadow p-4 w-full">
         <h2 className="text-lg font-semibold mb-4">Important Highlights</h2>
-        <hr className="mb-4" />
+        <hr className="my-2 text-gray-200" />
 
         <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
           {Object.keys(businessModelHighlights).map((section) => (

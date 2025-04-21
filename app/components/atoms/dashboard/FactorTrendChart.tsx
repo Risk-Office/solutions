@@ -131,6 +131,7 @@ const FactorTrendChart: React.FC<FactorTrendChartProps> = ({ modelType }) => {
           )}
         </div>
       </div>
+      <hr className="my-2 text-gray-200" />
 
       <div className="flex">
         {/* Left side labels */}

@@ -142,8 +142,8 @@ const FactorHeatmapCard = () => {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-sm font-bold mb-4 border-b pb-2">Heatmap</h2>
-
+      <h2 className="text-lg font-bold mb-4">Factor Heatmap</h2>
+      <hr className="my-2 text-gray-200" />
       <div className="mb-4">
         <div className="flex mb-2">
           <div className="w-36"></div>
