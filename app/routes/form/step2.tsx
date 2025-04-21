@@ -50,6 +50,26 @@ export default function Step2() {
     const [currentSection, setCurrentSection] = useState(1);
     const [isInitialized, setIsInitialized] = useState(false);
 
+    const goToStep3 = () => {
+        setCurrentStep(3);
+        navigate("/form/step3");
+    };
+
+    const handleNext = () => {
+        if (currentSection < 2) {
+            setCurrentSection(currentSection + 1);
+        } else {
+            const nextSegment = getNextSegment();
+            if (nextSegment) {
+                setActiveSegment(nextSegment);
+                setCurrentSection(1);
+            } else {
+                goToStep3(); // This is where we route to step 3 if we're on the final section of the last segment
+            }
+        }
+    };
+
+
     // Initialize store data if needed
     useEffect(() => {
         if (!formData.segmentData) {
@@ -74,28 +94,30 @@ export default function Step2() {
             });
         }
         setIsInitialized(true);
-    }, [formData.segmentData, updateFormData]);
+    }, []);
+
 
     // Reset active segment and update when segments change
     useEffect(() => {
         if (!isInitialized) return;
 
         const segments = formData.customerSegments || [];
-        const flatSegments = segments.filter((item: any) => typeof item === 'string');
-        
-        if (flatSegments.length === 0) {
+        const validSegments = segments.filter((seg): seg is string => typeof seg === 'string');
+
+        if (segments.length !== validSegments.length) {
+            updateFormData({ customerSegments: validSegments });
+        }
+
+        if (validSegments.length === 0) {
             navigate('/form/step1');
             return;
         }
 
-        if (flatSegments.length !== segments.length) {
-            updateFormData({ customerSegments: flatSegments });
+        if (!validSegments.includes(activeSegment)) {
+            setActiveSegment(validSegments[0]);
         }
+    }, [formData.customerSegments, activeSegment, isInitialized, navigate, updateFormData]);
 
-        if (!flatSegments.includes(activeSegment)) {
-            setActiveSegment(flatSegments[0]);
-        }
-    }, [formData.customerSegments, activeSegment, navigate, updateFormData, isInitialized]);
 
     const handleSegmentClick = (segment: string) => {
         setActiveSegment(segment);
@@ -126,17 +148,7 @@ export default function Step2() {
                 return <B2BSegment 
                     currentSection={currentSection}
                     onSectionChange={setCurrentSection}
-                    onNext={() => {
-                        if (currentSection < 2) {
-                            setCurrentSection(currentSection + 1);
-                        } else {
-                            const nextSegment = getNextSegment();
-                            if (nextSegment) {
-                                setActiveSegment(nextSegment);
-                                setCurrentSection(1);
-                            }
-                        }
-                    }}
+                    onNext={handleNext}
                     onPrevious={() => {
                         if (currentSection > 1) {
                             setCurrentSection(currentSection - 1);
@@ -153,17 +165,7 @@ export default function Step2() {
                 return <GovernmentSegment 
                     currentSection={currentSection}
                     onSectionChange={setCurrentSection}
-                    onNext={() => {
-                        if (currentSection < 2) {
-                            setCurrentSection(currentSection + 1);
-                        } else {
-                            const nextSegment = getNextSegment();
-                            if (nextSegment) {
-                                setActiveSegment(nextSegment);
-                                setCurrentSection(1);
-                            }
-                        }
-                    }}
+                    onNext={handleNext}
                     onPrevious={() => {
                         if (currentSection > 1) {
                             setCurrentSection(currentSection - 1);
@@ -180,17 +182,7 @@ export default function Step2() {
                 return <B2CSegment 
                     currentSection={currentSection}
                     onSectionChange={setCurrentSection}
-                    onNext={() => {
-                        if (currentSection < 2) {
-                            setCurrentSection(currentSection + 1);
-                        } else {
-                            const nextSegment = getNextSegment();
-                            if (nextSegment) {
-                                setActiveSegment(nextSegment);
-                                setCurrentSection(1);
-                            }
-                        }
-                    }}
+                    onNext={handleNext}
                     onPrevious={() => {
                         if (currentSection > 1) {
                             setCurrentSection(currentSection - 1);
@@ -207,17 +199,7 @@ export default function Step2() {
                 return <NonProfitSegment 
                     currentSection={currentSection}
                     onSectionChange={setCurrentSection}
-                    onNext={() => {
-                        if (currentSection < 2) {
-                            setCurrentSection(currentSection + 1);
-                        } else {
-                            const nextSegment = getNextSegment();
-                            if (nextSegment) {
-                                setActiveSegment(nextSegment);
-                                setCurrentSection(1);
-                            }
-                        }
-                    }}
+                    onNext={handleNext}
                     onPrevious={() => {
                         if (currentSection > 1) {
                             setCurrentSection(currentSection - 1);
@@ -240,14 +222,17 @@ export default function Step2() {
     const getNextSegment = () => {
         const segments = formData.customerSegments || [];
         const currentIndex = segments.indexOf(activeSegment);
+        if (currentIndex === -1 || currentIndex + 1 >= segments.length) return null;
         return segments[currentIndex + 1];
     };
 
     const getPreviousSegment = () => {
         const segments = formData.customerSegments || [];
         const currentIndex = segments.indexOf(activeSegment);
+        if (currentIndex <= 0) return null;
         return segments[currentIndex - 1];
     };
+
 
     const getSegmentLabel = (segment: string): string => {
         switch(segment) {

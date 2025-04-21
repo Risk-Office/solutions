@@ -40,7 +40,7 @@ export default function B2CSegment({ onNext, onPrevious, currentSection, onSecti
         { id: 'country', label: 'Country' },
         { id: 'education', label: 'Education Level' },
         { id: 'ethnicity', label: 'Ethnicity or Race' },
-        { id: 'others', label: 'Others' }
+        // { id: 'others', label: 'Others' }
     ];
 
     const ageOptions = [
@@ -353,56 +353,56 @@ export default function B2CSegment({ onNext, onPrevious, currentSection, onSecti
                         </div>
                     </div>
                 );
-            case 'others':
-                return (
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium mb-2">Customer Journey Stage</label>
-                            <FormInput
-                                type="text"
-                                placeholder="Enter customer journey stage"
-                                value={formData.segmentData.b2cData?.demographics?.journeyStage || ''}
-                                onChange={(e) => handleDemographicChange('journeyStage', e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium mb-2">New Visitors</label>
-                            <FormInput
-                                type="text"
-                                placeholder="Enter new visitors information"
-                                value={formData.segmentData.b2cData?.demographics?.newVisitors || ''}
-                                onChange={(e) => handleDemographicChange('newVisitors', e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium mb-2">First Time Buyers</label>
-                            <FormInput
-                                type="text"
-                                placeholder="Enter first time buyers information"
-                                value={formData.segmentData.b2cData?.demographics?.firstTimeBuyers || ''}
-                                onChange={(e) => handleDemographicChange('firstTimeBuyers', e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium mb-2">Returning Customers</label>
-                            <FormInput
-                                type="text"
-                                placeholder="Enter returning customers information"
-                                value={formData.segmentData.b2cData?.demographics?.returningCustomers || ''}
-                                onChange={(e) => handleDemographicChange('returningCustomers', e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium mb-2">Churned Customers</label>
-                            <FormInput
-                                type="text"
-                                placeholder="Enter churned customers information"
-                                value={formData.segmentData.b2cData?.demographics?.churnedCustomers || ''}
-                                onChange={(e) => handleDemographicChange('churnedCustomers', e.target.value)}
-                            />
-                        </div>
-                    </div>
-                );
+            // case 'others':
+            //     return (
+            //         <div className="space-y-4">
+            //             <div>
+            //                 <label className="block text-sm font-medium mb-2">Customer Journey Stage</label>
+            //                 <FormInput
+            //                     type="text"
+            //                     placeholder="Enter customer journey stage"
+            //                     value={formData.segmentData.b2cData?.demographics?.journeyStage || ''}
+            //                     onChange={(e) => handleDemographicChange('journeyStage', e.target.value)}
+            //                 />
+            //             </div>
+            //             <div>
+            //                 <label className="block text-sm font-medium mb-2">New Visitors</label>
+            //                 <FormInput
+            //                     type="text"
+            //                     placeholder="Enter new visitors information"
+            //                     value={formData.segmentData.b2cData?.demographics?.newVisitors || ''}
+            //                     onChange={(e) => handleDemographicChange('newVisitors', e.target.value)}
+            //                 />
+            //             </div>
+            //             <div>
+            //                 <label className="block text-sm font-medium mb-2">First Time Buyers</label>
+            //                 <FormInput
+            //                     type="text"
+            //                     placeholder="Enter first time buyers information"
+            //                     value={formData.segmentData.b2cData?.demographics?.firstTimeBuyers || ''}
+            //                     onChange={(e) => handleDemographicChange('firstTimeBuyers', e.target.value)}
+            //                 />
+            //             </div>
+            //             <div>
+            //                 <label className="block text-sm font-medium mb-2">Returning Customers</label>
+            //                 <FormInput
+            //                     type="text"
+            //                     placeholder="Enter returning customers information"
+            //                     value={formData.segmentData.b2cData?.demographics?.returningCustomers || ''}
+            //                     onChange={(e) => handleDemographicChange('returningCustomers', e.target.value)}
+            //                 />
+            //             </div>
+            //             <div>
+            //                 <label className="block text-sm font-medium mb-2">Churned Customers</label>
+            //                 <FormInput
+            //                     type="text"
+            //                     placeholder="Enter churned customers information"
+            //                     value={formData.segmentData.b2cData?.demographics?.churnedCustomers || ''}
+            //                     onChange={(e) => handleDemographicChange('churnedCustomers', e.target.value)}
+            //                 />
+            //             </div>
+            //         </div>
+            //     );
             default:
                 return null;
         }
