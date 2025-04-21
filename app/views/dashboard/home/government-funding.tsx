@@ -3,7 +3,7 @@ import { useTabChange } from "~/store";
 // import Report from "../report/report";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import NewsAndArticles from "./tabsContent/articles";
-import RiskEvents from "./tabsContent/riskEvents";
+
 import StatementAndAction from "./tabsContent/statement";
 import Trends from "./tabsContent/trends";
 import Tracking from "./tabsContent/tracking";
@@ -12,6 +12,7 @@ import { Button } from "~/components/ui/button";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useViewState } from "~/store/viewState";
 import { useState } from "react";
+import RiskEvents from "./tabsContent/riskEvents";
 
 const tabs = [
   {
@@ -62,7 +63,7 @@ const DashboardEntry = () => {
                     <TabsTrigger
                       key={tab.value}
                       value={tab.value}
-                      className="text-base font-semibold py-2 rounded-[0.625rem]"
+                      className="text-base font-semibold py-1 rounded-[0.625rem]"
                     >
                       {tab.name}
                     </TabsTrigger>

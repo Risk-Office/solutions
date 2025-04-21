@@ -1,383 +1,413 @@
-import React, { useState } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import StatCard from "~/components/atoms/dashboard/StatCard";
+import WordCloud from "~/components/atoms/dashboard/WordCloud";
+import BubbleChart from "~/components/atoms/dashboard/BubbleChart";
+import FactorTrendChart from "~/components/atoms/dashboard/FactorTrendChart";
+import FactorHeatmapCard from "~/components/atoms/dashboard/FactorHeatMap";
+import MapChart from "~/components/atoms/dashboard/MapChart";
+import featuredImage from "~/assets/png/Screenshot.png";
+import { Separator } from "~/components/ui/separator";
 
-// Sample data
-const trendData = [
-  {
-    name: "Jan",
-    Political: 4,
-    Economic: 3,
-    Legal: 2,
-    Social: 1,
-    Technological: 2,
-    Environmental: 3,
-    Competition: 4,
-  },
-  {
-    name: "Feb",
-    Political: 3,
-    Economic: 4,
-    Legal: 3,
-    Social: 2,
-    Technological: 3,
-    Environmental: 2,
-    Competition: 3,
-  },
-  {
-    name: "Mar",
-    Political: 2,
-    Economic: 5,
-    Legal: 4,
-    Social: 3,
-    Technological: 2,
-    Environmental: 1,
-    Competition: 2,
-  },
-  {
-    name: "Apr",
-    Political: 3,
-    Economic: 4,
-    Legal: 3,
-    Social: 4,
-    Technological: 1,
-    Environmental: 2,
-    Competition: 3,
-  },
-  {
-    name: "May",
-    Political: 4,
-    Economic: 3,
-    Legal: 2,
-    Social: 3,
-    Technological: 2,
-    Environmental: 3,
-    Competition: 4,
-  },
-  {
-    name: "Jun",
-    Political: 5,
-    Economic: 2,
-    Legal: 1,
-    Social: 2,
-    Technological: 3,
-    Environmental: 4,
-    Competition: 5,
-  },
+import RiskEven from "~/riskevent/RiskEven";
+
+const categories = [
+  "Political",
+  "Economic",
+  "Technological",
+  "Environmental",
+  "Legal",
+  "Social",
+  "Competition",
 ];
 
-const bubbleChartData = [
-  { name: "Political", value: 80, color: "#FF5733" },
-  { name: "Economic", value: 120, color: "#33FF57" },
-  { name: "Technological", value: 70, color: "#3357FF" },
-  { name: "Environmental", value: 90, color: "#F3FF33" },
-  { name: "Legal", value: 110, color: "#FF33F3" },
-  { name: "Social", value: 60, color: "#33FFF3" },
-  { name: "Competition", value: 100, color: "#8C33FF" },
-];
-
-const countriesData = [
-  {
-    id: "US",
-    name: "United States",
-    color: "#b9b74c",
-    path: "M45,102 L65 353,102 L65,110 L45,110 Z",
-  },
-  {
-    id: "BR",
-    name: "Brazil",
-    color: "#003366",
-    path: "M130,170 L140,170 L140,185 L130,185 Z",
-  },
-  {
-    id: "RU",
-    name: "Russia",
-    color: "#003366",
-    path: "M180,75 L240,75 L240,95 L180,95 Z",
-  },
-  {
-    id: "AU",
-    name: "Australia",
-    color: "#003366",
-    path: "M240,180 L255,180 L255,190 L240,190 Z",
-  },
-  {
-    id: "CA",
-    name: "Canada",
-    color: "#f0f0f0",
-    path: "M45,80 L75,80 L75,95 L45,95 Z",
-  },
-  {
-    id: "CN",
-    name: "China",
-    color: "#f0f0f0",
-    path: "M205,110 L225,110 L225,125 L205,125 Z",
-  },
-  {
-    id: "IN",
-    name: "India",
-    color: "#f0f0f0",
-    path: "M195,130 L210,130 L210,142 L195,142 Z",
-  },
-  {
-    id: "UK",
-    name: "United Kingdom",
-    color: "#f0f0f0",
-    path: "M120,90 L125,90 L125,95 L120,95 Z",
-  },
-  {
-    id: "FR",
-    name: "France",
-    color: "#f0f0f0",
-    path: "M125,100 L132,100 L132,108 L125,108 Z",
-  },
-  {
-    id: "DE",
-    name: "Germany",
-    color: "#f0f0f0",
-    path: "M135,95 L142,95 L142,102 L135,102 Z",
-  },
-  {
-    id: "ZA",
-    name: "South Africa",
-    color: "#f0f0f0",
-    path: "M140,180 L148,180 L148,188 L140,188 Z",
-  },
-];
-
-// StatCard Component
-const StatCard = ({ color, title, subtitle, value }) => {
-  return (
-    <div className="bg-white rounded-lg shadow p-4 flex-1">
-      <div className="flex items-center py-2 mb-2">
-        <div className={`w-10 h-10 ${color} rounded`}></div>
-        <div className="ml-3">
-          <p className="font-medium text-gray-700">{title}</p>
-          {subtitle && <p className="text-xs text-gray-500">{subtitle}</p>}
-        </div>
-      </div>
-      <hr className="my-2" />
-      <p className="text-xl font-bold">{value}</p>
-    </div>
-  );
+const riskMarkers = {
+  Political: [
+    {
+      name: "USA",
+      coordinates: [-95.7129, 37.0902],
+      value: 10,
+      info: "Tax policy change affecting healthcare businesses",
+      subMarkers: [
+        {
+          name: "New York City",
+          coordinates: [-74.006, 40.7128],
+          value: 3,
+          risks: [
+            "New tax regulation for hospitals",
+            "Labor union strike",
+            "Healthcare funding cut",
+          ],
+        },
+        {
+          name: "California",
+          coordinates: [-119.4179, 36.7783],
+          value: 5,
+          risks: [
+            "State-level privacy law",
+            "Medical supply chain disruption",
+            "Increased operational costs",
+            "Tech regulation impact",
+            "Insurance policy change",
+          ],
+        },
+        {
+          name: "Texas",
+          coordinates: [-99.9018, 31.9686],
+          value: 2,
+          risks: ["Property tax increase", "Healthcare worker shortage"],
+        },
+      ],
+    },
+    {
+      name: "UK",
+      coordinates: [-0.1278, 51.5074],
+      value: 3,
+      info: "Brexit regulations impact on imported medical supplies",
+    },
+    {
+      name: "China",
+      coordinates: [104.1954, 35.8617],
+      value: 4,
+      info: "New trade restrictions on pharmaceutical exports",
+    },
+  ],
+  Economic: [
+    {
+      name: "Germany",
+      coordinates: [10.4515, 51.1657],
+      value: 4,
+      info: "Interest rate changes affecting healthcare investments",
+    },
+    {
+      name: "Japan",
+      coordinates: [138.2529, 36.2048],
+      value: 3,
+      info: "Economic slowdown impacting senior care funding",
+    },
+    {
+      name: "Brazil",
+      coordinates: [-51.9253, -14.235],
+      value: 5,
+      info: "Currency devaluation affecting drug imports",
+    },
+  ],
+  Technological: [
+    {
+      name: "India",
+      coordinates: [78.9629, 20.5937],
+      value: 4,
+      info: "New telemedicine regulations",
+    },
+    {
+      name: "South Korea",
+      coordinates: [127.7669, 35.9078],
+      value: 5,
+      info: "AI healthcare approval processes",
+    },
+  ],
+  Environmental: [
+    {
+      name: "Australia",
+      coordinates: [133.7751, -25.2744],
+      value: 3,
+      info: "Climate change policy affecting healthcare facilities",
+    },
+    {
+      name: "Canada",
+      coordinates: [-106.3468, 56.1304],
+      value: 2,
+      info: "New environmental standards for medical waste",
+    },
+  ],
+  Legal: [
+    {
+      name: "France",
+      coordinates: [2.2137, 46.2276],
+      value: 4,
+      info: "Healthcare privacy law changes",
+    },
+    {
+      name: "Italy",
+      coordinates: [12.5674, 41.8719],
+      value: 3,
+      info: "Patient data protection regulations",
+    },
+  ],
+  Social: [
+    {
+      name: "Spain",
+      coordinates: [-3.7492, 40.4637],
+      value: 2,
+      info: "Healthcare worker union negotiations",
+    },
+    {
+      name: "Mexico",
+      coordinates: [-102.5528, 23.6345],
+      value: 3,
+      info: "Public healthcare access expansion",
+    },
+  ],
+  Competition: [
+    {
+      name: "Singapore",
+      coordinates: [103.8198, 1.3521],
+      value: 4,
+      info: "New healthcare market entrants",
+    },
+    {
+      name: "UAE",
+      coordinates: [53.8478, 23.4241],
+      value: 3,
+      info: "Healthcare consolidation trends",
+    },
+  ],
 };
 
-// Custom SVG Map Component
-const SimpleMapChart = () => {
-  return (
-    <div className="relative">
-      <svg
-        viewBox="0 0 300 200"
-        className="w-full border border-gray-200 rounded"
-      >
-        {/* World map background */}
-        <rect x="0" y="0" width="300" height="200" fill="#f8fbfd" />
-        {/* Ocean */}
-        <path d="M0,0 L300,0 L300,200 L0,200 Z" fill="#e6f2ff" />
-        {/* Basic continental outlines */}
-        <path
-          d="M30,70 L80,70 L80,130 L30,130 Z"
-          fill="#f0f0f0"
-          stroke="#d0d0d0"
-          strokeWidth="0.5"
-        />{" "}
-        {/* North America */}
-        <path
-          d="M120,70 L150,70 L150,110 L120,110 Z"
-          fill="#f0f0f0"
-          stroke="#d0d0d0"
-          strokeWidth="0.5"
-        />{" "}
-        {/* Europe */}
-        <path
-          d="M120,150 L150,150 L150,190 L120,190 Z"
-          fill="#f0f0f0"
-          stroke="#d0d0d0"
-          strokeWidth="0.5"
-        />{" "}
-        {/* South America */}
-        <path
-          d="M170,90 L230,90 L230,150 L170,150 Z"
-          fill="#f0f0f0"
-          stroke="#d0d0d0"
-          strokeWidth="0.5"
-        />{" "}
-        {/* Asia */}
-        <path
-          d="M150,140 L170,140 L170,180 L150,180 Z"
-          fill="#f0f0f0"
-          stroke="#d0d0d0"
-          strokeWidth="0.5"
-        />{" "}
-        {/* Africa */}
-        <path
-          d="M240,160 L260,160 L260,180 L240,180 Z"
-          fill="#f0f0f0"
-          stroke="#d0d0d0"
-          strokeWidth="0.5"
-        />{" "}
-        {/* Australia */}
-        {/* Countries with specific colors */}
-        {countriesData.map((country) => (
-          <path
-            key={country.id}
-            d={country.path}
-            fill={country.color}
-            stroke="#999"
-            strokeWidth="0.3"
-          >
-            <title>{country.name}</title>
-          </path>
-        ))}
-      </svg>
-    </div>
-  );
+const criticalColor = {
+  Critical: "bg-red-500",
+  High: "bg-orange-500",
+  Medium: "bg-yellow-500",
+  Low: "bg-blue-500",
+  Insignificant: "bg-green-500",
 };
 
-// BubbleChart Component
-const BubbleChart = () => {
-  return (
-    <div className="relative h-64 w-full">
-      {bubbleChartData.map((item, index) => {
-        const size = item.value / 5;
-        const top = 30 + Math.random() * 120;
-        const left = 50 + Math.random() * 200;
+interface RecommendedNewsItem {
+  title: string;
+  subTitle: string;
+  description: string;
+}
 
-        return (
-          <div
-            key={index}
-            className="absolute rounded-full flex items-center justify-center text-xs text-white font-medium"
-            style={{
-              backgroundColor: item.color,
-              width: `${size}px`,
-              height: `${size}px`,
-              top: `${top}px`,
-              left: `${left}px`,
-            }}
-          >
-            {item.name}
+const recommendedNews = [
+  {
+    title: "Corporate tax policy changes",
+    subTitle: "IRS, Congressional Budget Office",
+    description:
+      "A recent 5%+ increase in corporate tax rates for healthcare businesses has raised concerns among hospital networks, senior care providers, and private healthcare institutions",
+  },
+  {
+    title: "Property tax changes",
+    subTitle: "Local Government Tax Authorities",
+    description: "An 8%+ annual rise in property taxes for senior care ",
+  },
+];
+
+// Sample components for different highlight types
+const NewsArticleContent = () => (
+  <div className="flex gap-4">
+    {/* Left side - Large image and minimum wage info */}
+    <div className="w-1/2 border border-gray-200 rounded-lg p-4">
+      <div className="relative">
+        <img
+          src={featuredImage}
+          alt="Healthcare worker assisting senior patient"
+          className="w-full h-48 object-cover rounded-lg mb-3"
+        />
+        <div className="mt-3">
+          <h3 className="font-semibold text-sm mb-1">
+            Changes in Minimum Wage Laws
+          </h3>
+          <div className="flex items-center gap-2 justify-between">
+            <p className="text-[8px] text-primary mb-2 border-b py-1 border-gray-200">
+              U.S. Department of Labor, State Labor Departments
+            </p>
+            <div
+              className={`h-1 w-[20%] ${criticalColor.Low} rounded-full`}
+            ></div>
           </div>
-        );
-      })}
-    </div>
-  );
-};
-
-// HeatmapItem Component
-const HeatmapItem = ({ title, values }) => {
-  const colors = [
-    "#FFD6D6",
-    "#FFACAC",
-    "#FF8282",
-    "#FF5858",
-    "#FF2E2E",
-    "#FF0000",
-  ];
-
-  return (
-    <div className="mb-3">
-      <div className="flex items-center">
-        <p className="w-32 text-sm font-medium">{title}</p>
-        <div className="flex-1 flex">
-          {Array(6)
-            .fill(0)
-            .map((_, i) => (
-              <div
-                key={i}
-                className="h-6 flex-1 border-r border-white"
-                style={{ backgroundColor: colors[i] }}
-              ></div>
-            ))}
+          <p className="text-sm">
+            Recent legislation has mandated a 10%+ increase in caregiver wages,
+            putting financial pressure on hospitals, nursing homes, and home
+            healthcare providers.
+          </p>
         </div>
       </div>
     </div>
-  );
-};
 
-// WordCloud Component
-const WordCloud = () => {
-  const words = [
-    { text: "policy", size: 24 },
-    { text: "income", size: 20 },
-    { text: "expenses", size: 22 },
-    { text: "automation", size: 18 },
-    { text: "healthcare", size: 26 },
-    { text: "taxes", size: 19 },
-    { text: "regulations", size: 21 },
-    { text: "compliance", size: 17 },
-    { text: "economy", size: 25 },
-  ];
-
-  return (
-    <div className="p-4 flex flex-wrap justify-center">
-      {words.map((word, i) => (
-        <span
-          key={i}
-          className="m-2 inline-block"
-          style={{
-            fontSize: `${word.size}px`,
-            fontWeight: word.size > 20 ? "bold" : "normal",
-            color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-            transform: `rotate(${Math.random() * 20 - 10}deg)`,
-          }}
+    {/* Right side - Two cards */}
+    <div className="w-1/2 space-y-4">
+      {recommendedNews.map((item) => (
+        <div
+          key={item.title}
+          className="flex flex-col gap-2 bg-gray p-4 w-full rounded-lg"
         >
-          {word.text}
-        </span>
+          <div className="flex flex-col gap-4 w-full">
+            <span className="text-sm font-semibold">{item.title}</span>
+            <div className="flex items-center gap-2 justify-between">
+              <span className="italic text-[12px]">{item.subTitle}</span>
+              <div
+                className={`h-1 w-[20%] ${criticalColor.High} rounded-full`}
+              ></div>
+            </div>
+          </div>
+          <Separator className="my-1 bg-deepGray" />
+          <span className="font-normal text-[13px]">{item.description}</span>
+        </div>
       ))}
     </div>
-  );
-};
+  </div>
+);
 
-// Main OverviewPage Component
+const StatementActionContent = () => (
+  <div className="p-4">
+    <h3 className="font-semibold mb-4">Recent Statements & Actions</h3>
+    <div className="space-y-4">
+      <div className="border border-gray-200 rounded-lg p-4">
+        <div className="flex justify-between items-start">
+          <div>
+            <h4 className="font-medium">FDA Policy Update</h4>
+            <p className="text-sm text-gray-600">
+              U.S. Food & Drug Administration
+            </p>
+          </div>
+          <div className={`h-2 w-16 ${criticalColor.High} rounded-full`}></div>
+        </div>
+        <p className="mt-2">
+          New guidelines on medical device approval processes will impact
+          manufacturing and supply chain operations for healthcare providers.
+        </p>
+      </div>
+
+      <div className="border border-gray-200 rounded-lg p-4">
+        <div className="flex justify-between items-start">
+          <div>
+            <h4 className="font-medium">WHO Recommendation</h4>
+            <p className="text-sm text-gray-600">World Health Organization</p>
+          </div>
+          <div
+            className={`h-2 w-16 ${criticalColor.Medium} rounded-full`}
+          ></div>
+        </div>
+        <p className="mt-2">
+          Updated protocols for healthcare facility sanitation may require
+          significant operational changes and staff training.
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
+const TrendsContent = () => (
+  <div className="p-4">
+    <div className="flex justify-between items-center mb-4">
+      <h3 className="font-semibold">Emerging Healthcare Trends</h3>
+      <div className="text-sm text-primary">Last updated: Apr 19, 2025</div>
+    </div>
+
+    <div className="grid grid-cols-2 gap-4">
+      <div className="border border-gray-200 rounded-lg p-4">
+        <h4 className="font-medium">Telehealth Expansion</h4>
+        <div className="flex items-center mt-2">
+          <div className="h-2 w-full bg-gray-200 rounded-full">
+            <div className="h-2 w-[82%] bg-primary rounded-full"></div>
+          </div>
+          <span className="ml-2 text-sm">82%</span>
+        </div>
+        <p className="mt-2 text-sm">
+          Accelerating adoption of remote healthcare services across all
+          provider types.
+        </p>
+      </div>
+
+      <div className="border border-gray-200 rounded-lg p-4">
+        <h4 className="font-medium">AI Diagnostics</h4>
+        <div className="flex items-center mt-2">
+          <div className="h-2 w-full bg-gray-200 rounded-full">
+            <div className="h-2 w-[65%] bg-primary rounded-full"></div>
+          </div>
+          <span className="ml-2 text-sm">65%</span>
+        </div>
+        <p className="mt-2 text-sm">
+          Increasing regulatory acceptance of AI-assisted diagnosis in clinical
+          settings.
+        </p>
+      </div>
+
+      <div className="border border-gray-200 rounded-lg p-4">
+        <h4 className="font-medium">Value-Based Care</h4>
+        <div className="flex items-center mt-2">
+          <div className="h-2 w-full bg-gray-200 rounded-full">
+            <div className="h-2 w-[78%] bg-primary rounded-full"></div>
+          </div>
+          <span className="ml-2 text-sm">78%</span>
+        </div>
+        <p className="mt-2 text-sm">
+          Shift from fee-for-service to outcome-based reimbursement models
+          across providers.
+        </p>
+      </div>
+
+      <div className="border border-gray-200 rounded-lg p-4">
+        <h4 className="font-medium">Healthcare Staffing</h4>
+        <div className="flex items-center mt-2">
+          <div className="h-2 w-full bg-gray-200 rounded-full">
+            <div className="h-2 w-[91%] bg-primary rounded-full"></div>
+          </div>
+          <span className="ml-2 text-sm">91%</span>
+        </div>
+        <p className="mt-2 text-sm">
+          Critical shortage of specialized healthcare workers affecting service
+          delivery.
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
 const OverviewPage = () => {
   const [mapTimeframe, setMapTimeframe] = useState("today");
-  const [factorSelected, setFactorSelected] = useState("Political");
+  const [activeHighlightFilter, setActiveHighlightFilter] =
+    useState("News/Article");
+
+  const renderHighlightContent = () => {
+    switch (activeHighlightFilter) {
+      case "News/Article":
+        return <NewsArticleContent />;
+      case "Risk Event":
+        return <RiskEven />;
+      case "Statement/Action":
+        return <StatementActionContent />;
+      case "Trends":
+        return <TrendsContent />;
+      default:
+        return <NewsArticleContent />;
+    }
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-6">Macro Environment Overview</h1>
-
       {/* Top Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 mt-2">
         <StatCard
-          color="bg-red-500"
+          color="bg-primary"
           title="Total Risked Items Tracked"
           value="3,456"
         />
-        <StatCard color="bg-blue-500" title="Source Monitored" value="85" />
+        <StatCard color="bg-primary" title="Source Monitored" value="85" />
         <StatCard
-          color="bg-green-500"
-          title="High Risk Trend"
-          subtitle="(last 7 days)"
+          color="bg-primary"
+          title="High Risk Trends"
+          subtitle="(Last 7 days)"
           value="Economic, Legal"
         />
         <StatCard
-          color="bg-yellow-500"
-          title="New Risk Trend"
-          subtitle="(today)"
+          color="bg-primary"
+          title="New Risk Events"
+          subtitle="(Today)"
           value="12"
         />
       </div>
 
       {/* Map and Factor Trend Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        {/* World/Region Map - 2/3 width */}
-        <div className="lg:col-span-2 bg-white rounded-lg shadow p-4">
+      <div className="flex flex-col lg:flex-row gap-4 mb-6">
+        {/* World/Region Map - 65% width */}
+        <div className="lg:w-[65%] bg-white rounded-lg shadow p-4">
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-lg font-medium">World/Region Map</h2>
             <div className="flex space-x-2">
               <button
                 className={`px-3 py-1 text-sm rounded ${
                   mapTimeframe === "today"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-primary text-white"
                     : "bg-gray-200"
                 }`}
                 onClick={() => setMapTimeframe("today")}
@@ -387,7 +417,7 @@ const OverviewPage = () => {
               <button
                 className={`px-3 py-1 text-sm rounded ${
                   mapTimeframe === "7days"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-primary text-white"
                     : "bg-gray-200"
                 }`}
                 onClick={() => setMapTimeframe("7days")}
@@ -397,7 +427,7 @@ const OverviewPage = () => {
               <button
                 className={`px-3 py-1 text-sm rounded ${
                   mapTimeframe === "month"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-primary text-white"
                     : "bg-gray-200"
                 }`}
                 onClick={() => setMapTimeframe("month")}
@@ -409,108 +439,29 @@ const OverviewPage = () => {
           <hr className="mb-4" />
 
           <div className="relative">
-            <SimpleMapChart />
-            <div className="absolute top-4 right-4 space-y-2">
-              {[
-                "Political",
-                "Economic",
-                "Technological",
-                "Environmental",
-                "Legal",
-                "Social",
-                "Competition",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="bg-red-500 border border-red-600 text-white text-sm p-1 rounded"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
+            <MapChart
+              timeframe={mapTimeframe}
+              categories={categories}
+              riskMarkers={riskMarkers}
+            />
           </div>
         </div>
 
-        {/* Factor Trend - 1/3 width */}
-        <div className="bg-white rounded-lg shadow p-4">
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="text-lg font-medium">Factor Trend</h2>
-            <div className="relative">
-              <div className="flex items-center border rounded px-3 py-1 cursor-pointer">
-                <span>{factorSelected}</span>
-                <ChevronDown className="ml-2 w-4 h-4" />
-              </div>
-            </div>
-          </div>
-          <hr className="mb-4" />
-
-          <div className="mb-4">
-            <div className="flex justify-between items-center text-sm mb-1">
-              <span>Critical</span>
-              <span className="flex-1 mx-2 border-b border-dotted border-gray-300"></span>
-              <span>5</span>
-            </div>
-            <div className="flex justify-between items-center text-sm mb-1">
-              <span>Very High</span>
-              <span className="flex-1 mx-2 border-b border-dotted border-gray-300"></span>
-              <span>4</span>
-            </div>
-            <div className="flex justify-between items-center text-sm mb-1">
-              <span>High</span>
-              <span className="flex-1 mx-2 border-b border-dotted border-gray-300"></span>
-              <span>3</span>
-            </div>
-            <div className="flex justify-between items-center text-sm mb-1">
-              <span>Medium</span>
-              <span className="flex-1 mx-2 border-b border-dotted border-gray-300"></span>
-              <span>2</span>
-            </div>
-            <div className="flex justify-between items-center text-sm mb-1">
-              <span>Low</span>
-              <span className="flex-1 mx-2 border-b border-dotted border-gray-300"></span>
-              <span>1</span>
-            </div>
-            <div className="flex justify-between items-center text-sm mb-1">
-              <span>Insignificant</span>
-              <span className="flex-1 mx-2 border-b border-dotted border-gray-300"></span>
-              <span>0</span>
-            </div>
-          </div>
-
-          <div className="h-48">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={trendData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis domain={[0, 5]} />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey={factorSelected}
-                  stroke="#8884d8"
-                  strokeWidth={2}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="flex justify-end space-x-2 mt-2">
-            <span className="text-xs border px-2 py-1 rounded">Quarterly</span>
-            <span className="text-xs border px-2 py-1 rounded">7 days</span>
-            <span className="text-xs border px-2 py-1 rounded">One month</span>
-          </div>
+        {/* Factor Trend - 35% width */}
+        <div className="lg:w-[35%]">
+          <FactorTrendChart modelType="overview" />
         </div>
       </div>
 
       {/* Impact Bubble Chart & Factor Heatmap */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="flex gap-4 mb-6">
         {/* Impact Bubble Chart */}
-        <div className="bg-white rounded-lg shadow p-4">
+        <div className="bg-white rounded-lg shadow p-4 w-[65%]">
           <h2 className="text-lg font-medium mb-2">Impact Bubble Chart</h2>
           <hr className="mb-4" />
 
           <div className="flex">
-            <div className="w-24 flex flex-col justify-between py-2">
+            <div className="flex flex-col justify-between py-12">
               <span className="text-xs">Critical</span>
               <span className="text-xs">Very High</span>
               <span className="text-xs">High</span>
@@ -522,119 +473,89 @@ const OverviewPage = () => {
             <div className="flex-1">
               <BubbleChart />
             </div>
-          </div>
-
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            {bubbleChartData.map((item, index) => (
-              <div key={index} className="flex items-center">
-                <div
-                  className="w-4 h-4 rounded"
-                  style={{ backgroundColor: item.color }}
-                ></div>
-                <span className="ml-2 text-xs">{item.name}</span>
-              </div>
-            ))}
+            <div className="flex flex-col justify-between py-12">
+              {[
+                { name: "Political", color: "#DC3545" },
+                { name: "Economic", color: "#17A2B8" },
+                { name: "Socio-Demographic", color: "#28A745" },
+                { name: "Technological", color: "#FD7E14" },
+                { name: "Environmental", color: "#6610F2" },
+                { name: "Legal", color: "#FFC107" },
+                { name: "Competition", color: "#6F42C1" },
+              ].map((item, index) => (
+                <div key={index} className="flex items-center">
+                  <div
+                    className="w-4 h-4 rounded"
+                    style={{ backgroundColor: item.color }}
+                  ></div>
+                  <span className="ml-2 text-xs">{item.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Factor Heatmap */}
-        <div className="bg-white rounded-lg shadow p-4">
-          <h2 className="text-lg font-medium mb-2">Factor Heatmap</h2>
-          <hr className="mb-4" />
-
-          <div className="flex justify-start space-x-2 mb-4">
-            <span className="px-3 py-1 text-sm border rounded bg-blue-100">
-              Today
-            </span>
-            <span className="px-3 py-1 text-sm border rounded">7 days</span>
-            <span className="px-3 py-1 text-sm border rounded">Month</span>
-          </div>
-
-          <div className="space-y-1">
-            <HeatmapItem title="Political" />
-            <HeatmapItem title="Economic" />
-            <HeatmapItem title="Technological" />
-            <HeatmapItem title="Environmental" />
-            <HeatmapItem title="Legal" />
-            <HeatmapItem title="Social" />
-            <HeatmapItem title="Competition" />
-          </div>
-
-          <div className="flex mt-4 justify-center">
-            {[
-              "Insignificant",
-              "Low",
-              "Medium",
-              "High",
-              "Very High",
-              "Critical",
-            ].map((level, i) => (
-              <div key={i} className="flex flex-col items-center mx-1">
-                <div
-                  className="w-4 h-4"
-                  style={{
-                    backgroundColor: [
-                      "#FFD6D6",
-                      "#FFACAC",
-                      "#FF8282",
-                      "#FF5858",
-                      "#FF2E2E",
-                      "#FF0000",
-                    ][i],
-                  }}
-                ></div>
-                <span className="text-xs mt-1">{level}</span>
-              </div>
-            ))}
-          </div>
+        <div className="w-[40%]">
+          <FactorHeatmapCard />
         </div>
       </div>
 
       {/* Important Highlights & Word Cloud */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Important Highlights - 2/3 width */}
-        <div className="lg:col-span-2 bg-white rounded-lg shadow p-4">
-          <h2 className="text-lg font-medium mb-2">Important Highlights</h2>
-          <hr className="mb-4" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <img
-                src="/api/placeholder/400/200"
-                alt="Minimum wage changes"
-                className="w-full h-40 object-cover rounded mb-2"
-              />
-              <p className="font-medium">Changes in minimum wage</p>
-            </div>
-
-            <div className="space-y-4">
-              <div className="border rounded p-3 shadow-sm">
-                <h3 className="font-medium">Corporate tax policy changes</h3>
-                <p className="text-sm text-gray-500">
-                  IRS, Congressional Budget Office
-                </p>
-                <p className="text-sm mt-1">
-                  A recent 5%+ increase in corporate tax rates for healthcare
-                  businesses has raised concerns among hospital networks, senior
-                  care providers, and private healthcare institutions
-                </p>
-              </div>
-
-              <div className="border rounded p-3 shadow-sm">
-                <h3 className="font-medium">Property tax changes</h3>
-                <p className="text-sm text-gray-500">
-                  Local Government Tax Authorities
-                </p>
-                <p className="text-sm mt-1">
-                  An 8%+ annual rise in property taxes for senior care
-                </p>
-              </div>
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Important Highlights - 65% width */}
+        <div className="lg:w-[65%] bg-white rounded-lg shadow p-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Important Highlights</h2>
+            <div className="flex space-x-2">
+              <button
+                className={`px-3 py-1 text-sm rounded cursor-pointer ${
+                  activeHighlightFilter === "News/Article"
+                    ? "bg-primary text-white"
+                    : "bg-gray-200"
+                }`}
+                onClick={() => setActiveHighlightFilter("News/Article")}
+              >
+                News/Article
+              </button>
+              <button
+                className={`px-3 py-1 text-sm rounded cursor-pointer ${
+                  activeHighlightFilter === "Risk Event"
+                    ? "bg-primary text-white"
+                    : "bg-gray-200"
+                }`}
+                onClick={() => setActiveHighlightFilter("Risk Event")}
+              >
+                Risk Event
+              </button>
+              <button
+                className={`px-3 py-1 text-sm rounded cursor-pointer ${
+                  activeHighlightFilter === "Statement/Action"
+                    ? "bg-primary text-white"
+                    : "bg-gray-200"
+                }`}
+                onClick={() => setActiveHighlightFilter("Statement/Action")}
+              >
+                Statement/Action
+              </button>
+              <button
+                className={`px-3 py-1 text-sm rounded cursor-pointer ${
+                  activeHighlightFilter === "Trends"
+                    ? "bg-primary text-white"
+                    : "bg-gray-200"
+                }`}
+                onClick={() => setActiveHighlightFilter("Trends")}
+              >
+                Trends
+              </button>
             </div>
           </div>
+          <hr className="mb-4" />
+          {renderHighlightContent()}
         </div>
 
-        {/* Word Cloud - 1/3 width */}
-        <div className="bg-white rounded-lg shadow p-4">
+        {/* Word Cloud - 35% width */}
+        <div className="lg:w-[35%] bg-white rounded-lg shadow p-4 h-[400px]">
           <h2 className="text-lg font-medium mb-2">Word Cloud</h2>
           <hr className="mb-4" />
 

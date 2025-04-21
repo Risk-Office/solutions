@@ -26,7 +26,7 @@ const RiskEventCard: React.FC<RiskEventCardProps> = ({
         {event.title}
       </h3>
 
-      <div className="flex items-center gap-4 mb-3 text-sm  relative">
+      <div className="flex items-center gap-4 mb-3 text-sm relative">
         <span className="pr-4 text-sm italic dark:text-white text-primary border-r dark:border-gray-600 border-gray-300">
           {event.date}
         </span>
@@ -36,12 +36,11 @@ const RiskEventCard: React.FC<RiskEventCardProps> = ({
         <span className="pr-4 text-sm italic text-primary dark:text-white">
           Impact severity: {event.status}
         </span>
-
-        {/* Bottom border separator */}
-        <div className="absolute bottom-[-0.75rem] left-0 right-0 border-b dark:border-gray-600 border-gray-200"></div>
       </div>
 
-      <p className="text-primary dark:text-white mt-6">{truncatedDescription}</p>
+      <p className="text-primary dark:text-white mt-6">
+        {truncatedDescription}
+      </p>
     </div>
   );
 };

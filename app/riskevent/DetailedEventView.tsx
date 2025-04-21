@@ -11,7 +11,7 @@ import {
   Pencil,
   Share2,
 } from "lucide-react";
-import { Button } from "~/components/ui/button";
+import CommunityRating from "./communityRating";
 
 const DetailedEventView: React.FC<{
   event: RiskEvent;
@@ -33,7 +33,6 @@ const DetailedEventView: React.FC<{
         <ArrowLeft />
         Back
       </button>
-
       {/* Event Details */}
       <div className="bg-white dark:bg-[var(--inner-color)] p-6 rounded-lg shadow-sm">
         <h1 className="text-2xl font-bold mb-4 dark:text-white">
@@ -62,58 +61,9 @@ const DetailedEventView: React.FC<{
           </div>
         </div>
       </div>
-
       {/* Rating Card */}
-      <div className="bg-white dark:bg-[var(--inner-color)] p-6 rounded-lg shadow-sm">
-        <h2 className="text-xl mb-2 dark:text-white">
-          Rate the impact of this incident
-        </h2>
-        <div className="flex gap-4 mb-6">
-          {["critical", "high", "medium", "low", "insignificant"].map(
-            (status) => (
-              <button
-                key={status}
-                onClick={() =>
-                  setSelectedRating(status === selectedRating ? null : status)
-                }
-                className={`flex items-center gap-2 px-4 py-2 cursor-pointer rounded-md transition-colors ${
-                  selectedRating === status ? "bg-opacity-30" : "bg-opacity-10"
-                }`}
-                style={{
-                  backgroundColor:
-                    selectedRating === status
-                      ? `${getColor(status)}30`
-                      : "transparent",
-                }}
-              >
-                <span className="capitalize dark:text-white">{status}</span>
-                <div
-                  className="w-4 h-4 rounded-sm"
-                  style={{ backgroundColor: getColor(status) }}
-                />
-              </button>
-            )
-          )}
-        </div>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-2 dark:text-white">
-              Comments
-            </label>
-            <textarea
-              className="w-full p-2 border dark:border-gray-300 rounded-md resize-none dark:placeholder:text-white"
-              rows={2}
-              placeholder="Tell us the reason why you rate this risk event"
-            />
-          </div>
-          <div className="flex justify-end">
-            <Button className="px-6 py-2 text-white rounded-md hover:bg-opacity-80 transition-colors duration-200 ease-in-out">
-              Submit
-            </Button>
-          </div>
-        </div>
-      </div>
 
+      <CommunityRating />
       {/* Related Events */}
       <div className="bg-white dark:bg-[var(--nav-color)] p-6 rounded-lg shadow-sm">
         <h2 className="text-xl font-semibold mb-4 dark:text-white">

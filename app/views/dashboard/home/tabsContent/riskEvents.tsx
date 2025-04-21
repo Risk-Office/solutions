@@ -32,4 +32,5 @@ const RiskEvents = () => {
     </div>
   );
 };
+
 export default RiskEvents;
