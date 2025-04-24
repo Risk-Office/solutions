@@ -182,7 +182,7 @@ export const businessModelData: TabsData[] = [
     icon: overview,
     activeIcon: overviewActive,
     type: "link",
-    url: "/dashboard",
+    url: "/dashboard/business-model",
   },
   {
     title: "Partners",

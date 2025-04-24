@@ -2,8 +2,8 @@ import Layout from "~/views/dashboard/layout";
 
 export function meta() {
   return [
-    { title: "Solutions | Dasboard" },
-    { name: "description", content: "Solutions Dasboard" },
+    { title: "Solutions | Dashboard" },
+    { name: "description", content: "Solutions Dashboard" },
   ];
 }
 

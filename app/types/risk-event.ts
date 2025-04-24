@@ -1,14 +1,14 @@
-export type RiskEvent = {
+export interface RiskEvent {
   id: number;
   title: string;
   description: string;
   date: string;
   status: string;
   time: string;
-};
+}
 
-export type RiskEventCardProps = {
+export interface RiskEventCardProps {
   event: RiskEvent;
   color: string;
-  onClick?: () => void;
-};
+  onClick: () => void;
+}
