@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import TabTitle from "~/components/form/tabtitle";
 import { Button } from "~/components/ui/button";
 import { useFormStore } from "~/store/useForm";

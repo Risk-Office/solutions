@@ -21,6 +21,9 @@ export default [
       route("healthcare-policy", "routes/dashboard/healthcare-policy.tsx"),
       route("labour-policy", "routes/dashboard/labour-policy.tsx"),
 
+      // business model
+      route("business-model", "routes/dashboard/business-model.tsx"),
+
       // team-hub
 
       ...prefix("team-hub", [
