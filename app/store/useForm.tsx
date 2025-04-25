@@ -1,12 +1,13 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
+// Keep your existing interfaces the same
 export interface SegmentData {
     b2bData: {
         businessTypes: string[];
         selectedSector?: string;
         selectedSubSector?: string;
         selectedIndustry?: string;
+        selectedBusinessType?: string;
     };
     b2cData: {
         dataTypes: string[];
@@ -128,134 +129,172 @@ export interface FormData {
     revenueStreams: string[];
 }
 
+const STORAGE_KEY = 'saved-form-data';
+
+// Default initial state
+const getDefaultFormState = (): FormData => ({
+    currentStep: 1,
+    customerSegments: [],
+    valueProposition: {
+        costEfficiency: [],
+        quality: [],
+        convenience: [],
+        innovation: [],
+        customization: [],
+        riskReduction: [],
+        brand: []
+    },
+    painPoints: {
+        financial: [],
+        operational: [],
+        support: [],
+        product: []
+    },
+    customerRelations: {
+        crm: [],
+        customerService: [],
+        personalizedComm: [],
+        loyalty: [],
+        feedback: [],
+        relationshipBuilding: [],
+        socialMedia: [],
+        branding: [],
+        afterSales: []
+    },
+    customerChannels: {
+        selectedChannel: '',
+        directChannels: [],
+        indirectChannels: [],
+        digitalChannels: [],
+        physicalChannels: [],
+        hybridChannels: [],
+    },
+    segmentData: {
+        b2bData: {
+            businessTypes: []
+        },
+        b2cData: {
+            dataTypes: [],
+            demographics: {}
+        },
+        governmentData: {
+            types: [],
+            departments: []
+        },
+        nonProfitData: {
+            missionFocus: [],
+            otherMission: '',
+            employeeSize: [],
+            volunteerSize: [],
+            fundingSources: [],
+            otherFunding: '',
+            operationalMaturity: [],
+            programModel: [],
+            geographicalReach: [],
+            legalStructure: []
+        }
+    },
+    keyResources: {
+        humanResources: [],
+        physicalResources: [],
+        financialResources: [],
+        intellectualResources: [],
+        technologicalResources: [],
+        regulatoryResources: []
+    },
+    businessActivities: {
+        administrativeServices: [],
+        consultancyServices: [],
+        creativeServices: [],
+        customerSupportServices: []
+    },
+    keyPartnerships: {
+        operationsAndSupplyChain: [],
+        financialAndLegal: [],
+        technologyAndIT: [],
+        marketingAndSales: [],
+        humanResources: [],
+        facilityAndInfrastructure: [],
+        industrySpecific: []
+    },
+    costStructure: {
+        fixedCosts: [],
+        variableCosts: [],
+        semiVariableCosts: [],
+        financingCosts: [],
+        complianceCosts: [],
+        researchAndDevelopment: [],
+        customerAcquisition: []
+    },
+    revenueStreams: []
+});
+
+// Create the store without persist middleware
 export const useFormStore = create<{
     formData: FormData;
     updateFormData: (data: Partial<Omit<FormData, 'currentStep'>>) => void;
     setCurrentStep: (step: number) => void;
     updateSegmentData: (segment: keyof SegmentData, data: Partial<SegmentData[keyof SegmentData]>) => void;
-}>()(
-    persist(
-        (set) => ({
+    saveFormToStorage: () => void;
+    loadSavedForm: () => boolean;
+    clearSavedForm: () => void;
+    resetForm: () => void;
+}>((set, get) => ({
+    formData: getDefaultFormState(),
+
+    updateFormData: (data) =>
+        set((state) => ({
+            formData: { ...state.formData, ...data }
+        })),
+
+    setCurrentStep: (step) =>
+        set((state) => ({
+            formData: { ...state.formData, currentStep: step }
+        })),
+
+    updateSegmentData: (segment, data) =>
+        set((state) => ({
             formData: {
-                currentStep: 1,
-                customerSegments: [],
-                valueProposition: {
-                    costEfficiency: [],
-                    quality: [],
-                    convenience: [],
-                    innovation: [],
-                    customization: [],
-                    riskReduction: [],
-                    brand: []
-                },
-                painPoints: {
-                    financial: [],
-                    operational: [],
-                    support: [],
-                    product: []
-                },
-                customerRelations: {
-                    crm: [],
-                    customerService: [],
-                    personalizedComm: [],
-                    loyalty: [],
-                    feedback: [],
-                    relationshipBuilding: [],
-                    socialMedia: [],
-                    branding: [],
-                    afterSales: []
-                },
-                customerChannels: {
-                    selectedChannel: '',
-                    directChannels: [],
-                    indirectChannels: [],
-                    digitalChannels: [],
-                    physicalChannels: [],
-                    hybridChannels: []
-                },
+                ...state.formData,
                 segmentData: {
-                    b2bData: {
-                        businessTypes: []
-                    },
-                    b2cData: {
-                        dataTypes: [],
-                        demographics: {}
-                    },
-                    governmentData: {
-                        types: [],
-                        departments: []
-                    },
-                    nonProfitData: {
-                        missionFocus: [],
-                        otherMission: '',
-                        employeeSize: [],
-                        volunteerSize: [],
-                        fundingSources: [],
-                        otherFunding: '',
-                        operationalMaturity: [],
-                        programModel: [],
-                        geographicalReach: [],
-                        legalStructure: []
+                    ...state.formData.segmentData,
+                    [segment]: {
+                        ...state.formData.segmentData[segment],
+                        ...data
                     }
-                },
-                keyResources: {
-                    humanResources: [],
-                    physicalResources: [],
-                    financialResources: [],
-                    intellectualResources: [],
-                    technologicalResources: [],
-                    regulatoryResources: []
-                },
-                businessActivities: {
-                    administrativeServices: [],
-                    consultancyServices: [],
-                    creativeServices: [],
-                    customerSupportServices: []
-                },
-                keyPartnerships: {
-                    operationsAndSupplyChain: [],
-                    financialAndLegal: [],
-                    technologyAndIT: [],
-                    marketingAndSales: [],
-                    humanResources: [],
-                    facilityAndInfrastructure: [],
-                    industrySpecific: []
-                },
-                costStructure: {
-                    fixedCosts: [],
-                    variableCosts: [],
-                    semiVariableCosts: [],
-                    financingCosts: [],
-                    complianceCosts: [],
-                    researchAndDevelopment: [],
-                    customerAcquisition: []
-                },
-                revenueStreams: []
-            },
-            updateFormData: (data) =>
-                set((state) => ({
-                    formData: { ...state.formData, ...data }
-                })),
-            setCurrentStep: (step) =>
-                set((state) => ({
-                    formData: { ...state.formData, currentStep: step }
-                })),
-            updateSegmentData: (segment, data) =>
-                set((state) => ({
-                    formData: {
-                        ...state.formData,
-                        segmentData: {
-                            ...state.formData.segmentData,
-                            [segment]: {
-                                ...state.formData.segmentData[segment],
-                                ...data
-                            }
-                        }
-                    }
-                }))
-        }),
-        {
-            name: 'form-storage'
+                }
+            }
+        })),
+
+    // Explicitly save the current form state to localStorage
+    saveFormToStorage: () => {
+        const currentFormData = get().formData;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentFormData));
+    },
+
+    // Load saved form data from localStorage
+    loadSavedForm: () => {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+        if (savedData) {
+            try {
+                const parsedData = JSON.parse(savedData);
+                set({ formData: parsedData });
+                return true;
+            } catch (error) {
+                console.error('Error loading saved form data:', error);
+                return false;
+            }
         }
-    )
-);
+        return false;
+    },
+
+    // Clear saved form data from localStorage
+    clearSavedForm: () => {
+        localStorage.removeItem(STORAGE_KEY);
+    },
+
+    // Reset the form to default values
+    resetForm: () => {
+        set({ formData: getDefaultFormState() });
+    }
+}));

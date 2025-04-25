@@ -139,8 +139,8 @@ export default function Step6() {
         <div>
             <TabTitle title="Key Resources" />
 
-            <div className="grid grid-cols-4">
-                <div className="border-r border-gray-300 pt-10">
+            <div className="grid grid-cols-4 items-start h-[calc(100vh-160px)]">
+                <div className="border-r border-gray-300 pt-10 h-full">
                     <div className="w-[90%] mx-auto">
                         <div className="space-y-6">
                             <div className="p-4">
@@ -165,7 +165,7 @@ export default function Step6() {
                     </div>
                 </div>
 
-                <div className="col-span-2 pb-10 bg-gray-50">
+                <div className="col-span-2 pb-10 bg-gray-50 h-full overflow-y-scroll">
                     <div className="p-6">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-lg font-medium">Questions</h3>
@@ -241,20 +241,20 @@ export default function Step6() {
                                 currentStep={6}
                                 currentSection={currentSection}
                                 totalSections={1}
-                                nextDisabled={
-                                    !formData.keyResources?.humanResources?.length ||
-                                    !formData.keyResources?.physicalResources?.length ||
-                                    !formData.keyResources?.financialResources?.length ||
-                                    !formData.keyResources?.intellectualResources?.length ||
-                                    !formData.keyResources?.technologicalResources?.length ||
-                                    !formData.keyResources?.regulatoryResources?.length
-                                }
+                                // nextDisabled={
+                                //     !formData.keyResources?.humanResources?.length ||
+                                //     !formData.keyResources?.physicalResources?.length ||
+                                //     !formData.keyResources?.financialResources?.length ||
+                                //     !formData.keyResources?.intellectualResources?.length ||
+                                //     !formData.keyResources?.technologicalResources?.length ||
+                                //     !formData.keyResources?.regulatoryResources?.length
+                                // }
                             />
                         </div>
                     </div>
                 </div>
 
-                <div>
+                <div className="w-full h-full">
                     <img src={Sideimg} alt="sideimg" className="w-full h-full object-cover" />
                 </div>
             </div>

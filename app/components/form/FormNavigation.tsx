@@ -4,7 +4,7 @@ import { useFormNavigation, type NavigationConfig } from "./navigation";
 interface FormNavigationProps extends NavigationConfig {
     onNext?: () => void;
     onPrevious?: () => void;
-    nextDisabled?: boolean;
+    // nextDisabled?: boolean;
     previousDisabled?: boolean;
 }
 
@@ -18,7 +18,7 @@ export function FormNavigation({
     onComplete,
     onNext,
     onPrevious,
-    nextDisabled = false,
+    // nextDisabled = false,
     previousDisabled = false
 }: FormNavigationProps) {
     const { handleNext, handlePrevious } = useFormNavigation({
@@ -67,7 +67,7 @@ export function FormNavigation({
                 variant="default"
                 className="text-sm uppercase"
                 onClick={handleNextClick}
-                disabled={nextDisabled}
+                // disabled={nextDisabled}
             >
                 {currentSection && totalSections && currentSection < totalSections
                     ? 'Continue'

@@ -30,13 +30,13 @@ export const CustomCheckbox = ({ options, selected, onChange }: CustomCheckboxPr
                         <div
                             className={`w-6 h-6 rounded-full transition-colors duration-200 ${
                                 selected.includes(option.id)
-                                    ? "bg-blue-800 border-2 border-blue-300"
+                                ? "bg-transparent border-2 border-[#0A103E]"
                                     : "bg-gray-300"
                             }`}
                         />
                         {selected.includes(option.id) && (
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-2 h-2 rounded-full bg-white"></div>
+                                <div className="w-4 h-4 rounded-full bg-[#0A103E]"></div>
                             </div>
                         )}
                     </div>

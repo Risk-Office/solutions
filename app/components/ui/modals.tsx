@@ -364,7 +364,7 @@ export const FormSubmittedModal: React.FC<CommonModalProps> = ({ isOpen, onClose
                 <p className="text-center text-gray-600">
                     Thank you for sharing your details, we'll use this information to provide tailored insight.
                 </p>
-                <Button variant="default" className="w-full" onClick={() => {
+                <Button variant="default" className="w-[50%] mx-auto" onClick={() => {
                     navigate('/dashboard');
                 }}>
                     Go to dashboard
@@ -387,9 +387,15 @@ export const SaveForLaterModal: React.FC<CommonModalProps> = ({ isOpen, onClose 
                 <p className="text-center text-gray-600">
                     Your progress has been saved. You can continue filling out the form at any time.
                 </p>
-                <Button variant="default" className="w-full" onClick={onClose}>
-                    Close
-                </Button>
+                
+                <div className="flex justify-between space-x-2 w-full">
+                    <Button variant="default" className="flex-1" onClick={onClose}>
+                        Go to Dashboard
+                    </Button>
+                    <Button variant="default" className="flex-1" onClick={onClose}>
+                        Continue
+                    </Button>
+                </div>
             </div>
         </Modal>
     );

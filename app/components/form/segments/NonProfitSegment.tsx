@@ -78,45 +78,45 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
     ];
 
     const handleMissionChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { missionFocus: selected });
+        updateSegmentData('nonProfitData', { missionFocus: selected });
         setShowOtherMission(selected.includes('others'));
     };
 
     const handleOtherMissionChange = (value: string) => {
-        updateSegmentData('nonProfit', { otherMission: value });
+        updateSegmentData('nonProfitData', { otherMission: value });
     };
 
     const handleEmployeeSizeChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { employeeSize: selected });
+        updateSegmentData('nonProfitData', { employeeSize: selected });
     };
 
     const handleVolunteerSizeChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { volunteerSize: selected });
+        updateSegmentData('nonProfitData', { volunteerSize: selected });
     };
 
     const handleFundingChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { fundingSources: selected });
+        updateSegmentData('nonProfitData', { fundingSources: selected });
         setShowOtherFunding(selected.includes('others'));
     };
 
     const handleOtherFundingChange = (value: string) => {
-        updateSegmentData('nonProfit', { otherFunding: value });
+        updateSegmentData('nonProfitData', { otherFunding: value });
     };
 
     const handleMaturityChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { operationalMaturity: selected });
+        updateSegmentData('nonProfitData', { operationalMaturity: selected });
     };
 
     const handleProgramModelChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { programModel: selected });
+        updateSegmentData('nonProfitData', { programModel: selected });
     };
 
     const handleGeographicalChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { geographicalReach: selected });
+        updateSegmentData('nonProfitData', { geographicalReach: selected });
     };
 
     const handleLegalStructureChange = (selected: string[]) => {
-        updateSegmentData('nonProfit', { legalStructure: selected });
+        updateSegmentData('nonProfitData', { legalStructure: selected });
     };
 
     const handleNextLayer = () => {
@@ -144,7 +144,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Mission Focus/Sector (Select all that applies)</label>
                             <CustomCheckbox
                                 options={missionOptions}
-                                selected={formData.nonProfitData?.missionFocus || []}
+                                selected={formData.segmentData?.nonProfitData?.missionFocus || []}
                                 onChange={handleMissionChange}
                             />
                             {showOtherMission && (
@@ -152,7 +152,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                                     <FormInput
                                         type="text"
                                         placeholder="Please specify other mission focus"
-                                        value={formData.nonProfitData?.otherMission || ''}
+                                        value={formData.segmentData?.nonProfitData?.otherMission || ''}
                                         onChange={(e) => handleOtherMissionChange(e.target.value)}
                                     />
                                 </div>
@@ -167,7 +167,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Number of Employees (Select all that applies)</label>
                             <CustomCheckbox
                                 options={employeeSizeOptions}
-                                selected={formData.nonProfitData?.employeeSize || []}
+                                selected={formData.segmentData?.nonProfitData?.employeeSize || []}
                                 onChange={handleEmployeeSizeChange}
                             />
                         </div>
@@ -175,7 +175,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Number of Volunteers (Select all that applies)</label>
                             <CustomCheckbox
                                 options={volunteerSizeOptions}
-                                selected={formData.nonProfitData?.volunteerSize || []}
+                                selected={formData.segmentData?.nonProfitData?.volunteerSize || []}
                                 onChange={handleVolunteerSizeChange}
                             />
                         </div>
@@ -188,7 +188,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Funding Sources (Select all that applies)</label>
                             <CustomCheckbox
                                 options={fundingOptions}
-                                selected={formData.nonProfitData?.fundingSources || []}
+                                selected={formData.segmentData?.nonProfitData?.fundingSources || []}
                                 onChange={handleFundingChange}
                             />
                             {showOtherFunding && (
@@ -196,7 +196,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                                     <FormInput
                                         type="text"
                                         placeholder="Please specify other funding sources"
-                                        value={formData.nonProfitData?.otherFunding || ''}
+                                        value={formData.segmentData?.nonProfitData?.otherFunding || ''}
                                         onChange={(e) => handleOtherFundingChange(e.target.value)}
                                     />
                                 </div>
@@ -211,7 +211,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Operational Maturity/Age (Select all that applies)</label>
                             <CustomCheckbox
                                 options={maturityOptions}
-                                selected={formData.nonProfitData?.operationalMaturity || []}
+                                selected={formData.segmentData?.nonProfitData?.operationalMaturity || []}
                                 onChange={handleMaturityChange}
                             />
                         </div>
@@ -224,7 +224,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Program Delivery Model (Select all that applies)</label>
                             <CustomCheckbox
                                 options={programModelOptions}
-                                selected={formData.nonProfitData?.programModel || []}
+                                selected={formData.segmentData?.nonProfitData?.programModel || []}
                                 onChange={handleProgramModelChange}
                             />
                         </div>
@@ -237,7 +237,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Geographical Reach (Select all that applies)</label>
                             <CustomCheckbox
                                 options={geographicalOptions}
-                                selected={formData.nonProfitData?.geographicalReach || []}
+                                selected={formData.segmentData?.nonProfitData?.geographicalReach || []}
                                 onChange={handleGeographicalChange}
                             />
                         </div>
@@ -250,7 +250,7 @@ export default function NonProfitSegment({ onNext, onPrevious }: NonProfitSegmen
                             <label className="block text-sm font-medium mb-2">Legal Structure and Tax Status (Select all that applies)</label>
                             <CustomCheckbox
                                 options={legalStructureOptions}
-                                selected={formData.nonProfitData?.legalStructure || []}
+                                selected={formData.segmentData?.nonProfitData?.legalStructure || []}
                                 onChange={handleLegalStructureChange}
                             />
                         </div>

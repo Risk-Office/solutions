@@ -11,6 +11,7 @@ import NonProfitSegment from "~/components/form/segments/NonProfitSegment";
 import { CustomCheckbox } from "~/components/form/customcheckbox";
 
 import Sideimg from '~/assets/png/forms/form2.png';
+import { ChevronRight, CircleCheckBig } from "lucide-react";
 
 interface SegmentData {
     // Add your segment-specific fields here
@@ -264,19 +265,19 @@ export default function Step2() {
 
     return (
         <div>
-            <TabTitle title="Value Proposition" />
+            <TabTitle title="Customer Segments" />
 
-            <div className="grid grid-cols-4">
-                <div className="border-r border-gray-300 pt-10">
-                    <div className="w-[90%] mx-auto">
+            <div className="grid grid-cols-4 items-start h-[calc(100vh-160px)]">
+                <div className="border-r border-gray-300 pt-10 h-full">
+                    <div>
                         <div className="space-y-6">
-                            <div className="p-4">
+                            <div>
                                 {segments.map((segment) => (
                                     <button
                                         key={segment}
-                                        className={`w-full text-left p-3 rounded-lg flex items-center ${
+                                        className={`w-full text-left p-3 flex items-center ${
                                             activeSegment === segment
-                                                ? 'bg-gray-50'
+                                                ? 'bg-gray-100'
                                                 : ''
                                         }`}
                                         onClick={() => handleSegmentClick(segment)}
@@ -284,13 +285,15 @@ export default function Step2() {
                                         <div className="mr-3">
                                             <svg className={`w-5 h-5 ${activeSegment === segment ? 'text-amber-700' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 {isSegmentCompleted(segment) ? (
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                    <CircleCheckBig />
                                                 ) : (
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 )}
                                             </svg>
                                         </div>
                                         {getSegmentLabel(segment)}
+
+                                        <ChevronRight className="ml-auto" />
                                     </button>
                                 ))}
                             </div>
@@ -304,11 +307,11 @@ export default function Step2() {
                     </div>
                 </div>
 
-                <div className="col-span-2 pb-10 bg-gray-50">
+                <div className="col-span-2 pb-10 bg-gray-50 h-full overflow-y-scroll">
                     {renderSegment()}
                 </div>
 
-                <div>
+                <div className='h-full w-full'>
                     <img src={Sideimg} alt="sideimg" className="w-full h-full object-cover" />
                 </div>
             </div>
