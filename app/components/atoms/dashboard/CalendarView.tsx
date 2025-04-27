@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar } from "~/components/ui/calendar";
+// import { Calendar } from "~/components/ui/calendar";
 import { format, parse } from "date-fns";
 import type { TaskType } from "~/types/teamhubtypes";
 
@@ -97,7 +97,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ tasks }) => {
 
   return (
     <div className="w-full max-w-7xl mx-auto bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-2xl p-4">
-      <Calendar
+      {/* <Calendar
         mode="single"
         selected={selectedDate}
         onSelect={() => setSelectedDate(undefined)}
@@ -119,7 +119,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ tasks }) => {
           day_today: "bg-gray-700/70 text-white",
           day_outside: "text-gray-500 opacity-50",
         }}
-      />
+      /> */}
     </div>
   );
 };

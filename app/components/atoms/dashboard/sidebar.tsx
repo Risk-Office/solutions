@@ -30,7 +30,7 @@ import { businessModelData, macroEnvironmentData } from "./navdata";
 import { SolutionTag } from "~/views/home";
 import { offeredSolutions } from "~/constants/solutions";
 import SvgIcon from "../Icon";
-import { useTabChange } from "~/store";
+// import { useTabChange } from "~/store";
 import { dashboardTabs } from "./navbar";
 
 export const teamHubNav: { icon: ReactNode; name: string; path: string }[] = [
@@ -54,11 +54,11 @@ export const teamHubNav: { icon: ReactNode; name: string; path: string }[] = [
 const SideBar = () => {
   const { pathname } = useLocation();
   // const currentTab = useTabChange((state) => state.value);
-  const {
-    value: currentTab,
-    teamHubSection,
-    setTeamHubSection,
-  } = useTabChange();
+  // const {
+  //   value: currentTab,
+  //   teamHubSection,
+  //   setTeamHubSection,
+  // } = useTabChange();
 
   const [isCollapse, setIsCollapse] = useState<boolean>(false);
   const [currentCollapse, setCurrentCollapse] = useState<string>("");

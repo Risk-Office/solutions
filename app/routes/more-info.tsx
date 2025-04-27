@@ -14,5 +14,7 @@ export function meta({}: Route.MetaArgs) {
 export default function MoreInformation() {
   const { state } = useLocation();
 
+  console.log(state);
+
   return <MoreInformationPage solutionInformation={state as SolutionProps} />;
 }
