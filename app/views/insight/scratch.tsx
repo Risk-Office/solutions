@@ -2,6 +2,7 @@ import { offeredSolutions } from "~/constants/solutions";
 import { SolutionTag } from "~/views/home";
 import { Button } from "~/components/ui/button";
 import { useState } from 'react'
+import Formtab from "~/components/form/tab";
 
 interface Option {
   id: string;
@@ -31,9 +32,9 @@ const Scratch = () => {
 
     return (
         <div>
-            <div className="bg-gray-50 w-full flex items-stretch space-x-2 py-2">
+            {/* <div className="bg-gray-50 w-full flex items-stretch space-x-2 py-2">
                 {buttons.map((button, index) => {
-                    const isActive = index === 0; // Only the first button is active
+                    const isActive = index === 0;
 
                     return (
                     <button
@@ -50,7 +51,9 @@ const Scratch = () => {
             <div className="bg-[#0A103E] text-white px-6 py-4 pl-10">
                 <h1 className="text-3xl font-semibold">Target Customer Segments</h1>
                 <p className="text-sm mt-2">Answer a question to refine insights that align with your industry, risks, and strategies.</p>
-            </div>
+            </div> */}
+
+            <Formtab />
 
             <div className="min-h-screen grid grid-cols-1 md:grid-cols-[22rem_1fr] 2xl:grid-cols-[26rem_1fr]">
                 <div className="border-r border-gray-300 pt-24">
