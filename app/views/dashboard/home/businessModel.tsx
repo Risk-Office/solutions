@@ -1,6 +1,6 @@
 import { useState } from "react";
 import StatCard from "~/components/atoms/dashboard/StatCard";
-import MapChart from "~/components/atoms/dashboard/MapChart";
+// import MapChart from "~/components/atoms/dashboard/MapChart";
 import FactorTrendChart from "~/components/atoms/dashboard/FactorTrendChart";
 import FactorHeatmapCard from "~/components/atoms/dashboard/FactorHeatMap";
 import { SolutionTag } from "~/views/home";
@@ -183,11 +183,11 @@ const BusinessModelOverviewPage = () => {
           <hr className="my-2 text-gray-200" />
 
           <div className="relative">
-            <MapChart
+            {/* <MapChart
               timeframe={mapTimeframe}
               categories={categories}
               riskMarkers={riskMarkers}
-            />
+            /> */}
           </div>
         </div>
         {/* Factor Trend - 35% width */}

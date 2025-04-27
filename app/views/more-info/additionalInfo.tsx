@@ -85,7 +85,7 @@ const AdditionalInfo = ({
           <AppSizeProvider>
             <div className="flex flex-row items-center justify-between w-full p-4">
               <SvgIcon
-                path={solutionInformation.solutionLogo}
+                path={solutionInformation?.solutionLogo}
                 className="w-full max-w-[7.8rem] md:max-w-[12rem]"
               />
 
