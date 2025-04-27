@@ -4,7 +4,7 @@ import WordCloud from "~/components/atoms/dashboard/WordCloud";
 import BubbleChart from "~/components/atoms/dashboard/BubbleChart";
 import FactorTrendChart from "~/components/atoms/dashboard/FactorTrendChart";
 import FactorHeatmapCard from "~/components/atoms/dashboard/FactorHeatMap";
-import MapChart from "~/components/atoms/dashboard/MapChart";
+// import MapChart from "~/components/atoms/dashboard/MapChart";
 import featuredImage from "~/assets/png/Screenshot.png";
 import { Separator } from "~/components/ui/separator";
 
@@ -438,11 +438,11 @@ const OverviewPage = () => {
           </div>
           <hr className="my-2 text-gray-200" />
           <div className="relative">
-            <MapChart
+            {/* <MapChart
               timeframe={mapTimeframe}
               categories={categories}
               riskMarkers={riskMarkers}
-            />
+            /> */}
           </div>
         </div>
 
