@@ -1,4 +1,5 @@
 import { FileText, Bot } from "lucide-react";
+import { Link } from 'react-router'
 
 const InsightPage = () => {
     return (
@@ -16,21 +17,21 @@ const InsightPage = () => {
                         </div>
                     </div>
 
-                    <div className="bg-gray-50 py-4 rounded-lg px-4 py flex items-center space-x-3">
+                    <Link to='/form' className="bg-gray-50 py-4 rounded-lg px-4 py flex items-center space-x-3">
                         <FileText />
                         <div>
                             <h1 className="text-lg font-semibold">Start from scratch</h1>
                             <p className="italic text-sm text-gray-400">Manually enter details with full customization</p>
                         </div>
-                    </div>
+                    </Link>
 
-                    <div className="bg-gray-50 py-4 rounded-lg px-4 py flex items-center space-x-3">
+                    <Link to='/ai-form' className="bg-gray-50 py-4 rounded-lg px-4 py flex items-center space-x-3">
                         <Bot />
                         <div>
                             <h1 className="text-lg font-semibold">AI Chatbot Assistance</h1>
                             <p className="italic text-sm text-gray-400">Answer guided questions, and AI will format your input</p>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
             {/* <h1>Insight</h1> */}

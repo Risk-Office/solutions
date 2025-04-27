@@ -349,3 +349,54 @@ export const AddNotesModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) =
         </div>
     </Modal>
 );
+
+export const FormSubmittedModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => {
+    const navigate = useNavigate();
+    return (
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            title="Your responses have been submitted"
+            size="default"
+        >
+            <div className="flex flex-col items-center gap-4 p-4">
+                <img src={ThumbsUp} alt="Thumbs up" className="w-16 h-16" />
+                <p className="text-center text-gray-600">
+                    Thank you for sharing your details, we'll use this information to provide tailored insight.
+                </p>
+                <Button variant="default" className="w-[50%] mx-auto" onClick={() => {
+                    navigate('/dashboard');
+                }}>
+                    Go to dashboard
+                </Button>
+            </div>
+        </Modal>
+    );
+};
+
+export const SaveForLaterModal: React.FC<CommonModalProps> = ({ isOpen, onClose }) => {
+    return (
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            title="Progress Saved"
+            size="default"
+        >
+            <div className="flex flex-col items-center gap-4 p-4">
+                <img src={ThumbsUp} alt="Thumbs up" className="w-16 h-16" />
+                <p className="text-center text-gray-600">
+                    Your progress has been saved. You can continue filling out the form at any time.
+                </p>
+                
+                <div className="flex justify-between space-x-2 w-full">
+                    <Button variant="default" className="flex-1" onClick={onClose}>
+                        Go to Dashboard
+                    </Button>
+                    <Button variant="default" className="flex-1" onClick={onClose}>
+                        Continue
+                    </Button>
+                </div>
+            </div>
+        </Modal>
+    );
+};
