@@ -55,18 +55,18 @@ export function HomePage() {
               >
                 {offeredSolutions.slice(0, 2).map((solution) => (
                   <Button
-                    key={solution.name}
+                    key={solution?.name}
                     variant={"text"}
                     size={"text"}
                     onClick={() => navigate("/more-info", { state: solution })}
                     onMouseOver={() =>
-                      setSolutionDescription(solution.description)
+                      setSolutionDescription(solution?.description)
                     }
                     onMouseOut={() => setSolutionDescription("")}
                     className="flex flex-col gap-3"
                   >
                     <SvgIcon
-                      path={solution.icon}
+                      path={solution?.icon}
                       className="w-full h-full max-w-[3.4rem] md:max-w-[5rem] max-h-[3.4rem] md:max-h-[5rem]"
                     />
                     <SolutionTag solution={solution} />
@@ -84,18 +84,18 @@ export function HomePage() {
               >
                 {offeredSolutions.slice(2).map((solution) => (
                   <Button
-                    key={solution.name}
+                    key={solution?.name}
                     variant={"text"}
                     size={"text"}
                     onClick={() => navigate("/more-info", { state: solution })}
                     onMouseOver={() =>
-                      setSolutionDescription(solution.description)
+                      setSolutionDescription(solution?.description)
                     }
                     onMouseOut={() => setSolutionDescription("")}
                     className="flex flex-col gap-3"
                   >
                     <SvgIcon
-                      path={solution.icon}
+                      path={solution?.icon}
                       className="w-full h-full max-w-[3.4rem] md:max-w-[5rem] max-h-[3.4rem] md:max-h-[5rem]"
                     />
                     <SolutionTag solution={solution} />

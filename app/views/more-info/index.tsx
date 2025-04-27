@@ -37,6 +37,8 @@ const MoreInformationPage = ({
     navigate("/more-info-2", { state: solutionInformation });
   };
 
+  console.log(solutionInformation, "solutionInformation");
+
   return (
     <main className="flex items-stretch justify-stretch w-full min-h-screen">
       <div className="flex flex-col w-full h-full">
@@ -44,7 +46,7 @@ const MoreInformationPage = ({
           <AppSizeProvider>
             <div className="flex flex-row items-center justify-between w-full p-4">
               <SvgIcon
-                path={solutionInformation.solutionLogo}
+                path={solutionInformation?.solutionLogo}
                 className="w-full max-w-[7.8rem] md:max-w-[12rem]"
               />
 
