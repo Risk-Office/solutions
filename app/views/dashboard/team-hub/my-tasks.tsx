@@ -19,7 +19,7 @@ import { Button } from "~/components/ui/button";
 import CreateTaskModal from "~/components/atoms/dashboard/CreateTaskModal";
 import TaskCard from "~/components/atoms/dashboard/TaskCard";
 import BoardColumn from "~/components/atoms/dashboard/BoardColumn";
-import CalendarView from "~/components/atoms/dashboard/CalendarView";
+// import CalendarView from "~/components/atoms/dashboard/CalendarView";
 import TaskHistory from "~/components/atoms/dashboard/TaskHistory";
 import type { BoardType, TaskType } from "~/types/teamhubtypes";
 import TaskDetailsPage from "~/components/atoms/dashboard/TaskDetailsPage";
@@ -484,7 +484,8 @@ const MyTasksPage: React.FC = () => {
               </DragOverlay>
             </DndContext>
           ) : (
-            <CalendarView tasks={tasks} />
+            ""
+            // <CalendarView tasks={tasks} />
           )}
         </>
       )}
